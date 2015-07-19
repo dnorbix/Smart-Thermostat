@@ -807,6 +807,7 @@ lcd_out_cp
 lcd_rs
 lcd_rs_direction
 length
+locked
 longint
 longint2double
 longinttohex
@@ -1348,6 +1349,7 @@ stallif
 stallif_bit
 start_hour
 status
+status_led
 stkful
 stkful_bit
 stkptr
@@ -1386,6 +1388,8 @@ strtoword
 sub_32x32_fp
 submenu1
 submenu2
+submenu3
+submenu4
 suspnd
 suspnd_bit
 swap

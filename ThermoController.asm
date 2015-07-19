@@ -1,44 +1,44 @@
 
 _InitMenu:
 
-;ThermoController.mpas,115 :: 		begin
-;ThermoController.mpas,117 :: 		maxday[1]:=31;
+;ThermoController.mpas,121 :: 		begin
+;ThermoController.mpas,123 :: 		maxday[1]:=31;
 	MOVLW       31
 	MOVWF       _maxday+0 
-;ThermoController.mpas,118 :: 		maxday[2]:=28;
+;ThermoController.mpas,124 :: 		maxday[2]:=28;
 	MOVLW       28
 	MOVWF       _maxday+1 
-;ThermoController.mpas,119 :: 		maxday[3]:=31;
+;ThermoController.mpas,125 :: 		maxday[3]:=31;
 	MOVLW       31
 	MOVWF       _maxday+2 
-;ThermoController.mpas,120 :: 		maxday[4]:=30;
+;ThermoController.mpas,126 :: 		maxday[4]:=30;
 	MOVLW       30
 	MOVWF       _maxday+3 
-;ThermoController.mpas,121 :: 		maxday[5]:=31;
+;ThermoController.mpas,127 :: 		maxday[5]:=31;
 	MOVLW       31
 	MOVWF       _maxday+4 
-;ThermoController.mpas,122 :: 		maxday[6]:=30;
+;ThermoController.mpas,128 :: 		maxday[6]:=30;
 	MOVLW       30
 	MOVWF       _maxday+5 
-;ThermoController.mpas,123 :: 		maxday[7]:=31;
+;ThermoController.mpas,129 :: 		maxday[7]:=31;
 	MOVLW       31
 	MOVWF       _maxday+6 
-;ThermoController.mpas,124 :: 		maxday[8]:=31;
+;ThermoController.mpas,130 :: 		maxday[8]:=31;
 	MOVLW       31
 	MOVWF       _maxday+7 
-;ThermoController.mpas,125 :: 		maxday[9]:=30;
+;ThermoController.mpas,131 :: 		maxday[9]:=30;
 	MOVLW       30
 	MOVWF       _maxday+8 
-;ThermoController.mpas,126 :: 		maxday[10]:=31;
+;ThermoController.mpas,132 :: 		maxday[10]:=31;
 	MOVLW       31
 	MOVWF       _maxday+9 
-;ThermoController.mpas,127 :: 		maxday[11]:=30;
+;ThermoController.mpas,133 :: 		maxday[11]:=30;
 	MOVLW       30
 	MOVWF       _maxday+10 
-;ThermoController.mpas,128 :: 		maxday[12]:=31;
+;ThermoController.mpas,134 :: 		maxday[12]:=31;
 	MOVLW       31
 	MOVWF       _maxday+11 
-;ThermoController.mpas,134 :: 		root.row1 := 'Welcome, Laci!';
+;ThermoController.mpas,140 :: 		root.row1 := 'Welcome, Laci!';
 	MOVLW       87
 	MOVWF       _root+0 
 	MOVLW       101
@@ -68,38 +68,38 @@ _InitMenu:
 	MOVLW       33
 	MOVWF       _root+13 
 	CLRF        _root+14 
-;ThermoController.mpas,135 :: 		root.child := @menu[1];
+;ThermoController.mpas,141 :: 		root.child := @menu[1];
 	MOVLW       _menu+0
 	MOVWF       _root+40 
 	MOVLW       hi_addr(_menu+0)
 	MOVWF       _root+41 
-;ThermoController.mpas,136 :: 		root.parent := @root;
+;ThermoController.mpas,142 :: 		root.parent := @root;
 	MOVLW       _root+0
 	MOVWF       _root+34 
 	MOVLW       hi_addr(_root+0)
 	MOVWF       _root+35 
-;ThermoController.mpas,137 :: 		root.next := @root;
+;ThermoController.mpas,143 :: 		root.next := @root;
 	MOVLW       _root+0
 	MOVWF       _root+36 
 	MOVLW       hi_addr(_root+0)
 	MOVWF       _root+37 
-;ThermoController.mpas,138 :: 		root.prev := @root;
+;ThermoController.mpas,144 :: 		root.prev := @root;
 	MOVLW       _root+0
 	MOVWF       _root+38 
 	MOVLW       hi_addr(_root+0)
 	MOVWF       _root+39 
-;ThermoController.mpas,139 :: 		current_node := @root;
+;ThermoController.mpas,145 :: 		current_node := @root;
 	MOVLW       _root+0
 	MOVWF       _current_node+0 
 	MOVLW       hi_addr(_root+0)
 	MOVWF       _current_node+1 
-;ThermoController.mpas,141 :: 		for i:=1 to 6 do
+;ThermoController.mpas,147 :: 		for i:=1 to 6 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__InitMenu2:
-;ThermoController.mpas,142 :: 		menu[i].next := @menu[i+1];
+;ThermoController.mpas,148 :: 		menu[i].next := @menu[i+1];
 	DECF        _i+0, 0 
 	MOVWF       R0 
 	MOVLW       0
@@ -143,28 +143,28 @@ L__InitMenu2:
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__InitMenu377
+	GOTO        L__InitMenu417
 	MOVLW       6
 	XORWF       _i+0, 0 
-L__InitMenu377:
+L__InitMenu417:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__InitMenu5
 	INFSNZ      _i+0, 1 
 	INCF        _i+1, 1 
 	GOTO        L__InitMenu2
 L__InitMenu5:
-;ThermoController.mpas,143 :: 		menu[7].next := @menu[1];
+;ThermoController.mpas,149 :: 		menu[7].next := @menu[1];
 	MOVLW       _menu+0
 	MOVWF       _menu+288 
 	MOVLW       hi_addr(_menu+0)
 	MOVWF       _menu+289 
-;ThermoController.mpas,144 :: 		for i:=7 downto 2 do
+;ThermoController.mpas,150 :: 		for i:=7 downto 2 do
 	MOVLW       7
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__InitMenu7:
-;ThermoController.mpas,145 :: 		menu[i].prev := @menu[i-1];
+;ThermoController.mpas,151 :: 		menu[i].prev := @menu[i-1];
 	DECF        _i+0, 0 
 	MOVWF       FLOC__InitMenu+2 
 	MOVF        FLOC__InitMenu+2, 0 
@@ -208,10 +208,10 @@ L__InitMenu7:
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__InitMenu378
+	GOTO        L__InitMenu418
 	MOVLW       2
 	XORWF       _i+0, 0 
-L__InitMenu378:
+L__InitMenu418:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__InitMenu10
 	MOVLW       1
@@ -220,18 +220,18 @@ L__InitMenu378:
 	SUBWFB      _i+1, 1 
 	GOTO        L__InitMenu7
 L__InitMenu10:
-;ThermoController.mpas,146 :: 		menu[1].prev := @menu[7];
+;ThermoController.mpas,152 :: 		menu[1].prev := @menu[7];
 	MOVLW       _menu+252
 	MOVWF       _menu+38 
 	MOVLW       hi_addr(_menu+252)
 	MOVWF       _menu+39 
-;ThermoController.mpas,147 :: 		for i:=1 to 7 do
+;ThermoController.mpas,153 :: 		for i:=1 to 7 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__InitMenu12:
-;ThermoController.mpas,148 :: 		menu[i].parent := @root;
+;ThermoController.mpas,154 :: 		menu[i].parent := @root;
 	DECF        _i+0, 0 
 	MOVWF       R0 
 	MOVLW       0
@@ -258,23 +258,23 @@ L__InitMenu12:
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__InitMenu379
+	GOTO        L__InitMenu419
 	MOVLW       7
 	XORWF       _i+0, 0 
-L__InitMenu379:
+L__InitMenu419:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__InitMenu15
 	INFSNZ      _i+0, 1 
 	INCF        _i+1, 1 
 	GOTO        L__InitMenu12
 L__InitMenu15:
-;ThermoController.mpas,151 :: 		for i:=1 to 7 do
+;ThermoController.mpas,157 :: 		for i:=1 to 7 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__InitMenu17:
-;ThermoController.mpas,152 :: 		menu[i].child := @menu[i];
+;ThermoController.mpas,158 :: 		menu[i].child := @menu[i];
 	DECF        _i+0, 0 
 	MOVWF       R0 
 	MOVLW       0
@@ -307,53 +307,63 @@ L__InitMenu17:
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__InitMenu380
+	GOTO        L__InitMenu420
 	MOVLW       7
 	XORWF       _i+0, 0 
-L__InitMenu380:
+L__InitMenu420:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__InitMenu20
 	INFSNZ      _i+0, 1 
 	INCF        _i+1, 1 
 	GOTO        L__InitMenu17
 L__InitMenu20:
-;ThermoController.mpas,154 :: 		menu[1].child := @submenu1;
+;ThermoController.mpas,160 :: 		menu[1].child := @submenu1;
 	MOVLW       _submenu1+0
 	MOVWF       _menu+40 
 	MOVLW       hi_addr(_submenu1+0)
 	MOVWF       _menu+41 
-;ThermoController.mpas,155 :: 		menu[2].child := @submenu2[1];
+;ThermoController.mpas,161 :: 		menu[2].child := @submenu2[1];
 	MOVLW       _submenu2+0
 	MOVWF       _menu+82 
 	MOVLW       hi_addr(_submenu2+0)
 	MOVWF       _menu+83 
-;ThermoController.mpas,157 :: 		submenu1.parent := @menu[1];
+;ThermoController.mpas,162 :: 		menu[3].child := @submenu3;
+	MOVLW       _submenu3+0
+	MOVWF       _menu+124 
+	MOVLW       hi_addr(_submenu3+0)
+	MOVWF       _menu+125 
+;ThermoController.mpas,163 :: 		menu[4].child := @submenu4;
+	MOVLW       _submenu4+0
+	MOVWF       _menu+166 
+	MOVLW       hi_addr(_submenu4+0)
+	MOVWF       _menu+167 
+;ThermoController.mpas,165 :: 		submenu1.parent := @menu[1];
 	MOVLW       _menu+0
 	MOVWF       _submenu1+34 
 	MOVLW       hi_addr(_menu+0)
 	MOVWF       _submenu1+35 
-;ThermoController.mpas,158 :: 		submenu1.next := @submenu1;
+;ThermoController.mpas,166 :: 		submenu1.next := @submenu1;
 	MOVLW       _submenu1+0
 	MOVWF       _submenu1+36 
 	MOVLW       hi_addr(_submenu1+0)
 	MOVWF       _submenu1+37 
-;ThermoController.mpas,159 :: 		submenu1.prev := @submenu1;
+;ThermoController.mpas,167 :: 		submenu1.prev := @submenu1;
 	MOVLW       _submenu1+0
 	MOVWF       _submenu1+38 
 	MOVLW       hi_addr(_submenu1+0)
 	MOVWF       _submenu1+39 
-;ThermoController.mpas,160 :: 		submenu1.child := @submenu1;
+;ThermoController.mpas,168 :: 		submenu1.child := @submenu1;
 	MOVLW       _submenu1+0
 	MOVWF       _submenu1+40 
 	MOVLW       hi_addr(_submenu1+0)
 	MOVWF       _submenu1+41 
-;ThermoController.mpas,162 :: 		for i:=1 to 3 do
+;ThermoController.mpas,170 :: 		for i:=1 to 3 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__InitMenu22:
-;ThermoController.mpas,164 :: 		submenu2[i].parent := @menu[2];
+;ThermoController.mpas,172 :: 		submenu2[i].parent := @menu[2];
 	DECF        _i+0, 0 
 	MOVWF       R0 
 	MOVLW       0
@@ -377,7 +387,7 @@ L__InitMenu22:
 	MOVWF       POSTINC1+0 
 	MOVLW       hi_addr(_menu+42)
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,165 :: 		submenu2[i].child := @submenu2[i];
+;ThermoController.mpas,173 :: 		submenu2[i].child := @submenu2[i];
 	DECF        _i+0, 0 
 	MOVWF       R0 
 	MOVLW       0
@@ -407,51 +417,91 @@ L__InitMenu22:
 	MOVWF       POSTINC1+0 
 	MOVF        R1, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,166 :: 		end;
+;ThermoController.mpas,174 :: 		end;
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__InitMenu381
+	GOTO        L__InitMenu421
 	MOVLW       3
 	XORWF       _i+0, 0 
-L__InitMenu381:
+L__InitMenu421:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__InitMenu25
 	INFSNZ      _i+0, 1 
 	INCF        _i+1, 1 
 	GOTO        L__InitMenu22
 L__InitMenu25:
-;ThermoController.mpas,168 :: 		submenu2[2].next := @submenu2[3];
+;ThermoController.mpas,176 :: 		submenu2[2].next := @submenu2[3];
 	MOVLW       _submenu2+84
 	MOVWF       _submenu2+78 
 	MOVLW       hi_addr(_submenu2+84)
 	MOVWF       _submenu2+79 
-;ThermoController.mpas,169 :: 		submenu2[2].prev := @submenu2[1];
+;ThermoController.mpas,177 :: 		submenu2[2].prev := @submenu2[1];
 	MOVLW       _submenu2+0
 	MOVWF       _submenu2+80 
 	MOVLW       hi_addr(_submenu2+0)
 	MOVWF       _submenu2+81 
-;ThermoController.mpas,170 :: 		submenu2[1].prev := @submenu2[3];
+;ThermoController.mpas,178 :: 		submenu2[1].prev := @submenu2[3];
 	MOVLW       _submenu2+84
 	MOVWF       _submenu2+38 
 	MOVLW       hi_addr(_submenu2+84)
 	MOVWF       _submenu2+39 
-;ThermoController.mpas,171 :: 		submenu2[3].next := @submenu2[1];
+;ThermoController.mpas,179 :: 		submenu2[3].next := @submenu2[1];
 	MOVLW       _submenu2+0
 	MOVWF       _submenu2+120 
 	MOVLW       hi_addr(_submenu2+0)
 	MOVWF       _submenu2+121 
-;ThermoController.mpas,172 :: 		submenu2[1].next := @submenu2[2];
+;ThermoController.mpas,180 :: 		submenu2[1].next := @submenu2[2];
 	MOVLW       _submenu2+42
 	MOVWF       _submenu2+36 
 	MOVLW       hi_addr(_submenu2+42)
 	MOVWF       _submenu2+37 
-;ThermoController.mpas,173 :: 		submenu2[3].prev := @submenu2[2];
+;ThermoController.mpas,181 :: 		submenu2[3].prev := @submenu2[2];
 	MOVLW       _submenu2+42
 	MOVWF       _submenu2+122 
 	MOVLW       hi_addr(_submenu2+42)
 	MOVWF       _submenu2+123 
-;ThermoController.mpas,176 :: 		root.row1 := 'T1:     T2:    ';
+;ThermoController.mpas,183 :: 		submenu3.parent := @menu[3];
+	MOVLW       _menu+84
+	MOVWF       _submenu3+34 
+	MOVLW       hi_addr(_menu+84)
+	MOVWF       _submenu3+35 
+;ThermoController.mpas,184 :: 		submenu3.next := @submenu3;
+	MOVLW       _submenu3+0
+	MOVWF       _submenu3+36 
+	MOVLW       hi_addr(_submenu3+0)
+	MOVWF       _submenu3+37 
+;ThermoController.mpas,185 :: 		submenu3.prev := @submenu3;
+	MOVLW       _submenu3+0
+	MOVWF       _submenu3+38 
+	MOVLW       hi_addr(_submenu3+0)
+	MOVWF       _submenu3+39 
+;ThermoController.mpas,186 :: 		submenu3.child := @submenu3;
+	MOVLW       _submenu3+0
+	MOVWF       _submenu3+40 
+	MOVLW       hi_addr(_submenu3+0)
+	MOVWF       _submenu3+41 
+;ThermoController.mpas,188 :: 		submenu4.parent := @menu[4];
+	MOVLW       _menu+126
+	MOVWF       _submenu4+34 
+	MOVLW       hi_addr(_menu+126)
+	MOVWF       _submenu4+35 
+;ThermoController.mpas,189 :: 		submenu4.next := @submenu4;
+	MOVLW       _submenu4+0
+	MOVWF       _submenu4+36 
+	MOVLW       hi_addr(_submenu4+0)
+	MOVWF       _submenu4+37 
+;ThermoController.mpas,190 :: 		submenu4.prev := @submenu4;
+	MOVLW       _submenu4+0
+	MOVWF       _submenu4+38 
+	MOVLW       hi_addr(_submenu4+0)
+	MOVWF       _submenu4+39 
+;ThermoController.mpas,191 :: 		submenu4.child := @submenu4;
+	MOVLW       _submenu4+0
+	MOVWF       _submenu4+40 
+	MOVLW       hi_addr(_submenu4+0)
+	MOVWF       _submenu4+41 
+;ThermoController.mpas,194 :: 		root.row1 := 'T1:     T2:    ';
 	MOVLW       84
 	MOVWF       _root+0 
 	MOVLW       49
@@ -483,7 +533,7 @@ L__InitMenu25:
 	MOVLW       32
 	MOVWF       _root+14 
 	CLRF        _root+15 
-;ThermoController.mpas,177 :: 		root.row2 := 'T3:     T4:    ';
+;ThermoController.mpas,195 :: 		root.row2 := 'T3:     T4:    ';
 	MOVLW       84
 	MOVWF       _root+17 
 	MOVLW       51
@@ -515,7 +565,7 @@ L__InitMenu25:
 	MOVLW       32
 	MOVWF       _root+31 
 	CLRF        _root+32 
-;ThermoController.mpas,178 :: 		menu[1].row1 := '1. Date/Time';
+;ThermoController.mpas,196 :: 		menu[1].row1 := '1. Date/Time';
 	MOVLW       49
 	MOVWF       _menu+0 
 	MOVLW       46
@@ -541,9 +591,9 @@ L__InitMenu25:
 	MOVLW       101
 	MOVWF       _menu+11 
 	CLRF        _menu+12 
-;ThermoController.mpas,179 :: 		menu[1].row2 := '';
+;ThermoController.mpas,197 :: 		menu[1].row2 := '';
 	CLRF        _menu+17 
-;ThermoController.mpas,180 :: 		menu[2].row1 := '2. Functioning';
+;ThermoController.mpas,198 :: 		menu[2].row1 := '2. Functioning';
 	MOVLW       50
 	MOVWF       _menu+42 
 	MOVLW       46
@@ -573,7 +623,7 @@ L__InitMenu25:
 	MOVLW       103
 	MOVWF       _menu+55 
 	CLRF        _menu+56 
-;ThermoController.mpas,181 :: 		menu[2].row2 := '     Interval';
+;ThermoController.mpas,199 :: 		menu[2].row2 := '     Interval';
 	MOVLW       32
 	MOVWF       _menu+59 
 	MOVLW       32
@@ -601,7 +651,7 @@ L__InitMenu25:
 	MOVLW       108
 	MOVWF       _menu+71 
 	CLRF        _menu+72 
-;ThermoController.mpas,182 :: 		menu[3].row1 := '3. Lock Settings';
+;ThermoController.mpas,200 :: 		menu[3].row1 := '3. Lock Settings';
 	MOVLW       51
 	MOVWF       _menu+84 
 	MOVLW       46
@@ -635,9 +685,9 @@ L__InitMenu25:
 	MOVLW       115
 	MOVWF       _menu+99 
 	CLRF        _menu+100 
-;ThermoController.mpas,183 :: 		menu[3].row2 := '';
+;ThermoController.mpas,201 :: 		menu[3].row2 := '';
 	CLRF        _menu+101 
-;ThermoController.mpas,184 :: 		menu[4].row1 := '4. Status LED';
+;ThermoController.mpas,202 :: 		menu[4].row1 := '4. Status LED';
 	MOVLW       52
 	MOVWF       _menu+126 
 	MOVLW       46
@@ -665,9 +715,9 @@ L__InitMenu25:
 	MOVLW       68
 	MOVWF       _menu+138 
 	CLRF        _menu+139 
-;ThermoController.mpas,185 :: 		menu[4].row2 := '';
+;ThermoController.mpas,203 :: 		menu[4].row2 := '';
 	CLRF        _menu+143 
-;ThermoController.mpas,186 :: 		menu[5].row1 := '5. Standby Disp';
+;ThermoController.mpas,204 :: 		menu[5].row1 := '5. Standby Disp';
 	MOVLW       53
 	MOVWF       _menu+168 
 	MOVLW       46
@@ -699,7 +749,7 @@ L__InitMenu25:
 	MOVLW       112
 	MOVWF       _menu+182 
 	CLRF        _menu+183 
-;ThermoController.mpas,187 :: 		menu[5].row2 := '    Settings';
+;ThermoController.mpas,205 :: 		menu[5].row2 := '    Settings';
 	MOVLW       32
 	MOVWF       _menu+185 
 	MOVLW       32
@@ -725,7 +775,7 @@ L__InitMenu25:
 	MOVLW       115
 	MOVWF       _menu+196 
 	CLRF        _menu+197 
-;ThermoController.mpas,188 :: 		menu[6].row1 := '6. Log';
+;ThermoController.mpas,206 :: 		menu[6].row1 := '6. Log';
 	MOVLW       54
 	MOVWF       _menu+210 
 	MOVLW       46
@@ -739,9 +789,9 @@ L__InitMenu25:
 	MOVLW       103
 	MOVWF       _menu+215 
 	CLRF        _menu+216 
-;ThermoController.mpas,189 :: 		menu[6].row2 := '';
+;ThermoController.mpas,207 :: 		menu[6].row2 := '';
 	CLRF        _menu+227 
-;ThermoController.mpas,190 :: 		menu[7].row1 := '7. Menu';
+;ThermoController.mpas,208 :: 		menu[7].row1 := '7. Menu';
 	MOVLW       55
 	MOVWF       _menu+252 
 	MOVLW       46
@@ -757,9 +807,9 @@ L__InitMenu25:
 	MOVLW       117
 	MOVWF       _menu+258 
 	CLRF        _menu+259 
-;ThermoController.mpas,191 :: 		menu[7].row2 := '';
+;ThermoController.mpas,209 :: 		menu[7].row2 := '';
 	CLRF        _menu+269 
-;ThermoController.mpas,192 :: 		submenu1.row1 := 'date';
+;ThermoController.mpas,210 :: 		submenu1.row1 := 'date';
 	MOVLW       100
 	MOVWF       _submenu1+0 
 	MOVLW       97
@@ -769,7 +819,7 @@ L__InitMenu25:
 	MOVLW       101
 	MOVWF       _submenu1+3 
 	CLRF        _submenu1+4 
-;ThermoController.mpas,193 :: 		submenu1.row2 := 'time';
+;ThermoController.mpas,211 :: 		submenu1.row2 := 'time';
 	MOVLW       116
 	MOVWF       _submenu1+17 
 	MOVLW       105
@@ -779,7 +829,7 @@ L__InitMenu25:
 	MOVLW       101
 	MOVWF       _submenu1+20 
 	CLRF        _submenu1+21 
-;ThermoController.mpas,195 :: 		submenu2[1].row1 := '2.1 Days';
+;ThermoController.mpas,213 :: 		submenu2[1].row1 := '2.1 Days';
 	MOVLW       50
 	MOVWF       _submenu2+0 
 	MOVLW       46
@@ -797,7 +847,7 @@ L__InitMenu25:
 	MOVLW       115
 	MOVWF       _submenu2+7 
 	CLRF        _submenu2+8 
-;ThermoController.mpas,196 :: 		strcat2(submenu2[1].row2,funcDaysString[1],funcDaysStatus);
+;ThermoController.mpas,214 :: 		strcat2(submenu2[1].row2,funcDaysString[1],funcDaysStatus);
 	MOVLW       _submenu2+17
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+17)
@@ -811,7 +861,7 @@ L__InitMenu25:
 	MOVLW       hi_addr(_funcDaysStatus+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,197 :: 		submenu2[2].row1 := '2.2 Hours';
+;ThermoController.mpas,215 :: 		submenu2[2].row1 := '2.2 Hours';
 	MOVLW       50
 	MOVWF       _submenu2+42 
 	MOVLW       46
@@ -831,7 +881,7 @@ L__InitMenu25:
 	MOVLW       115
 	MOVWF       _submenu2+50 
 	CLRF        _submenu2+51 
-;ThermoController.mpas,198 :: 		submenu2[2].row2 := 'S: 21;     E:  7';
+;ThermoController.mpas,216 :: 		submenu2[2].row2 := 'S: 21;     E:  7';
 	MOVLW       83
 	MOVWF       _submenu2+59 
 	MOVLW       58
@@ -865,7 +915,7 @@ L__InitMenu25:
 	MOVLW       55
 	MOVWF       _submenu2+74 
 	CLRF        _submenu2+75 
-;ThermoController.mpas,199 :: 		submenu2[3].row1 := '2.3 Temp. Limits';
+;ThermoController.mpas,217 :: 		submenu2[3].row1 := '2.3 Temp. Limits';
 	MOVLW       50
 	MOVWF       _submenu2+84 
 	MOVLW       46
@@ -899,7 +949,7 @@ L__InitMenu25:
 	MOVLW       115
 	MOVWF       _submenu2+99 
 	CLRF        _submenu2+100 
-;ThermoController.mpas,200 :: 		submenu2[3].row2 := 'Min: 19; Max: 22';
+;ThermoController.mpas,218 :: 		submenu2[3].row2 := 'Min: 19; Max: 22';
 	MOVLW       77
 	MOVWF       _submenu2+101 
 	MOVLW       105
@@ -933,49 +983,129 @@ L__InitMenu25:
 	MOVLW       50
 	MOVWF       _submenu2+116 
 	CLRF        _submenu2+117 
-;ThermoController.mpas,202 :: 		end;
+;ThermoController.mpas,220 :: 		submenu3.row1 := 'Locked:     OFF';
+	MOVLW       76
+	MOVWF       _submenu3+0 
+	MOVLW       111
+	MOVWF       _submenu3+1 
+	MOVLW       99
+	MOVWF       _submenu3+2 
+	MOVLW       107
+	MOVWF       _submenu3+3 
+	MOVLW       101
+	MOVWF       _submenu3+4 
+	MOVLW       100
+	MOVWF       _submenu3+5 
+	MOVLW       58
+	MOVWF       _submenu3+6 
+	MOVLW       32
+	MOVWF       _submenu3+7 
+	MOVLW       32
+	MOVWF       _submenu3+8 
+	MOVLW       32
+	MOVWF       _submenu3+9 
+	MOVLW       32
+	MOVWF       _submenu3+10 
+	MOVLW       32
+	MOVWF       _submenu3+11 
+	MOVLW       79
+	MOVWF       _submenu3+12 
+	MOVLW       70
+	MOVWF       _submenu3+13 
+	MOVLW       70
+	MOVWF       _submenu3+14 
+	CLRF        _submenu3+15 
+;ThermoController.mpas,221 :: 		submenu3.row2 := '';
+	CLRF        _submenu3+17 
+;ThermoController.mpas,223 :: 		submenu4.row1 := 'Status LED:';
+	MOVLW       83
+	MOVWF       _submenu4+0 
+	MOVLW       116
+	MOVWF       _submenu4+1 
+	MOVLW       97
+	MOVWF       _submenu4+2 
+	MOVLW       116
+	MOVWF       _submenu4+3 
+	MOVLW       117
+	MOVWF       _submenu4+4 
+	MOVLW       115
+	MOVWF       _submenu4+5 
+	MOVLW       32
+	MOVWF       _submenu4+6 
+	MOVLW       76
+	MOVWF       _submenu4+7 
+	MOVLW       69
+	MOVWF       _submenu4+8 
+	MOVLW       68
+	MOVWF       _submenu4+9 
+	MOVLW       58
+	MOVWF       _submenu4+10 
+	CLRF        _submenu4+11 
+;ThermoController.mpas,224 :: 		submenu4.row2 := '        ON';
+	MOVLW       32
+	MOVWF       _submenu4+17 
+	MOVLW       32
+	MOVWF       _submenu4+18 
+	MOVLW       32
+	MOVWF       _submenu4+19 
+	MOVLW       32
+	MOVWF       _submenu4+20 
+	MOVLW       32
+	MOVWF       _submenu4+21 
+	MOVLW       32
+	MOVWF       _submenu4+22 
+	MOVLW       32
+	MOVWF       _submenu4+23 
+	MOVLW       32
+	MOVWF       _submenu4+24 
+	MOVLW       79
+	MOVWF       _submenu4+25 
+	MOVLW       78
+	MOVWF       _submenu4+26 
+	CLRF        _submenu4+27 
+;ThermoController.mpas,226 :: 		end;
 	RETURN      0
 ; end of _InitMenu
 
 _Interrupt:
 
-;ThermoController.mpas,207 :: 		begin
-;ThermoController.mpas,208 :: 		if TMR1IF_bit = 1 then
+;ThermoController.mpas,231 :: 		begin
+;ThermoController.mpas,232 :: 		if TMR1IF_bit = 1 then
 	BTFSS       TMR1IF_bit+0, 0 
 	GOTO        L__Interrupt28
-;ThermoController.mpas,210 :: 		TMR1IF_bit := 0;
+;ThermoController.mpas,234 :: 		TMR1IF_bit := 0;
 	BCF         TMR1IF_bit+0, 0 
-;ThermoController.mpas,211 :: 		TMR1H         := 0xA2;
+;ThermoController.mpas,235 :: 		TMR1H         := 0xA2;
 	MOVLW       162
 	MOVWF       TMR1H+0 
-;ThermoController.mpas,212 :: 		TMR1L         := 0x40;
+;ThermoController.mpas,236 :: 		TMR1L         := 0x40;
 	MOVLW       64
 	MOVWF       TMR1L+0 
-;ThermoController.mpas,213 :: 		OS_TimerInterrupt; // to be called every x millisecs
+;ThermoController.mpas,237 :: 		OS_TimerInterrupt; // to be called every x millisecs
 	CALL        _OS_TimerInterrupt+0, 0
-;ThermoController.mpas,214 :: 		end;
+;ThermoController.mpas,238 :: 		end;
 L__Interrupt28:
-;ThermoController.mpas,215 :: 		end;
-L__Interrupt382:
+;ThermoController.mpas,239 :: 		end;
+L__Interrupt422:
 	RETFIE      1
 ; end of _Interrupt
 
 _ReadTemp:
 
-;ThermoController.mpas,219 :: 		begin
-;ThermoController.mpas,220 :: 		while true do
+;ThermoController.mpas,243 :: 		begin
+;ThermoController.mpas,244 :: 		while true do
 L__ReadTemp32:
-;ThermoController.mpas,222 :: 		OS_Delay(500);
+;ThermoController.mpas,246 :: 		OS_Delay(500);
 	MOVLW       244
 	MOVWF       FARG_OS_Delay_Ticks+0 
 	MOVLW       1
 	MOVWF       FARG_OS_Delay_Ticks+1 
 	CALL        _OS_Delay+0, 0
-;ThermoController.mpas,223 :: 		INTCON := 0x00;
+;ThermoController.mpas,247 :: 		INTCON := 0x00;
 	CLRF        INTCON+0 
-;ThermoController.mpas,224 :: 		UserLED := not UserLED;
+;ThermoController.mpas,248 :: 		UserLED := not UserLED;
 	BTG         LATC+0, 2 
-;ThermoController.mpas,225 :: 		DS1820_StartTempConversion(PortD,temp_index, true);
+;ThermoController.mpas,249 :: 		DS1820_StartTempConversion(PortD,temp_index, true);
 	MOVLW       PORTD+0
 	MOVWF       FARG_DS1820_StartTempConversion_Port_+0 
 	MOVLW       hi_addr(PORTD+0)
@@ -985,7 +1115,7 @@ L__ReadTemp32:
 	MOVLW       255
 	MOVWF       FARG_DS1820_StartTempConversion_Wait+0 
 	CALL        _DS1820_StartTempConversion+0, 0
-;ThermoController.mpas,226 :: 		aux_temp := DS1820_ReadTemperature(PortD,temp_index);
+;ThermoController.mpas,250 :: 		aux_temp := DS1820_ReadTemperature(PortD,temp_index);
 	MOVLW       PORTD+0
 	MOVWF       FARG_DS1820_ReadTemperature_Port_+0 
 	MOVLW       hi_addr(PORTD+0)
@@ -997,7 +1127,7 @@ L__ReadTemp32:
 	MOVWF       _aux_temp+0 
 	MOVF        R1, 0 
 	MOVWF       _aux_temp+1 
-;ThermoController.mpas,227 :: 		if (aux_temp <> Temp[temp_index + 1]) then
+;ThermoController.mpas,251 :: 		if (aux_temp <> Temp[temp_index + 1]) then
 	MOVF        _Temp_index+0, 0 
 	ADDLW       1
 	MOVWF       R2 
@@ -1023,13 +1153,13 @@ L__ReadTemp32:
 	MOVF        R1, 0 
 	XORWF       R4, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__ReadTemp383
+	GOTO        L__ReadTemp423
 	MOVF        R3, 0 
 	XORWF       R0, 0 
-L__ReadTemp383:
+L__ReadTemp423:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__ReadTemp37
-;ThermoController.mpas,229 :: 		Temp[temp_index + 1] := aux_temp;
+;ThermoController.mpas,253 :: 		Temp[temp_index + 1] := aux_temp;
 	MOVF        _Temp_index+0, 0 
 	ADDLW       1
 	MOVWF       R0 
@@ -1052,16 +1182,16 @@ L__ReadTemp383:
 	MOVWF       POSTINC1+0 
 	MOVF        _aux_temp+1, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,231 :: 		CRCOk := DS1820_CheckCRC;
+;ThermoController.mpas,255 :: 		CRCOk := DS1820_CheckCRC;
 	CALL        _DS1820_CheckCRC+0, 0
 	MOVF        R0, 0 
 	MOVWF       _CRCOk+0 
-;ThermoController.mpas,233 :: 		if CRCOk > 0 then // CRC error
+;ThermoController.mpas,257 :: 		if CRCOk > 0 then // CRC error
 	MOVF        R0, 0 
 	SUBLW       0
 	BTFSC       STATUS+0, 0 
 	GOTO        L__ReadTemp40
-;ThermoController.mpas,235 :: 		LCD_OUT(2,1,'Temperature CRC error');
+;ThermoController.mpas,259 :: 		LCD_OUT(2,1,'Temperature CRC error');
 	MOVLW       2
 	MOVWF       FARG_Lcd_Out_row+0 
 	MOVLW       1
@@ -1114,11 +1244,11 @@ L__ReadTemp383:
 	MOVLW       hi_addr(?LocalText_ReadTemp+0)
 	MOVWF       FARG_Lcd_Out_text+1 
 	CALL        _Lcd_Out+0, 0
-;ThermoController.mpas,236 :: 		end
+;ThermoController.mpas,260 :: 		end
 	GOTO        L__ReadTemp41
-;ThermoController.mpas,237 :: 		else
+;ThermoController.mpas,261 :: 		else
 L__ReadTemp40:
-;ThermoController.mpas,239 :: 		DS1820_TempToString(Temp[temp_index + 1], Strng, ',');
+;ThermoController.mpas,263 :: 		DS1820_TempToString(Temp[temp_index + 1], Strng, ',');
 	MOVF        _Temp_index+0, 0 
 	ADDLW       1
 	MOVWF       R0 
@@ -1148,12 +1278,12 @@ L__ReadTemp40:
 	MOVLW       44
 	MOVWF       FARG_DS1820_TempToString_Sep+0 
 	CALL        _DS1820_TempToString+0, 0
-;ThermoController.mpas,240 :: 		if temp_index < 2  then
+;ThermoController.mpas,264 :: 		if temp_index < 2  then
 	MOVLW       2
 	SUBWF       _Temp_index+0, 0 
 	BTFSC       STATUS+0, 0 
 	GOTO        L__ReadTemp43
-;ThermoController.mpas,242 :: 		root.row1[3 + temp_index * 8] := Strng[0];
+;ThermoController.mpas,266 :: 		root.row1[3 + temp_index * 8] := Strng[0];
 	MOVF        _Temp_index+0, 0 
 	MOVWF       R0 
 	RLCF        R0, 1 
@@ -1174,7 +1304,7 @@ L__ReadTemp40:
 	INCF        FSR1H, 1 
 	MOVF        _Strng+0, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,243 :: 		root.row1[4 + temp_index * 8] := Strng[1];
+;ThermoController.mpas,267 :: 		root.row1[4 + temp_index * 8] := Strng[1];
 	MOVF        _Temp_index+0, 0 
 	MOVWF       R0 
 	RLCF        R0, 1 
@@ -1195,7 +1325,7 @@ L__ReadTemp40:
 	INCF        FSR1H, 1 
 	MOVF        _Strng+1, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,244 :: 		root.row1[5 + temp_index * 8] := Strng[2];
+;ThermoController.mpas,268 :: 		root.row1[5 + temp_index * 8] := Strng[2];
 	MOVF        _Temp_index+0, 0 
 	MOVWF       R0 
 	RLCF        R0, 1 
@@ -1216,7 +1346,7 @@ L__ReadTemp40:
 	INCF        FSR1H, 1 
 	MOVF        _Strng+2, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,245 :: 		root.row1[6 + temp_index * 8] := Strng[3];
+;ThermoController.mpas,269 :: 		root.row1[6 + temp_index * 8] := Strng[3];
 	MOVF        _Temp_index+0, 0 
 	MOVWF       R0 
 	RLCF        R0, 1 
@@ -1237,11 +1367,11 @@ L__ReadTemp40:
 	INCF        FSR1H, 1 
 	MOVF        _Strng+3, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,246 :: 		end
+;ThermoController.mpas,270 :: 		end
 	GOTO        L__ReadTemp44
-;ThermoController.mpas,247 :: 		else
+;ThermoController.mpas,271 :: 		else
 L__ReadTemp43:
-;ThermoController.mpas,249 :: 		root.row2[3 + (temp_index - 2) * 8] := Strng[0];
+;ThermoController.mpas,273 :: 		root.row2[3 + (temp_index - 2) * 8] := Strng[0];
 	MOVLW       2
 	SUBWF       _Temp_index+0, 0 
 	MOVWF       R2 
@@ -1265,7 +1395,7 @@ L__ReadTemp43:
 	INCF        FSR1H, 1 
 	MOVF        _Strng+0, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,250 :: 		root.row2[4 + (temp_index - 2) * 8] := Strng[1];
+;ThermoController.mpas,274 :: 		root.row2[4 + (temp_index - 2) * 8] := Strng[1];
 	MOVLW       2
 	SUBWF       _Temp_index+0, 0 
 	MOVWF       R2 
@@ -1289,7 +1419,7 @@ L__ReadTemp43:
 	INCF        FSR1H, 1 
 	MOVF        _Strng+1, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,251 :: 		root.row2[5 + (temp_index - 2) * 8] := Strng[2];
+;ThermoController.mpas,275 :: 		root.row2[5 + (temp_index - 2) * 8] := Strng[2];
 	MOVLW       2
 	SUBWF       _Temp_index+0, 0 
 	MOVWF       R2 
@@ -1313,7 +1443,7 @@ L__ReadTemp43:
 	INCF        FSR1H, 1 
 	MOVF        _Strng+2, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,252 :: 		root.row2[6 + (temp_index - 2) * 8] := Strng[3];
+;ThermoController.mpas,276 :: 		root.row2[6 + (temp_index - 2) * 8] := Strng[3];
 	MOVLW       2
 	SUBWF       _Temp_index+0, 0 
 	MOVWF       R2 
@@ -1337,45 +1467,45 @@ L__ReadTemp43:
 	INCF        FSR1H, 1 
 	MOVF        _Strng+3, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,253 :: 		end
+;ThermoController.mpas,277 :: 		end
 L__ReadTemp44:
-;ThermoController.mpas,254 :: 		end;
+;ThermoController.mpas,278 :: 		end;
 L__ReadTemp41:
-;ThermoController.mpas,255 :: 		OS_SignalSemaphore(S_Display);
+;ThermoController.mpas,279 :: 		OS_SignalSemaphore(S_Display);
 	MOVF        _S_Display+0, 0 
 	MOVWF       FARG_OS_SignalSemaphore_Event_+0 
 	CALL        _OS_SignalSemaphore+0, 0
-;ThermoController.mpas,256 :: 		end;
+;ThermoController.mpas,280 :: 		end;
 L__ReadTemp37:
-;ThermoController.mpas,257 :: 		temp_index := (temp_index + 1) mod 4;
+;ThermoController.mpas,281 :: 		temp_index := (temp_index + 1) mod 4;
 	INCF        _Temp_index+0, 1 
 	MOVLW       3
 	ANDWF       _Temp_index+0, 1 
-;ThermoController.mpas,258 :: 		INTCON := 0xC0;
+;ThermoController.mpas,282 :: 		INTCON := 0xC0;
 	MOVLW       192
 	MOVWF       INTCON+0 
-;ThermoController.mpas,259 :: 		OS_Yield;
+;ThermoController.mpas,283 :: 		OS_Yield;
 	CALL        _OS_Yield+0, 0
-;ThermoController.mpas,260 :: 		end;
+;ThermoController.mpas,284 :: 		end;
 	GOTO        L__ReadTemp32
-;ThermoController.mpas,261 :: 		end;
+;ThermoController.mpas,285 :: 		end;
 	RETURN      0
 ; end of _ReadTemp
 
 _DisplayLED:
 
-;ThermoController.mpas,264 :: 		begin
-;ThermoController.mpas,265 :: 		while true do
+;ThermoController.mpas,288 :: 		begin
+;ThermoController.mpas,289 :: 		while true do
 L__DisplayLED47:
-;ThermoController.mpas,267 :: 		OS_WaitSemaphore(S_Display);
+;ThermoController.mpas,291 :: 		OS_WaitSemaphore(S_Display);
 	MOVF        _S_Display+0, 0 
 	MOVWF       FARG_OS_WaitSemaphore_Event_+0 
 	CALL        _OS_WaitSemaphore+0, 0
-;ThermoController.mpas,268 :: 		Lcd_Cmd(_LCD_CLEAR);               // Clear display
+;ThermoController.mpas,292 :: 		Lcd_Cmd(_LCD_CLEAR);               // Clear display
 	MOVLW       1
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,269 :: 		LCD_OUT(1,1,current_node^.row1);
+;ThermoController.mpas,293 :: 		LCD_OUT(1,1,current_node^.row1);
 	MOVLW       1
 	MOVWF       FARG_Lcd_Out_row+0 
 	MOVLW       1
@@ -1385,7 +1515,7 @@ L__DisplayLED47:
 	MOVF        _current_node+1, 0 
 	MOVWF       FARG_Lcd_Out_text+1 
 	CALL        _Lcd_Out+0, 0
-;ThermoController.mpas,270 :: 		LCD_OUT(2,1,current_node^.row2);
+;ThermoController.mpas,294 :: 		LCD_OUT(2,1,current_node^.row2);
 	MOVLW       2
 	MOVWF       FARG_Lcd_Out_row+0 
 	MOVLW       1
@@ -1397,61 +1527,61 @@ L__DisplayLED47:
 	ADDWFC      _current_node+1, 0 
 	MOVWF       FARG_Lcd_Out_text+1 
 	CALL        _Lcd_Out+0, 0
-;ThermoController.mpas,271 :: 		if underscore then
+;ThermoController.mpas,295 :: 		if underscore then
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
 	GOTO        L__DisplayLED52
-;ThermoController.mpas,272 :: 		Lcd_Cmd(_LCD_UNDERLINE_ON)
+;ThermoController.mpas,296 :: 		Lcd_Cmd(_LCD_UNDERLINE_ON)
 	MOVLW       14
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
 	GOTO        L__DisplayLED53
-;ThermoController.mpas,273 :: 		else if edit then
+;ThermoController.mpas,297 :: 		else if edit then
 L__DisplayLED52:
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
 	GOTO        L__DisplayLED55
-;ThermoController.mpas,274 :: 		Lcd_Cmd(_LCD_BLINK_CURSOR_ON)
+;ThermoController.mpas,298 :: 		Lcd_Cmd(_LCD_BLINK_CURSOR_ON)
 	MOVLW       15
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
 	GOTO        L__DisplayLED56
-;ThermoController.mpas,275 :: 		else
+;ThermoController.mpas,299 :: 		else
 L__DisplayLED55:
-;ThermoController.mpas,276 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);
+;ThermoController.mpas,300 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);
 	MOVLW       12
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
 L__DisplayLED56:
 L__DisplayLED53:
-;ThermoController.mpas,279 :: 		if underscore or edit then
+;ThermoController.mpas,303 :: 		if underscore or edit then
 	MOVF        _edit+0, 0 
 	IORWF       _underscore+0, 0 
 	MOVWF       R0 
 	BTFSC       STATUS+0, 2 
 	GOTO        L__DisplayLED58
-;ThermoController.mpas,282 :: 		@submenu1: if true then begin
+;ThermoController.mpas,306 :: 		@submenu1: if true then begin
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu1+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED384
+	GOTO        L__DisplayLED424
 	MOVLW       _submenu1+0
 	XORWF       _current_node+0, 0 
-L__DisplayLED384:
+L__DisplayLED424:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED63
-;ThermoController.mpas,283 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
+;ThermoController.mpas,307 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
 	MOVLW       2
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,285 :: 		1 : begin Lcd_Cmd(_LCD_FIRST_ROW); end;
+;ThermoController.mpas,309 :: 		1 : begin Lcd_Cmd(_LCD_FIRST_ROW); end;
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED385
+	GOTO        L__DisplayLED425
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__DisplayLED385:
+L__DisplayLED425:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED70
 	MOVLW       128
@@ -1459,14 +1589,14 @@ L__DisplayLED385:
 	CALL        _Lcd_Cmd+0, 0
 	GOTO        L__DisplayLED67
 L__DisplayLED70:
-;ThermoController.mpas,286 :: 		2 : begin Lcd_Cmd(_LCD_FIRST_ROW); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);  Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);   end;
+;ThermoController.mpas,310 :: 		2 : begin Lcd_Cmd(_LCD_FIRST_ROW); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);  Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);   end;
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED386
+	GOTO        L__DisplayLED426
 	MOVLW       2
 	XORWF       _index+0, 0 
-L__DisplayLED386:
+L__DisplayLED426:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED73
 	MOVLW       128
@@ -1483,14 +1613,14 @@ L__DisplayLED386:
 	CALL        _Lcd_Cmd+0, 0
 	GOTO        L__DisplayLED67
 L__DisplayLED73:
-;ThermoController.mpas,287 :: 		3 : begin Lcd_Cmd(_LCD_FIRST_ROW);  Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+;ThermoController.mpas,311 :: 		3 : begin Lcd_Cmd(_LCD_FIRST_ROW);  Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED387
+	GOTO        L__DisplayLED427
 	MOVLW       3
 	XORWF       _index+0, 0 
-L__DisplayLED387:
+L__DisplayLED427:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED76
 	MOVLW       128
@@ -1505,7 +1635,7 @@ L__DisplayLED387:
 	MOVLW       20
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,288 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT); end;
+;ThermoController.mpas,312 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT); end;
 	MOVLW       20
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
@@ -1520,14 +1650,14 @@ L__DisplayLED387:
 	CALL        _Lcd_Cmd+0, 0
 	GOTO        L__DisplayLED67
 L__DisplayLED76:
-;ThermoController.mpas,289 :: 		4 : begin Lcd_Cmd(_LCD_SECOND_ROW);                                                                                                   end;
+;ThermoController.mpas,313 :: 		4 : begin Lcd_Cmd(_LCD_SECOND_ROW);                                                                                                   end;
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED388
+	GOTO        L__DisplayLED428
 	MOVLW       4
 	XORWF       _index+0, 0 
-L__DisplayLED388:
+L__DisplayLED428:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED79
 	MOVLW       192
@@ -1535,14 +1665,14 @@ L__DisplayLED388:
 	CALL        _Lcd_Cmd+0, 0
 	GOTO        L__DisplayLED67
 L__DisplayLED79:
-;ThermoController.mpas,290 :: 		5 : begin Lcd_Cmd(_LCD_SECOND_ROW); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);   end;
+;ThermoController.mpas,314 :: 		5 : begin Lcd_Cmd(_LCD_SECOND_ROW); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);   end;
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED389
+	GOTO        L__DisplayLED429
 	MOVLW       5
 	XORWF       _index+0, 0 
-L__DisplayLED389:
+L__DisplayLED429:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED82
 	MOVLW       192
@@ -1560,51 +1690,51 @@ L__DisplayLED389:
 	GOTO        L__DisplayLED67
 L__DisplayLED82:
 L__DisplayLED67:
-;ThermoController.mpas,292 :: 		end;
+;ThermoController.mpas,316 :: 		end;
 	GOTO        L__DisplayLED60
 L__DisplayLED63:
-;ThermoController.mpas,293 :: 		@submenu2[1]: if true then begin
+;ThermoController.mpas,317 :: 		@submenu2[1]: if true then begin
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED390
+	GOTO        L__DisplayLED430
 	MOVLW       _submenu2+0
 	XORWF       _current_node+0, 0 
-L__DisplayLED390:
+L__DisplayLED430:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED85
-;ThermoController.mpas,294 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
+;ThermoController.mpas,318 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
 	MOVLW       2
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,295 :: 		Lcd_Cmd(_LCD_SECOND_ROW);
+;ThermoController.mpas,319 :: 		Lcd_Cmd(_LCD_SECOND_ROW);
 	MOVLW       192
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,296 :: 		for i:=1 to 14 do
+;ThermoController.mpas,320 :: 		for i:=1 to 14 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__DisplayLED90:
-;ThermoController.mpas,297 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+;ThermoController.mpas,321 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
 	MOVLW       20
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED391
+	GOTO        L__DisplayLED431
 	MOVLW       14
 	XORWF       _i+0, 0 
-L__DisplayLED391:
+L__DisplayLED431:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__DisplayLED93
 	INFSNZ      _i+0, 1 
 	INCF        _i+1, 1 
 	GOTO        L__DisplayLED90
 L__DisplayLED93:
-;ThermoController.mpas,298 :: 		if funcDays[index] = true then
+;ThermoController.mpas,322 :: 		if funcDays[index] = true then
 	DECF        _index+0, 0 
 	MOVWF       R0 
 	MOVLW       _funcDays+0
@@ -1619,7 +1749,7 @@ L__DisplayLED93:
 	XORLW       255
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED95
-;ThermoController.mpas,299 :: 		funcDaysStatus := ' ON'
+;ThermoController.mpas,323 :: 		funcDaysStatus := ' ON'
 	MOVLW       32
 	MOVWF       _funcDaysStatus+0 
 	MOVLW       79
@@ -1628,9 +1758,9 @@ L__DisplayLED93:
 	MOVWF       _funcDaysStatus+2 
 	CLRF        _funcDaysStatus+3 
 	GOTO        L__DisplayLED96
-;ThermoController.mpas,300 :: 		else
+;ThermoController.mpas,324 :: 		else
 L__DisplayLED95:
-;ThermoController.mpas,301 :: 		funcDaysStatus := 'OFF';
+;ThermoController.mpas,325 :: 		funcDaysStatus := 'OFF';
 	MOVLW       79
 	MOVWF       _funcDaysStatus+0 
 	MOVLW       70
@@ -1639,7 +1769,7 @@ L__DisplayLED95:
 	MOVWF       _funcDaysStatus+2 
 	CLRF        _funcDaysStatus+3 
 L__DisplayLED96:
-;ThermoController.mpas,302 :: 		strcat2(submenu2[1].row2,funcDaysString[index], funcDaysStatus);
+;ThermoController.mpas,326 :: 		strcat2(submenu2[1].row2,funcDaysString[index], funcDaysStatus);
 	MOVLW       _submenu2+17
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+17)
@@ -1664,54 +1794,54 @@ L__DisplayLED96:
 	MOVLW       hi_addr(_funcDaysStatus+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,303 :: 		end;
+;ThermoController.mpas,327 :: 		end;
 	GOTO        L__DisplayLED60
 L__DisplayLED85:
-;ThermoController.mpas,304 :: 		@submenu2[2]: if true then begin
+;ThermoController.mpas,328 :: 		@submenu2[2]: if true then begin
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+42)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED392
+	GOTO        L__DisplayLED432
 	MOVLW       _submenu2+42
 	XORWF       _current_node+0, 0 
-L__DisplayLED392:
+L__DisplayLED432:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED99
-;ThermoController.mpas,305 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
+;ThermoController.mpas,329 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
 	MOVLW       2
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,306 :: 		Lcd_Cmd(_LCD_SECOND_ROW);
+;ThermoController.mpas,330 :: 		Lcd_Cmd(_LCD_SECOND_ROW);
 	MOVLW       192
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,307 :: 		if index=1 then
+;ThermoController.mpas,331 :: 		if index=1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED393
+	GOTO        L__DisplayLED433
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__DisplayLED393:
+L__DisplayLED433:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED104
-;ThermoController.mpas,308 :: 		for i:=1 to 3 do
+;ThermoController.mpas,332 :: 		for i:=1 to 3 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__DisplayLED107:
-;ThermoController.mpas,309 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+;ThermoController.mpas,333 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
 	MOVLW       20
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED394
+	GOTO        L__DisplayLED434
 	MOVLW       3
 	XORWF       _i+0, 0 
-L__DisplayLED394:
+L__DisplayLED434:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__DisplayLED110
 	INFSNZ      _i+0, 1 
@@ -1719,25 +1849,25 @@ L__DisplayLED394:
 	GOTO        L__DisplayLED107
 L__DisplayLED110:
 	GOTO        L__DisplayLED105
-;ThermoController.mpas,310 :: 		else
+;ThermoController.mpas,334 :: 		else
 L__DisplayLED104:
-;ThermoController.mpas,311 :: 		for i:=1 to 15 do
+;ThermoController.mpas,335 :: 		for i:=1 to 15 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__DisplayLED112:
-;ThermoController.mpas,312 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+;ThermoController.mpas,336 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
 	MOVLW       20
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED395
+	GOTO        L__DisplayLED435
 	MOVLW       15
 	XORWF       _i+0, 0 
-L__DisplayLED395:
+L__DisplayLED435:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__DisplayLED115
 	INFSNZ      _i+0, 1 
@@ -1745,7 +1875,7 @@ L__DisplayLED395:
 	GOTO        L__DisplayLED112
 L__DisplayLED115:
 L__DisplayLED105:
-;ThermoController.mpas,313 :: 		strcat2(submenu2[2].row2, '','');
+;ThermoController.mpas,337 :: 		strcat2(submenu2[2].row2, '','');
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -1761,7 +1891,7 @@ L__DisplayLED105:
 	MOVLW       hi_addr(?LocalText_DisplayLED+1)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,314 :: 		strcat2(submenu2[2].row2, submenu2[2].row2,'S: ');
+;ThermoController.mpas,338 :: 		strcat2(submenu2[2].row2, submenu2[2].row2,'S: ');
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -1782,7 +1912,7 @@ L__DisplayLED105:
 	MOVLW       hi_addr(?LocalText_DisplayLED+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,315 :: 		ByteToStr(start_hour, min_temp_string);
+;ThermoController.mpas,339 :: 		ByteToStr(start_hour, min_temp_string);
 	MOVF        _start_hour+0, 0 
 	MOVWF       FARG_ByteToStr_input+0 
 	MOVLW       _min_temp_string+0
@@ -1790,7 +1920,7 @@ L__DisplayLED105:
 	MOVLW       hi_addr(_min_temp_string+0)
 	MOVWF       FARG_ByteToStr_output+1 
 	CALL        _ByteToStr+0, 0
-;ThermoController.mpas,316 :: 		strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+;ThermoController.mpas,340 :: 		strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -1804,7 +1934,7 @@ L__DisplayLED105:
 	MOVLW       hi_addr(_min_temp_string+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,317 :: 		strcat2(submenu2[2].row2, submenu2[2].row2,'     E: ');
+;ThermoController.mpas,341 :: 		strcat2(submenu2[2].row2, submenu2[2].row2,'     E: ');
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -1835,7 +1965,7 @@ L__DisplayLED105:
 	MOVLW       hi_addr(?LocalText_DisplayLED+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,318 :: 		IntToStr(end_hour, min_temp_string);
+;ThermoController.mpas,342 :: 		IntToStr(end_hour, min_temp_string);
 	MOVF        _end_hour+0, 0 
 	MOVWF       FARG_IntToStr_input+0 
 	MOVLW       0
@@ -1845,7 +1975,7 @@ L__DisplayLED105:
 	MOVLW       hi_addr(_min_temp_string+0)
 	MOVWF       FARG_IntToStr_output+1 
 	CALL        _IntToStr+0, 0
-;ThermoController.mpas,319 :: 		strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+;ThermoController.mpas,343 :: 		strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -1859,54 +1989,54 @@ L__DisplayLED105:
 	MOVLW       hi_addr(_min_temp_string+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,320 :: 		end;
+;ThermoController.mpas,344 :: 		end;
 	GOTO        L__DisplayLED60
 L__DisplayLED99:
-;ThermoController.mpas,321 :: 		@submenu2[3]: if true then begin
+;ThermoController.mpas,345 :: 		@submenu2[3]: if true then begin
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+84)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED396
+	GOTO        L__DisplayLED436
 	MOVLW       _submenu2+84
 	XORWF       _current_node+0, 0 
-L__DisplayLED396:
+L__DisplayLED436:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED118
-;ThermoController.mpas,322 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
+;ThermoController.mpas,346 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
 	MOVLW       2
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,323 :: 		Lcd_Cmd(_LCD_SECOND_ROW);
+;ThermoController.mpas,347 :: 		Lcd_Cmd(_LCD_SECOND_ROW);
 	MOVLW       192
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,324 :: 		if index=1 then
+;ThermoController.mpas,348 :: 		if index=1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED397
+	GOTO        L__DisplayLED437
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__DisplayLED397:
+L__DisplayLED437:
 	BTFSS       STATUS+0, 2 
 	GOTO        L__DisplayLED123
-;ThermoController.mpas,325 :: 		for i:=1 to 6 do
+;ThermoController.mpas,349 :: 		for i:=1 to 6 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__DisplayLED126:
-;ThermoController.mpas,326 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+;ThermoController.mpas,350 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
 	MOVLW       20
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED398
+	GOTO        L__DisplayLED438
 	MOVLW       6
 	XORWF       _i+0, 0 
-L__DisplayLED398:
+L__DisplayLED438:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__DisplayLED129
 	INFSNZ      _i+0, 1 
@@ -1914,25 +2044,25 @@ L__DisplayLED398:
 	GOTO        L__DisplayLED126
 L__DisplayLED129:
 	GOTO        L__DisplayLED124
-;ThermoController.mpas,327 :: 		else
+;ThermoController.mpas,351 :: 		else
 L__DisplayLED123:
-;ThermoController.mpas,328 :: 		for i:=1 to 15 do
+;ThermoController.mpas,352 :: 		for i:=1 to 15 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
 L__DisplayLED131:
-;ThermoController.mpas,329 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+;ThermoController.mpas,353 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
 	MOVLW       20
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__DisplayLED399
+	GOTO        L__DisplayLED439
 	MOVLW       15
 	XORWF       _i+0, 0 
-L__DisplayLED399:
+L__DisplayLED439:
 	BTFSC       STATUS+0, 2 
 	GOTO        L__DisplayLED134
 	INFSNZ      _i+0, 1 
@@ -1940,7 +2070,7 @@ L__DisplayLED399:
 	GOTO        L__DisplayLED131
 L__DisplayLED134:
 L__DisplayLED124:
-;ThermoController.mpas,330 :: 		strcat2(submenu2[2].row2, '','');
+;ThermoController.mpas,354 :: 		strcat2(submenu2[2].row2, '','');
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -1956,7 +2086,7 @@ L__DisplayLED124:
 	MOVLW       hi_addr(?LocalText_DisplayLED+1)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,331 :: 		strcat2(submenu2[2].row2, submenu2[2].row2,'Max: ');
+;ThermoController.mpas,355 :: 		strcat2(submenu2[2].row2, submenu2[2].row2,'Max: ');
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -1981,7 +2111,7 @@ L__DisplayLED124:
 	MOVLW       hi_addr(?LocalText_DisplayLED+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,332 :: 		IntToStr(min_temp, min_temp_string);
+;ThermoController.mpas,356 :: 		IntToStr(min_temp, min_temp_string);
 	MOVF        _min_temp+0, 0 
 	MOVWF       FARG_IntToStr_input+0 
 	MOVF        _min_temp+1, 0 
@@ -1991,7 +2121,7 @@ L__DisplayLED124:
 	MOVLW       hi_addr(_min_temp_string+0)
 	MOVWF       FARG_IntToStr_output+1 
 	CALL        _IntToStr+0, 0
-;ThermoController.mpas,333 :: 		strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+;ThermoController.mpas,357 :: 		strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -2005,7 +2135,7 @@ L__DisplayLED124:
 	MOVLW       hi_addr(_min_temp_string+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,334 :: 		strcat2(submenu2[2].row2, submenu2[2].row2,'   Min: ');
+;ThermoController.mpas,358 :: 		strcat2(submenu2[2].row2, submenu2[2].row2,'   Min: ');
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -2036,7 +2166,7 @@ L__DisplayLED124:
 	MOVLW       hi_addr(?LocalText_DisplayLED+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,335 :: 		IntToStr(min_temp, min_temp_string);
+;ThermoController.mpas,359 :: 		IntToStr(min_temp, min_temp_string);
 	MOVF        _min_temp+0, 0 
 	MOVWF       FARG_IntToStr_input+0 
 	MOVF        _min_temp+1, 0 
@@ -2046,7 +2176,7 @@ L__DisplayLED124:
 	MOVLW       hi_addr(_min_temp_string+0)
 	MOVWF       FARG_IntToStr_output+1 
 	CALL        _IntToStr+0, 0
-;ThermoController.mpas,336 :: 		strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+;ThermoController.mpas,360 :: 		strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
 	MOVLW       _submenu2+59
 	MOVWF       FARG_strcat2_l1+0 
 	MOVLW       hi_addr(_submenu2+59)
@@ -2060,32 +2190,120 @@ L__DisplayLED124:
 	MOVLW       hi_addr(_min_temp_string+0)
 	MOVWF       FARG_strcat2_s2+1 
 	CALL        _strcat2+0, 0
-;ThermoController.mpas,337 :: 		end;
+;ThermoController.mpas,361 :: 		end;
 	GOTO        L__DisplayLED60
 L__DisplayLED118:
+;ThermoController.mpas,362 :: 		@submenu3: if true then begin
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu3+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__DisplayLED440
+	MOVLW       _submenu3+0
+	XORWF       _current_node+0, 0 
+L__DisplayLED440:
+	BTFSS       STATUS+0, 2 
+	GOTO        L__DisplayLED137
+;ThermoController.mpas,363 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
+	MOVLW       2
+	MOVWF       FARG_Lcd_Cmd_out_char+0 
+	CALL        _Lcd_Cmd+0, 0
+;ThermoController.mpas,364 :: 		Lcd_Cmd(_LCD_FIRST_ROW);
+	MOVLW       128
+	MOVWF       FARG_Lcd_Cmd_out_char+0 
+	CALL        _Lcd_Cmd+0, 0
+;ThermoController.mpas,365 :: 		for i:=1 to 14 do
+	MOVLW       1
+	MOVWF       _i+0 
+	MOVLW       0
+	MOVWF       _i+1 
+L__DisplayLED142:
+;ThermoController.mpas,366 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+	MOVLW       20
+	MOVWF       FARG_Lcd_Cmd_out_char+0 
+	CALL        _Lcd_Cmd+0, 0
+	MOVLW       0
+	XORWF       _i+1, 0 
+	BTFSS       STATUS+0, 2 
+	GOTO        L__DisplayLED441
+	MOVLW       14
+	XORWF       _i+0, 0 
+L__DisplayLED441:
+	BTFSC       STATUS+0, 2 
+	GOTO        L__DisplayLED145
+	INFSNZ      _i+0, 1 
+	INCF        _i+1, 1 
+	GOTO        L__DisplayLED142
+L__DisplayLED145:
+;ThermoController.mpas,367 :: 		end;
+	GOTO        L__DisplayLED60
+L__DisplayLED137:
+;ThermoController.mpas,368 :: 		@submenu4: if true then begin
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu4+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__DisplayLED442
+	MOVLW       _submenu4+0
+	XORWF       _current_node+0, 0 
+L__DisplayLED442:
+	BTFSS       STATUS+0, 2 
+	GOTO        L__DisplayLED148
+;ThermoController.mpas,369 :: 		Lcd_Cmd(_LCD_RETURN_HOME);
+	MOVLW       2
+	MOVWF       FARG_Lcd_Cmd_out_char+0 
+	CALL        _Lcd_Cmd+0, 0
+;ThermoController.mpas,370 :: 		Lcd_Cmd(_LCD_SECOND_ROW);
+	MOVLW       192
+	MOVWF       FARG_Lcd_Cmd_out_char+0 
+	CALL        _Lcd_Cmd+0, 0
+;ThermoController.mpas,371 :: 		for i:=1 to 8 do
+	MOVLW       1
+	MOVWF       _i+0 
+	MOVLW       0
+	MOVWF       _i+1 
+L__DisplayLED153:
+;ThermoController.mpas,372 :: 		Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+	MOVLW       20
+	MOVWF       FARG_Lcd_Cmd_out_char+0 
+	CALL        _Lcd_Cmd+0, 0
+	MOVLW       0
+	XORWF       _i+1, 0 
+	BTFSS       STATUS+0, 2 
+	GOTO        L__DisplayLED443
+	MOVLW       8
+	XORWF       _i+0, 0 
+L__DisplayLED443:
+	BTFSC       STATUS+0, 2 
+	GOTO        L__DisplayLED156
+	INFSNZ      _i+0, 1 
+	INCF        _i+1, 1 
+	GOTO        L__DisplayLED153
+L__DisplayLED156:
+;ThermoController.mpas,373 :: 		end;
+	GOTO        L__DisplayLED60
+L__DisplayLED148:
 L__DisplayLED60:
-;ThermoController.mpas,339 :: 		end;
+;ThermoController.mpas,375 :: 		end;
 L__DisplayLED58:
-;ThermoController.mpas,342 :: 		OS_Yield;
+;ThermoController.mpas,378 :: 		OS_Yield;
 	CALL        _OS_Yield+0, 0
-;ThermoController.mpas,343 :: 		end;
+;ThermoController.mpas,379 :: 		end;
 	GOTO        L__DisplayLED47
-;ThermoController.mpas,344 :: 		end;
+;ThermoController.mpas,380 :: 		end;
 	RETURN      0
 ; end of _DisplayLED
 
 _ReadKeys:
 
-;ThermoController.mpas,347 :: 		begin
-;ThermoController.mpas,348 :: 		while true do
-L__ReadKeys137:
-;ThermoController.mpas,350 :: 		OS_Delay(20);
+;ThermoController.mpas,383 :: 		begin
+;ThermoController.mpas,384 :: 		while true do
+L__ReadKeys159:
+;ThermoController.mpas,386 :: 		OS_Delay(20);
 	MOVLW       20
 	MOVWF       FARG_OS_Delay_Ticks+0 
 	MOVLW       0
 	MOVWF       FARG_OS_Delay_Ticks+1 
 	CALL        _OS_Delay+0, 0
-;ThermoController.mpas,351 :: 		if Button(PORTE, 2, 1, 1) then old_enter := 255;
+;ThermoController.mpas,387 :: 		if Button(PORTE, 2, 1, 1) then old_enter := 255;
 	MOVLW       PORTE+0
 	MOVWF       FARG_Button_port+0 
 	MOVLW       hi_addr(PORTE+0)
@@ -2099,11 +2317,11 @@ L__ReadKeys137:
 	CALL        _Button+0, 0
 	MOVF        R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadKeys142
+	GOTO        L__ReadKeys164
 	MOVLW       255
 	MOVWF       _old_enter+0 
-L__ReadKeys142:
-;ThermoController.mpas,352 :: 		if old_enter and Button(PORTE, 2, 1, 0) then
+L__ReadKeys164:
+;ThermoController.mpas,388 :: 		if old_enter and Button(PORTE, 2, 1, 0) then
 	MOVLW       PORTE+0
 	MOVWF       FARG_Button_port+0 
 	MOVLW       hi_addr(PORTE+0)
@@ -2117,19 +2335,19 @@ L__ReadKeys142:
 	MOVF        _old_enter+0, 0 
 	ANDWF       R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadKeys145
-;ThermoController.mpas,354 :: 		enter := 255;
+	GOTO        L__ReadKeys167
+;ThermoController.mpas,390 :: 		enter := 255;
 	MOVLW       255
 	MOVWF       _enter+0 
-;ThermoController.mpas,355 :: 		old_enter := 0;
+;ThermoController.mpas,391 :: 		old_enter := 0;
 	CLRF        _old_enter+0 
-;ThermoController.mpas,356 :: 		OS_SignalSemaphore(S_Navigate);
+;ThermoController.mpas,392 :: 		OS_SignalSemaphore(S_Navigate);
 	MOVF        _S_Navigate+0, 0 
 	MOVWF       FARG_OS_SignalSemaphore_Event_+0 
 	CALL        _OS_SignalSemaphore+0, 0
-;ThermoController.mpas,357 :: 		end;
-L__ReadKeys145:
-;ThermoController.mpas,358 :: 		if Button(PORTB, 4, 1, 1) then old_esc := 255;
+;ThermoController.mpas,393 :: 		end;
+L__ReadKeys167:
+;ThermoController.mpas,394 :: 		if Button(PORTB, 4, 1, 1) then old_esc := 255;
 	MOVLW       PORTB+0
 	MOVWF       FARG_Button_port+0 
 	MOVLW       hi_addr(PORTB+0)
@@ -2143,11 +2361,11 @@ L__ReadKeys145:
 	CALL        _Button+0, 0
 	MOVF        R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadKeys148
+	GOTO        L__ReadKeys170
 	MOVLW       255
 	MOVWF       _old_esc+0 
-L__ReadKeys148:
-;ThermoController.mpas,359 :: 		if old_esc and Button(PORTB, 4, 1, 0) then
+L__ReadKeys170:
+;ThermoController.mpas,395 :: 		if old_esc and Button(PORTB, 4, 1, 0) then
 	MOVLW       PORTB+0
 	MOVWF       FARG_Button_port+0 
 	MOVLW       hi_addr(PORTB+0)
@@ -2161,19 +2379,19 @@ L__ReadKeys148:
 	MOVF        _old_esc+0, 0 
 	ANDWF       R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadKeys151
-;ThermoController.mpas,361 :: 		esc := 255;
+	GOTO        L__ReadKeys173
+;ThermoController.mpas,397 :: 		esc := 255;
 	MOVLW       255
 	MOVWF       _esc+0 
-;ThermoController.mpas,362 :: 		old_esc := 0;
+;ThermoController.mpas,398 :: 		old_esc := 0;
 	CLRF        _old_esc+0 
-;ThermoController.mpas,363 :: 		OS_SignalSemaphore(S_Navigate);
+;ThermoController.mpas,399 :: 		OS_SignalSemaphore(S_Navigate);
 	MOVF        _S_Navigate+0, 0 
 	MOVWF       FARG_OS_SignalSemaphore_Event_+0 
 	CALL        _OS_SignalSemaphore+0, 0
-;ThermoController.mpas,364 :: 		end;
-L__ReadKeys151:
-;ThermoController.mpas,365 :: 		if Button(PORTE, 1, 1, 1) then old_up := 255;
+;ThermoController.mpas,400 :: 		end;
+L__ReadKeys173:
+;ThermoController.mpas,401 :: 		if Button(PORTE, 1, 1, 1) then old_up := 255;
 	MOVLW       PORTE+0
 	MOVWF       FARG_Button_port+0 
 	MOVLW       hi_addr(PORTE+0)
@@ -2187,11 +2405,11 @@ L__ReadKeys151:
 	CALL        _Button+0, 0
 	MOVF        R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadKeys154
+	GOTO        L__ReadKeys176
 	MOVLW       255
 	MOVWF       _old_up+0 
-L__ReadKeys154:
-;ThermoController.mpas,366 :: 		if old_up and Button(PORTE, 1, 1, 0) then
+L__ReadKeys176:
+;ThermoController.mpas,402 :: 		if old_up and Button(PORTE, 1, 1, 0) then
 	MOVLW       PORTE+0
 	MOVWF       FARG_Button_port+0 
 	MOVLW       hi_addr(PORTE+0)
@@ -2205,19 +2423,19 @@ L__ReadKeys154:
 	MOVF        _old_up+0, 0 
 	ANDWF       R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadKeys157
-;ThermoController.mpas,368 :: 		up := 255;
+	GOTO        L__ReadKeys179
+;ThermoController.mpas,404 :: 		up := 255;
 	MOVLW       255
 	MOVWF       _up+0 
-;ThermoController.mpas,369 :: 		old_up := 0;
+;ThermoController.mpas,405 :: 		old_up := 0;
 	CLRF        _old_up+0 
-;ThermoController.mpas,370 :: 		OS_SignalSemaphore(S_Navigate);
+;ThermoController.mpas,406 :: 		OS_SignalSemaphore(S_Navigate);
 	MOVF        _S_Navigate+0, 0 
 	MOVWF       FARG_OS_SignalSemaphore_Event_+0 
 	CALL        _OS_SignalSemaphore+0, 0
-;ThermoController.mpas,371 :: 		end;
-L__ReadKeys157:
-;ThermoController.mpas,372 :: 		if Button(PORTE, 0, 1, 1) then old_down := 255;
+;ThermoController.mpas,407 :: 		end;
+L__ReadKeys179:
+;ThermoController.mpas,408 :: 		if Button(PORTE, 0, 1, 1) then old_down := 255;
 	MOVLW       PORTE+0
 	MOVWF       FARG_Button_port+0 
 	MOVLW       hi_addr(PORTE+0)
@@ -2230,11 +2448,11 @@ L__ReadKeys157:
 	CALL        _Button+0, 0
 	MOVF        R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadKeys160
+	GOTO        L__ReadKeys182
 	MOVLW       255
 	MOVWF       _old_down+0 
-L__ReadKeys160:
-;ThermoController.mpas,373 :: 		if old_down and Button(PORTE, 0, 1, 0) then
+L__ReadKeys182:
+;ThermoController.mpas,409 :: 		if old_down and Button(PORTE, 0, 1, 0) then
 	MOVLW       PORTE+0
 	MOVWF       FARG_Button_port+0 
 	MOVLW       hi_addr(PORTE+0)
@@ -2247,45 +2465,45 @@ L__ReadKeys160:
 	MOVF        _old_down+0, 0 
 	ANDWF       R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadKeys163
-;ThermoController.mpas,375 :: 		down := 255;
+	GOTO        L__ReadKeys185
+;ThermoController.mpas,411 :: 		down := 255;
 	MOVLW       255
 	MOVWF       _down+0 
-;ThermoController.mpas,376 :: 		old_down := 0;
+;ThermoController.mpas,412 :: 		old_down := 0;
 	CLRF        _old_down+0 
-;ThermoController.mpas,377 :: 		OS_SignalSemaphore(S_Navigate);
+;ThermoController.mpas,413 :: 		OS_SignalSemaphore(S_Navigate);
 	MOVF        _S_Navigate+0, 0 
 	MOVWF       FARG_OS_SignalSemaphore_Event_+0 
 	CALL        _OS_SignalSemaphore+0, 0
-;ThermoController.mpas,378 :: 		end;
-L__ReadKeys163:
-;ThermoController.mpas,380 :: 		OS_Yield;
+;ThermoController.mpas,414 :: 		end;
+L__ReadKeys185:
+;ThermoController.mpas,416 :: 		OS_Yield;
 	CALL        _OS_Yield+0, 0
-;ThermoController.mpas,381 :: 		end;
-	GOTO        L__ReadKeys137
-;ThermoController.mpas,382 :: 		end;
+;ThermoController.mpas,417 :: 		end;
+	GOTO        L__ReadKeys159
+;ThermoController.mpas,418 :: 		end;
 	RETURN      0
 ; end of _ReadKeys
 
 _ReadTime:
 
-;ThermoController.mpas,385 :: 		begin
-;ThermoController.mpas,386 :: 		while true do
-L__ReadTime167:
-;ThermoController.mpas,388 :: 		OS_Delay(50);
+;ThermoController.mpas,421 :: 		begin
+;ThermoController.mpas,422 :: 		while true do
+L__ReadTime189:
+;ThermoController.mpas,424 :: 		OS_Delay(50);
 	MOVLW       50
 	MOVWF       FARG_OS_Delay_Ticks+0 
 	MOVLW       0
 	MOVWF       FARG_OS_Delay_Ticks+1 
 	CALL        _OS_Delay+0, 0
-;ThermoController.mpas,389 :: 		if (current_node = @submenu1) and (edit = false) then
+;ThermoController.mpas,425 :: 		if (current_node = @submenu1) and (edit = false) then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu1+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__ReadTime400
+	GOTO        L__ReadTime444
 	MOVLW       _submenu1+0
 	XORWF       _current_node+0, 0 
-L__ReadTime400:
+L__ReadTime444:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2299,14 +2517,14 @@ L__ReadTime400:
 	MOVF        R1, 0 
 	ANDWF       R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__ReadTime172
-;ThermoController.mpas,391 :: 		Ds1307_Get_TimeDate(timedate);
+	GOTO        L__ReadTime194
+;ThermoController.mpas,427 :: 		Ds1307_Get_TimeDate(timedate);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_Get_TimeDate_TimeDate+0 
 	MOVLW       hi_addr(_timedate+0)
 	MOVWF       FARG_Ds1307_Get_TimeDate_TimeDate+1 
 	CALL        _Ds1307_Get_TimeDate+0, 0
-;ThermoController.mpas,392 :: 		Ds1307_TimeDateStr(timedate,timestr,datestr);
+;ThermoController.mpas,428 :: 		Ds1307_TimeDateStr(timedate,timestr,datestr);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_TimeDateStr_Timedate+0 
 	MOVLW       hi_addr(_timedate+0)
@@ -2320,7 +2538,7 @@ L__ReadTime400:
 	MOVLW       hi_addr(_datestr+0)
 	MOVWF       FARG_Ds1307_TimeDateStr_Ds+1 
 	CALL        _Ds1307_TimeDateStr+0, 0
-;ThermoController.mpas,393 :: 		submenu1.row1 := datestr;
+;ThermoController.mpas,429 :: 		submenu1.row1 := datestr;
 	MOVLW       _submenu1+0
 	MOVWF       FSR1L 
 	MOVLW       hi_addr(_submenu1+0)
@@ -2331,7 +2549,7 @@ L__ReadTime400:
 	MOVWF       FSR2H 
 	CALL        ___CS2S+0, 0
 	CLRF        POSTINC1+0 
-;ThermoController.mpas,394 :: 		submenu1.row2 := timestr;
+;ThermoController.mpas,430 :: 		submenu1.row2 := timestr;
 	MOVLW       _submenu1+17
 	MOVWF       FSR1L 
 	MOVLW       hi_addr(_submenu1+17)
@@ -2342,65 +2560,65 @@ L__ReadTime400:
 	MOVWF       FSR2H 
 	CALL        ___CS2S+0, 0
 	CLRF        POSTINC1+0 
-;ThermoController.mpas,395 :: 		OS_SignalSemaphore(S_Display);
+;ThermoController.mpas,431 :: 		OS_SignalSemaphore(S_Display);
 	MOVF        _S_Display+0, 0 
 	MOVWF       FARG_OS_SignalSemaphore_Event_+0 
 	CALL        _OS_SignalSemaphore+0, 0
-;ThermoController.mpas,396 :: 		end;
-L__ReadTime172:
-;ThermoController.mpas,397 :: 		OS_Yield;
+;ThermoController.mpas,432 :: 		end;
+L__ReadTime194:
+;ThermoController.mpas,433 :: 		OS_Yield;
 	CALL        _OS_Yield+0, 0
-;ThermoController.mpas,398 :: 		end;
-	GOTO        L__ReadTime167
-;ThermoController.mpas,399 :: 		end;
+;ThermoController.mpas,434 :: 		end;
+	GOTO        L__ReadTime189
+;ThermoController.mpas,435 :: 		end;
 	RETURN      0
 ; end of _ReadTime
 
 _SaveTime:
 
-;ThermoController.mpas,402 :: 		begin
-;ThermoController.mpas,403 :: 		while true do
-L__SaveTime176:
-;ThermoController.mpas,405 :: 		OS_WaitSemaphore(S_SetTime);
+;ThermoController.mpas,438 :: 		begin
+;ThermoController.mpas,439 :: 		while true do
+L__SaveTime198:
+;ThermoController.mpas,441 :: 		OS_WaitSemaphore(S_SetTime);
 	MOVF        _S_SetTime+0, 0 
 	MOVWF       FARG_OS_WaitSemaphore_Event_+0 
 	CALL        _OS_WaitSemaphore+0, 0
-;ThermoController.mpas,406 :: 		Ds1307_Set_TimeDate(timedate);
+;ThermoController.mpas,442 :: 		Ds1307_Set_TimeDate(timedate);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_Set_TimeDate_TimeDate+0 
 	MOVLW       hi_addr(_timedate+0)
 	MOVWF       FARG_Ds1307_Set_TimeDate_TimeDate+1 
 	CALL        _Ds1307_Set_TimeDate+0, 0
-;ThermoController.mpas,407 :: 		OS_Yield;
+;ThermoController.mpas,443 :: 		OS_Yield;
 	CALL        _OS_Yield+0, 0
-;ThermoController.mpas,408 :: 		end;
-	GOTO        L__SaveTime176
-;ThermoController.mpas,409 :: 		end;
+;ThermoController.mpas,444 :: 		end;
+	GOTO        L__SaveTime198
+;ThermoController.mpas,445 :: 		end;
 	RETURN      0
 ; end of _SaveTime
 
 _NavigateMenu:
 
-;ThermoController.mpas,412 :: 		begin
-;ThermoController.mpas,413 :: 		while true do
-L__NavigateMenu182:
-;ThermoController.mpas,415 :: 		OS_WaitSemaphore(S_Navigate);
+;ThermoController.mpas,448 :: 		begin
+;ThermoController.mpas,449 :: 		while true do
+L__NavigateMenu204:
+;ThermoController.mpas,451 :: 		OS_WaitSemaphore(S_Navigate);
 	MOVF        _S_Navigate+0, 0 
 	MOVWF       FARG_OS_WaitSemaphore_Event_+0 
 	CALL        _OS_WaitSemaphore+0, 0
-;ThermoController.mpas,416 :: 		if enter = 255 then
+;ThermoController.mpas,452 :: 		if enter = 255 then
 	MOVF        _enter+0, 0 
 	XORLW       255
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu187
-;ThermoController.mpas,432 :: 		if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
+	GOTO        L__NavigateMenu209
+;ThermoController.mpas,468 :: 		if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu1+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu401
+	GOTO        L__NavigateMenu445
 	MOVLW       _submenu1+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu401:
+L__NavigateMenu445:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2408,10 +2626,10 @@ L__NavigateMenu401:
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu402
+	GOTO        L__NavigateMenu446
 	MOVLW       _submenu2+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu402:
+L__NavigateMenu446:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2421,10 +2639,10 @@ L__NavigateMenu402:
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+42)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu403
+	GOTO        L__NavigateMenu447
 	MOVLW       _submenu2+42
 	XORWF       _current_node+0, 0 
-L__NavigateMenu403:
+L__NavigateMenu447:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2434,10 +2652,10 @@ L__NavigateMenu403:
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+84)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu404
+	GOTO        L__NavigateMenu448
 	MOVLW       _submenu2+84
 	XORWF       _current_node+0, 0 
-L__NavigateMenu404:
+L__NavigateMenu448:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2445,35 +2663,71 @@ L__NavigateMenu404:
 	MOVF        R1, 0 
 	IORWF       R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu190
-;ThermoController.mpas,434 :: 		if underscore then
+	GOTO        L__NavigateMenu212
+;ThermoController.mpas,470 :: 		if underscore then
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu193
-;ThermoController.mpas,436 :: 		edit := true;
+	GOTO        L__NavigateMenu215
+;ThermoController.mpas,472 :: 		edit := true;
 	MOVLW       255
 	MOVWF       _edit+0 
-;ThermoController.mpas,437 :: 		underscore := false;
+;ThermoController.mpas,473 :: 		underscore := false;
 	CLRF        _underscore+0 
-;ThermoController.mpas,438 :: 		end
-	GOTO        L__NavigateMenu194
-;ThermoController.mpas,439 :: 		else
-L__NavigateMenu193:
-;ThermoController.mpas,441 :: 		underscore := true;
+;ThermoController.mpas,474 :: 		end
+	GOTO        L__NavigateMenu216
+;ThermoController.mpas,475 :: 		else
+L__NavigateMenu215:
+;ThermoController.mpas,477 :: 		underscore := true;
 	MOVLW       255
 	MOVWF       _underscore+0 
-;ThermoController.mpas,442 :: 		if edit then
+;ThermoController.mpas,478 :: 		if edit then
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu196
-;ThermoController.mpas,443 :: 		edit := false;
+	GOTO        L__NavigateMenu218
+;ThermoController.mpas,479 :: 		edit := false;
 	CLRF        _edit+0 
-L__NavigateMenu196:
-;ThermoController.mpas,444 :: 		end;
-L__NavigateMenu194:
-;ThermoController.mpas,445 :: 		end;
-L__NavigateMenu190:
-;ThermoController.mpas,447 :: 		current_node := current_node^.child;
+L__NavigateMenu218:
+;ThermoController.mpas,480 :: 		end;
+L__NavigateMenu216:
+;ThermoController.mpas,481 :: 		end
+	GOTO        L__NavigateMenu213
+;ThermoController.mpas,482 :: 		else
+L__NavigateMenu212:
+;ThermoController.mpas,484 :: 		if  (current_node = @submenu3) or (current_node = @submenu4) then
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu3+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu449
+	MOVLW       _submenu3+0
+	XORWF       _current_node+0, 0 
+L__NavigateMenu449:
+	MOVLW       255
+	BTFSS       STATUS+0, 2 
+	MOVLW       0
+	MOVWF       R1 
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu4+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu450
+	MOVLW       _submenu4+0
+	XORWF       _current_node+0, 0 
+L__NavigateMenu450:
+	MOVLW       255
+	BTFSS       STATUS+0, 2 
+	MOVLW       0
+	MOVWF       R0 
+	MOVF        R1, 0 
+	IORWF       R0, 1 
+	BTFSC       STATUS+0, 2 
+	GOTO        L__NavigateMenu221
+;ThermoController.mpas,486 :: 		edit := true;
+	MOVLW       255
+	MOVWF       _edit+0 
+;ThermoController.mpas,487 :: 		end
+L__NavigateMenu221:
+;ThermoController.mpas,488 :: 		end;
+L__NavigateMenu213:
+;ThermoController.mpas,491 :: 		current_node := current_node^.child;
 	MOVLW       40
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -2484,23 +2738,23 @@ L__NavigateMenu190:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-;ThermoController.mpas,448 :: 		enter := 0;
+;ThermoController.mpas,492 :: 		enter := 0;
 	CLRF        _enter+0 
-;ThermoController.mpas,449 :: 		end;
-L__NavigateMenu187:
-;ThermoController.mpas,450 :: 		if esc = 255 then
+;ThermoController.mpas,493 :: 		end;
+L__NavigateMenu209:
+;ThermoController.mpas,494 :: 		if esc = 255 then
 	MOVF        _esc+0, 0 
 	XORLW       255
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu199
-;ThermoController.mpas,470 :: 		if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
+	GOTO        L__NavigateMenu224
+;ThermoController.mpas,514 :: 		if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu1+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu405
+	GOTO        L__NavigateMenu451
 	MOVLW       _submenu1+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu405:
+L__NavigateMenu451:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2508,10 +2762,10 @@ L__NavigateMenu405:
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu406
+	GOTO        L__NavigateMenu452
 	MOVLW       _submenu2+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu406:
+L__NavigateMenu452:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2521,10 +2775,10 @@ L__NavigateMenu406:
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+42)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu407
+	GOTO        L__NavigateMenu453
 	MOVLW       _submenu2+42
 	XORWF       _current_node+0, 0 
-L__NavigateMenu407:
+L__NavigateMenu453:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2534,10 +2788,10 @@ L__NavigateMenu407:
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+84)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu408
+	GOTO        L__NavigateMenu454
 	MOVLW       _submenu2+84
 	XORWF       _current_node+0, 0 
-L__NavigateMenu408:
+L__NavigateMenu454:
 	MOVLW       255
 	BTFSS       STATUS+0, 2 
 	MOVLW       0
@@ -2545,52 +2799,52 @@ L__NavigateMenu408:
 	MOVF        R1, 0 
 	IORWF       R0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu202
-;ThermoController.mpas,472 :: 		if underscore then
+	GOTO        L__NavigateMenu227
+;ThermoController.mpas,516 :: 		if underscore then
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu205
-;ThermoController.mpas,474 :: 		underscore := false;
+	GOTO        L__NavigateMenu230
+;ThermoController.mpas,518 :: 		underscore := false;
 	CLRF        _underscore+0 
-;ThermoController.mpas,476 :: 		if (current_node = @submenu1) then
+;ThermoController.mpas,520 :: 		if (current_node = @submenu1) then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu1+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu409
+	GOTO        L__NavigateMenu455
 	MOVLW       _submenu1+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu409:
+L__NavigateMenu455:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu208
-;ThermoController.mpas,478 :: 		OS_SignalSemaphore(S_SetTime);
+	GOTO        L__NavigateMenu233
+;ThermoController.mpas,522 :: 		OS_SignalSemaphore(S_SetTime);
 	MOVF        _S_SetTime+0, 0 
 	MOVWF       FARG_OS_SignalSemaphore_Event_+0 
 	CALL        _OS_SignalSemaphore+0, 0
-;ThermoController.mpas,479 :: 		end;
-L__NavigateMenu208:
-;ThermoController.mpas,480 :: 		end
-	GOTO        L__NavigateMenu206
-;ThermoController.mpas,481 :: 		else
-L__NavigateMenu205:
-;ThermoController.mpas,483 :: 		if edit then
+;ThermoController.mpas,523 :: 		end;
+L__NavigateMenu233:
+;ThermoController.mpas,524 :: 		end
+	GOTO        L__NavigateMenu231
+;ThermoController.mpas,525 :: 		else
+L__NavigateMenu230:
+;ThermoController.mpas,527 :: 		if edit then
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu211
-;ThermoController.mpas,485 :: 		underscore := true;
+	GOTO        L__NavigateMenu236
+;ThermoController.mpas,529 :: 		underscore := true;
 	MOVLW       255
 	MOVWF       _underscore+0 
-;ThermoController.mpas,486 :: 		edit := false;
+;ThermoController.mpas,530 :: 		edit := false;
 	CLRF        _edit+0 
-;ThermoController.mpas,487 :: 		end
-	GOTO        L__NavigateMenu212
-;ThermoController.mpas,488 :: 		else
-L__NavigateMenu211:
-;ThermoController.mpas,490 :: 		index := 1;
+;ThermoController.mpas,531 :: 		end
+	GOTO        L__NavigateMenu237
+;ThermoController.mpas,532 :: 		else
+L__NavigateMenu236:
+;ThermoController.mpas,534 :: 		index := 1;
 	MOVLW       1
 	MOVWF       _index+0 
 	MOVLW       0
 	MOVWF       _index+1 
-;ThermoController.mpas,491 :: 		current_node := current_node^.parent;
+;ThermoController.mpas,535 :: 		current_node := current_node^.parent;
 	MOVLW       34
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -2601,20 +2855,44 @@ L__NavigateMenu211:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-;ThermoController.mpas,492 :: 		end;
-L__NavigateMenu212:
-;ThermoController.mpas,493 :: 		end
-L__NavigateMenu206:
-;ThermoController.mpas,494 :: 		end
-	GOTO        L__NavigateMenu203
-;ThermoController.mpas,495 :: 		else
-L__NavigateMenu202:
-;ThermoController.mpas,497 :: 		index := 1;
-	MOVLW       1
-	MOVWF       _index+0 
+;ThermoController.mpas,536 :: 		end;
+L__NavigateMenu237:
+;ThermoController.mpas,537 :: 		end
+L__NavigateMenu231:
+;ThermoController.mpas,538 :: 		end
+	GOTO        L__NavigateMenu228
+;ThermoController.mpas,539 :: 		else
+L__NavigateMenu227:
+;ThermoController.mpas,540 :: 		if (current_node = @submenu3) or (current_node = @submenu4) then
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu3+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu456
+	MOVLW       _submenu3+0
+	XORWF       _current_node+0, 0 
+L__NavigateMenu456:
+	MOVLW       255
+	BTFSS       STATUS+0, 2 
 	MOVLW       0
-	MOVWF       _index+1 
-;ThermoController.mpas,498 :: 		current_node := current_node^.parent;
+	MOVWF       R1 
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu4+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu457
+	MOVLW       _submenu4+0
+	XORWF       _current_node+0, 0 
+L__NavigateMenu457:
+	MOVLW       255
+	BTFSS       STATUS+0, 2 
+	MOVLW       0
+	MOVWF       R0 
+	MOVF        R1, 0 
+	IORWF       R0, 1 
+	BTFSC       STATUS+0, 2 
+	GOTO        L__NavigateMenu239
+;ThermoController.mpas,542 :: 		edit := false;
+	CLRF        _edit+0 
+;ThermoController.mpas,543 :: 		current_node := current_node^.parent;
 	MOVLW       34
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -2625,101 +2903,122 @@ L__NavigateMenu202:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-;ThermoController.mpas,499 :: 		end;
-L__NavigateMenu203:
-;ThermoController.mpas,500 :: 		esc := 0;
+;ThermoController.mpas,544 :: 		end
+	GOTO        L__NavigateMenu240
+;ThermoController.mpas,545 :: 		else
+L__NavigateMenu239:
+;ThermoController.mpas,547 :: 		index := 1;
+	MOVLW       1
+	MOVWF       _index+0 
+	MOVLW       0
+	MOVWF       _index+1 
+;ThermoController.mpas,548 :: 		current_node := current_node^.parent;
+	MOVLW       34
+	ADDWF       _current_node+0, 0 
+	MOVWF       FSR0L 
+	MOVLW       0
+	ADDWFC      _current_node+1, 0 
+	MOVWF       FSR0H 
+	MOVF        POSTINC0+0, 0 
+	MOVWF       _current_node+0 
+	MOVF        POSTINC0+0, 0 
+	MOVWF       _current_node+1 
+;ThermoController.mpas,549 :: 		end;
+L__NavigateMenu240:
+L__NavigateMenu228:
+;ThermoController.mpas,550 :: 		esc := 0;
 	CLRF        _esc+0 
-;ThermoController.mpas,501 :: 		end;
-L__NavigateMenu199:
-;ThermoController.mpas,503 :: 		if up = 255 then
+;ThermoController.mpas,551 :: 		end;
+L__NavigateMenu224:
+;ThermoController.mpas,553 :: 		if up = 255 then
 	MOVF        _up+0, 0 
 	XORLW       255
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu214
-;ThermoController.mpas,506 :: 		@submenu1:   if edit then
+	GOTO        L__NavigateMenu242
+;ThermoController.mpas,556 :: 		@submenu1:   if edit then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu1+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu410
+	GOTO        L__NavigateMenu458
 	MOVLW       _submenu1+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu410:
+L__NavigateMenu458:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu219
+	GOTO        L__NavigateMenu247
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu221
-;ThermoController.mpas,508 :: 		Ds1307_Bcd2DecTimeDate(timedate);
+	GOTO        L__NavigateMenu249
+;ThermoController.mpas,558 :: 		Ds1307_Bcd2DecTimeDate(timedate);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_Bcd2DecTimeDate_TimeDate+0 
 	MOVLW       hi_addr(_timedate+0)
 	MOVWF       FARG_Ds1307_Bcd2DecTimeDate_TimeDate+1 
 	CALL        _Ds1307_Bcd2DecTimeDate+0, 0
-;ThermoController.mpas,510 :: 		3:     if timedate.Year = 99 then
+;ThermoController.mpas,560 :: 		3:     if timedate.Year = 99 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu411
+	GOTO        L__NavigateMenu459
 	MOVLW       3
 	XORWF       _index+0, 0 
-L__NavigateMenu411:
+L__NavigateMenu459:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu226
+	GOTO        L__NavigateMenu254
 	MOVF        _timedate+6, 0 
 	XORLW       99
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu228
-;ThermoController.mpas,511 :: 		timedate.Year := 0
+	GOTO        L__NavigateMenu256
+;ThermoController.mpas,561 :: 		timedate.Year := 0
 	CLRF        _timedate+6 
-	GOTO        L__NavigateMenu229
-;ThermoController.mpas,512 :: 		else timedate.Year := timeDate.Year + 1;
-L__NavigateMenu228:
+	GOTO        L__NavigateMenu257
+;ThermoController.mpas,562 :: 		else timedate.Year := timeDate.Year + 1;
+L__NavigateMenu256:
 	MOVF        _timedate+6, 0 
 	ADDLW       1
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+6 
-L__NavigateMenu229:
-	GOTO        L__NavigateMenu223
-L__NavigateMenu226:
-;ThermoController.mpas,513 :: 		2:     if timedate.Month = 12 then
+L__NavigateMenu257:
+	GOTO        L__NavigateMenu251
+L__NavigateMenu254:
+;ThermoController.mpas,563 :: 		2:     if timedate.Month = 12 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu412
+	GOTO        L__NavigateMenu460
 	MOVLW       2
 	XORWF       _index+0, 0 
-L__NavigateMenu412:
+L__NavigateMenu460:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu232
+	GOTO        L__NavigateMenu260
 	MOVF        _timedate+5, 0 
 	XORLW       12
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu234
-;ThermoController.mpas,514 :: 		timedate.Month := 1
+	GOTO        L__NavigateMenu262
+;ThermoController.mpas,564 :: 		timedate.Month := 1
 	MOVLW       1
 	MOVWF       _timedate+5 
-	GOTO        L__NavigateMenu235
-;ThermoController.mpas,515 :: 		else timedate.Month := timeDate.Month + 1;
-L__NavigateMenu234:
+	GOTO        L__NavigateMenu263
+;ThermoController.mpas,565 :: 		else timedate.Month := timeDate.Month + 1;
+L__NavigateMenu262:
 	MOVF        _timedate+5, 0 
 	ADDLW       1
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+5 
-L__NavigateMenu235:
-	GOTO        L__NavigateMenu223
-L__NavigateMenu232:
-;ThermoController.mpas,516 :: 		1:     if timedate.Date = maxday[timedate.Month] then
+L__NavigateMenu263:
+	GOTO        L__NavigateMenu251
+L__NavigateMenu260:
+;ThermoController.mpas,566 :: 		1:     if timedate.Date = maxday[timedate.Month] then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu413
+	GOTO        L__NavigateMenu461
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__NavigateMenu413:
+L__NavigateMenu461:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu238
+	GOTO        L__NavigateMenu266
 	DECF        _timedate+5, 0 
 	MOVWF       R0 
 	MOVLW       _maxday+0
@@ -2733,83 +3032,83 @@ L__NavigateMenu413:
 	MOVF        _timedate+4, 0 
 	XORWF       POSTINC2+0, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu240
-;ThermoController.mpas,517 :: 		timedate.Date := 1
+	GOTO        L__NavigateMenu268
+;ThermoController.mpas,567 :: 		timedate.Date := 1
 	MOVLW       1
 	MOVWF       _timedate+4 
-	GOTO        L__NavigateMenu241
-;ThermoController.mpas,518 :: 		else timedate.Date := timeDate.Date + 1;
-L__NavigateMenu240:
+	GOTO        L__NavigateMenu269
+;ThermoController.mpas,568 :: 		else timedate.Date := timeDate.Date + 1;
+L__NavigateMenu268:
 	MOVF        _timedate+4, 0 
 	ADDLW       1
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+4 
-L__NavigateMenu241:
-	GOTO        L__NavigateMenu223
-L__NavigateMenu238:
-;ThermoController.mpas,519 :: 		4:     if timedate.Hours = 23 then
+L__NavigateMenu269:
+	GOTO        L__NavigateMenu251
+L__NavigateMenu266:
+;ThermoController.mpas,569 :: 		4:     if timedate.Hours = 23 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu414
+	GOTO        L__NavigateMenu462
 	MOVLW       4
 	XORWF       _index+0, 0 
-L__NavigateMenu414:
+L__NavigateMenu462:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu244
+	GOTO        L__NavigateMenu272
 	MOVF        _timedate+2, 0 
 	XORLW       23
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu246
-;ThermoController.mpas,520 :: 		timedate.Hours := 0
+	GOTO        L__NavigateMenu274
+;ThermoController.mpas,570 :: 		timedate.Hours := 0
 	CLRF        _timedate+2 
-	GOTO        L__NavigateMenu247
-;ThermoController.mpas,521 :: 		else timedate.Hours := timeDate.Hours + 1;
-L__NavigateMenu246:
+	GOTO        L__NavigateMenu275
+;ThermoController.mpas,571 :: 		else timedate.Hours := timeDate.Hours + 1;
+L__NavigateMenu274:
 	MOVF        _timedate+2, 0 
 	ADDLW       1
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+2 
-L__NavigateMenu247:
-	GOTO        L__NavigateMenu223
-L__NavigateMenu244:
-;ThermoController.mpas,522 :: 		5:     if timedate.Minutes = 59 then
+L__NavigateMenu275:
+	GOTO        L__NavigateMenu251
+L__NavigateMenu272:
+;ThermoController.mpas,572 :: 		5:     if timedate.Minutes = 59 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu415
+	GOTO        L__NavigateMenu463
 	MOVLW       5
 	XORWF       _index+0, 0 
-L__NavigateMenu415:
+L__NavigateMenu463:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu250
+	GOTO        L__NavigateMenu278
 	MOVF        _timedate+1, 0 
 	XORLW       59
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu252
-;ThermoController.mpas,523 :: 		timedate.Minutes := 0
+	GOTO        L__NavigateMenu280
+;ThermoController.mpas,573 :: 		timedate.Minutes := 0
 	CLRF        _timedate+1 
-	GOTO        L__NavigateMenu253
-;ThermoController.mpas,524 :: 		else timedate.Minutes := timeDate.Minutes + 1;
-L__NavigateMenu252:
+	GOTO        L__NavigateMenu281
+;ThermoController.mpas,574 :: 		else timedate.Minutes := timeDate.Minutes + 1;
+L__NavigateMenu280:
 	MOVF        _timedate+1, 0 
 	ADDLW       1
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+1 
-L__NavigateMenu253:
-	GOTO        L__NavigateMenu223
-L__NavigateMenu250:
-L__NavigateMenu223:
-;ThermoController.mpas,526 :: 		Ds1307_Dec2BcdTimeDate(timedate);
+L__NavigateMenu281:
+	GOTO        L__NavigateMenu251
+L__NavigateMenu278:
+L__NavigateMenu251:
+;ThermoController.mpas,576 :: 		Ds1307_Dec2BcdTimeDate(timedate);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_Dec2BcdTimeDate_TimeDate+0 
 	MOVLW       hi_addr(_timedate+0)
 	MOVWF       FARG_Ds1307_Dec2BcdTimeDate_TimeDate+1 
 	CALL        _Ds1307_Dec2BcdTimeDate+0, 0
-;ThermoController.mpas,527 :: 		Ds1307_TimeDateStr(timedate,timestr,datestr);
+;ThermoController.mpas,577 :: 		Ds1307_TimeDateStr(timedate,timestr,datestr);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_TimeDateStr_Timedate+0 
 	MOVLW       hi_addr(_timedate+0)
@@ -2823,7 +3122,7 @@ L__NavigateMenu223:
 	MOVLW       hi_addr(_datestr+0)
 	MOVWF       FARG_Ds1307_TimeDateStr_Ds+1 
 	CALL        _Ds1307_TimeDateStr+0, 0
-;ThermoController.mpas,528 :: 		submenu1.row1 := datestr;
+;ThermoController.mpas,578 :: 		submenu1.row1 := datestr;
 	MOVLW       _submenu1+0
 	MOVWF       FSR1L 
 	MOVLW       hi_addr(_submenu1+0)
@@ -2834,7 +3133,7 @@ L__NavigateMenu223:
 	MOVWF       FSR2H 
 	CALL        ___CS2S+0, 0
 	CLRF        POSTINC1+0 
-;ThermoController.mpas,529 :: 		submenu1.row2 := timestr;
+;ThermoController.mpas,579 :: 		submenu1.row2 := timestr;
 	MOVLW       _submenu1+17
 	MOVWF       FSR1L 
 	MOVLW       hi_addr(_submenu1+17)
@@ -2845,14 +3144,14 @@ L__NavigateMenu223:
 	MOVWF       FSR2H 
 	CALL        ___CS2S+0, 0
 	CLRF        POSTINC1+0 
-;ThermoController.mpas,530 :: 		end
-	GOTO        L__NavigateMenu222
-;ThermoController.mpas,531 :: 		else if underscore then
-L__NavigateMenu221:
+;ThermoController.mpas,580 :: 		end
+	GOTO        L__NavigateMenu250
+;ThermoController.mpas,581 :: 		else if underscore then
+L__NavigateMenu249:
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu255
-;ThermoController.mpas,532 :: 		index := (index  mod 5) + 1;
+	GOTO        L__NavigateMenu283
+;ThermoController.mpas,582 :: 		index := (index  mod 5) + 1;
 	MOVLW       5
 	MOVWF       R4 
 	MOVLW       0
@@ -2872,24 +3171,24 @@ L__NavigateMenu221:
 	MOVLW       0
 	ADDWFC      R1, 0 
 	MOVWF       _index+1 
-L__NavigateMenu255:
-L__NavigateMenu222:
-	GOTO        L__NavigateMenu216
-L__NavigateMenu219:
-;ThermoController.mpas,533 :: 		@submenu2[1]:  if edit then
+L__NavigateMenu283:
+L__NavigateMenu250:
+	GOTO        L__NavigateMenu244
+L__NavigateMenu247:
+;ThermoController.mpas,583 :: 		@submenu2[1]:  if edit then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu416
+	GOTO        L__NavigateMenu464
 	MOVLW       _submenu2+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu416:
+L__NavigateMenu464:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu259
+	GOTO        L__NavigateMenu287
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu261
-;ThermoController.mpas,535 :: 		funcDays[index] := not funcDays[index];
+	GOTO        L__NavigateMenu289
+;ThermoController.mpas,585 :: 		funcDays[index] := not funcDays[index];
 	DECF        _index+0, 0 
 	MOVWF       R0 
 	MOVLW       _funcDays+0
@@ -2912,15 +3211,15 @@ L__NavigateMenu416:
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,536 :: 		end
-	GOTO        L__NavigateMenu262
-;ThermoController.mpas,537 :: 		else
-L__NavigateMenu261:
-;ThermoController.mpas,539 :: 		if underscore then
+;ThermoController.mpas,586 :: 		end
+	GOTO        L__NavigateMenu290
+;ThermoController.mpas,587 :: 		else
+L__NavigateMenu289:
+;ThermoController.mpas,589 :: 		if underscore then
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu264
-;ThermoController.mpas,541 :: 		index := (index  mod 7) + 1;
+	GOTO        L__NavigateMenu292
+;ThermoController.mpas,591 :: 		index := (index  mod 7) + 1;
 	MOVLW       7
 	MOVWF       R4 
 	MOVLW       0
@@ -2940,11 +3239,11 @@ L__NavigateMenu261:
 	MOVLW       0
 	ADDWFC      R1, 0 
 	MOVWF       _index+1 
-;ThermoController.mpas,542 :: 		end
-	GOTO        L__NavigateMenu265
-;ThermoController.mpas,543 :: 		else
-L__NavigateMenu264:
-;ThermoController.mpas,545 :: 		current_node := current_node^.next;
+;ThermoController.mpas,592 :: 		end
+	GOTO        L__NavigateMenu293
+;ThermoController.mpas,593 :: 		else
+L__NavigateMenu292:
+;ThermoController.mpas,595 :: 		current_node := current_node^.next;
 	MOVLW       36
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -2955,39 +3254,39 @@ L__NavigateMenu264:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-;ThermoController.mpas,546 :: 		end;
-L__NavigateMenu265:
-;ThermoController.mpas,547 :: 		end;
-L__NavigateMenu262:
-	GOTO        L__NavigateMenu216
-L__NavigateMenu259:
-;ThermoController.mpas,548 :: 		@submenu2[3]:  if edit then
+;ThermoController.mpas,596 :: 		end;
+L__NavigateMenu293:
+;ThermoController.mpas,597 :: 		end;
+L__NavigateMenu290:
+	GOTO        L__NavigateMenu244
+L__NavigateMenu287:
+;ThermoController.mpas,598 :: 		@submenu2[3]:  if edit then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+84)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu417
+	GOTO        L__NavigateMenu465
 	MOVLW       _submenu2+84
 	XORWF       _current_node+0, 0 
-L__NavigateMenu417:
+L__NavigateMenu465:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu268
+	GOTO        L__NavigateMenu296
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu270
-;ThermoController.mpas,550 :: 		if index = 1 then
+	GOTO        L__NavigateMenu298
+;ThermoController.mpas,600 :: 		if index = 1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu418
+	GOTO        L__NavigateMenu466
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__NavigateMenu418:
+L__NavigateMenu466:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu273
-;ThermoController.mpas,552 :: 		min_temp := min_temp + 1;
+	GOTO        L__NavigateMenu301
+;ThermoController.mpas,602 :: 		min_temp := min_temp + 1;
 	INFSNZ      _min_temp+0, 1 
 	INCF        _min_temp+1, 1 
-;ThermoController.mpas,553 :: 		if (min_temp > max_temp) then
+;ThermoController.mpas,603 :: 		if (min_temp > max_temp) then
 	MOVLW       128
 	XORWF       _max_temp+1, 0 
 	MOVWF       R0 
@@ -2995,55 +3294,55 @@ L__NavigateMenu418:
 	XORWF       _min_temp+1, 0 
 	SUBWF       R0, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu419
+	GOTO        L__NavigateMenu467
 	MOVF        _min_temp+0, 0 
 	SUBWF       _max_temp+0, 0 
-L__NavigateMenu419:
+L__NavigateMenu467:
 	BTFSC       STATUS+0, 0 
-	GOTO        L__NavigateMenu276
-;ThermoController.mpas,554 :: 		min_temp := max_temp;
+	GOTO        L__NavigateMenu304
+;ThermoController.mpas,604 :: 		min_temp := max_temp;
 	MOVF        _max_temp+0, 0 
 	MOVWF       _min_temp+0 
 	MOVF        _max_temp+1, 0 
 	MOVWF       _min_temp+1 
-L__NavigateMenu276:
-;ThermoController.mpas,555 :: 		end
-	GOTO        L__NavigateMenu274
-;ThermoController.mpas,556 :: 		else
-L__NavigateMenu273:
-;ThermoController.mpas,558 :: 		max_temp := max_temp + 1;
+L__NavigateMenu304:
+;ThermoController.mpas,605 :: 		end
+	GOTO        L__NavigateMenu302
+;ThermoController.mpas,606 :: 		else
+L__NavigateMenu301:
+;ThermoController.mpas,608 :: 		max_temp := max_temp + 1;
 	INFSNZ      _max_temp+0, 1 
 	INCF        _max_temp+1, 1 
-;ThermoController.mpas,559 :: 		if (max_temp > 50) then
+;ThermoController.mpas,609 :: 		if (max_temp > 50) then
 	MOVLW       128
 	MOVWF       R0 
 	MOVLW       128
 	XORWF       _max_temp+1, 0 
 	SUBWF       R0, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu420
+	GOTO        L__NavigateMenu468
 	MOVF        _max_temp+0, 0 
 	SUBLW       50
-L__NavigateMenu420:
+L__NavigateMenu468:
 	BTFSC       STATUS+0, 0 
-	GOTO        L__NavigateMenu279
-;ThermoController.mpas,560 :: 		max_temp := 50;
+	GOTO        L__NavigateMenu307
+;ThermoController.mpas,610 :: 		max_temp := 50;
 	MOVLW       50
 	MOVWF       _max_temp+0 
 	MOVLW       0
 	MOVWF       _max_temp+1 
-L__NavigateMenu279:
-;ThermoController.mpas,561 :: 		end;
-L__NavigateMenu274:
-;ThermoController.mpas,562 :: 		end
-	GOTO        L__NavigateMenu271
-;ThermoController.mpas,563 :: 		else
-L__NavigateMenu270:
-;ThermoController.mpas,565 :: 		if underscore then
+L__NavigateMenu307:
+;ThermoController.mpas,611 :: 		end;
+L__NavigateMenu302:
+;ThermoController.mpas,612 :: 		end
+	GOTO        L__NavigateMenu299
+;ThermoController.mpas,613 :: 		else
+L__NavigateMenu298:
+;ThermoController.mpas,615 :: 		if underscore then
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu282
-;ThermoController.mpas,567 :: 		index := (index  mod 2) + 1;
+	GOTO        L__NavigateMenu310
+;ThermoController.mpas,617 :: 		index := (index  mod 2) + 1;
 	MOVLW       2
 	MOVWF       R4 
 	MOVLW       0
@@ -3063,11 +3362,11 @@ L__NavigateMenu270:
 	MOVLW       0
 	ADDWFC      R1, 0 
 	MOVWF       _index+1 
-;ThermoController.mpas,568 :: 		end
-	GOTO        L__NavigateMenu283
-;ThermoController.mpas,569 :: 		else
-L__NavigateMenu282:
-;ThermoController.mpas,571 :: 		current_node := current_node^.next;
+;ThermoController.mpas,618 :: 		end
+	GOTO        L__NavigateMenu311
+;ThermoController.mpas,619 :: 		else
+L__NavigateMenu310:
+;ThermoController.mpas,621 :: 		current_node := current_node^.next;
 	MOVLW       36
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -3078,14 +3377,40 @@ L__NavigateMenu282:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-;ThermoController.mpas,572 :: 		end;
-L__NavigateMenu283:
-;ThermoController.mpas,573 :: 		end
-L__NavigateMenu271:
-;ThermoController.mpas,575 :: 		else
-	GOTO        L__NavigateMenu216
-L__NavigateMenu268:
-;ThermoController.mpas,576 :: 		current_node := current_node^.next;
+;ThermoController.mpas,622 :: 		end;
+L__NavigateMenu311:
+;ThermoController.mpas,623 :: 		end;
+L__NavigateMenu299:
+	GOTO        L__NavigateMenu244
+L__NavigateMenu296:
+;ThermoController.mpas,624 :: 		@submenu3: locked := not locked;
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu3+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu469
+	MOVLW       _submenu3+0
+	XORWF       _current_node+0, 0 
+L__NavigateMenu469:
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu314
+	COMF        _locked+0, 1 
+	GOTO        L__NavigateMenu244
+L__NavigateMenu314:
+;ThermoController.mpas,625 :: 		@submenu4: status_led := not status_led
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu4+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu470
+	MOVLW       _submenu4+0
+	XORWF       _current_node+0, 0 
+L__NavigateMenu470:
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu317
+	COMF        _status_led+0, 1 
+;ThermoController.mpas,627 :: 		else
+	GOTO        L__NavigateMenu244
+L__NavigateMenu317:
+;ThermoController.mpas,628 :: 		current_node := current_node^.next;
 	MOVLW       36
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -3096,104 +3421,104 @@ L__NavigateMenu268:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-L__NavigateMenu216:
-;ThermoController.mpas,578 :: 		up := 0;
+L__NavigateMenu244:
+;ThermoController.mpas,630 :: 		up := 0;
 	CLRF        _up+0 
-;ThermoController.mpas,579 :: 		end;
-L__NavigateMenu214:
-;ThermoController.mpas,581 :: 		if down = 255 then
+;ThermoController.mpas,631 :: 		end;
+L__NavigateMenu242:
+;ThermoController.mpas,633 :: 		if down = 255 then
 	MOVF        _down+0, 0 
 	XORLW       255
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu285
-;ThermoController.mpas,584 :: 		@submenu1:   if edit then
+	GOTO        L__NavigateMenu319
+;ThermoController.mpas,636 :: 		@submenu1:   if edit then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu1+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu421
+	GOTO        L__NavigateMenu471
 	MOVLW       _submenu1+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu421:
+L__NavigateMenu471:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu290
+	GOTO        L__NavigateMenu324
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu292
-;ThermoController.mpas,586 :: 		Ds1307_Bcd2DecTimeDate(timedate);
+	GOTO        L__NavigateMenu326
+;ThermoController.mpas,638 :: 		Ds1307_Bcd2DecTimeDate(timedate);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_Bcd2DecTimeDate_TimeDate+0 
 	MOVLW       hi_addr(_timedate+0)
 	MOVWF       FARG_Ds1307_Bcd2DecTimeDate_TimeDate+1 
 	CALL        _Ds1307_Bcd2DecTimeDate+0, 0
-;ThermoController.mpas,588 :: 		3:     if timedate.Year = 0 then
+;ThermoController.mpas,640 :: 		3:     if timedate.Year = 0 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu422
+	GOTO        L__NavigateMenu472
 	MOVLW       3
 	XORWF       _index+0, 0 
-L__NavigateMenu422:
+L__NavigateMenu472:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu297
+	GOTO        L__NavigateMenu331
 	MOVF        _timedate+6, 0 
 	XORLW       0
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu299
-;ThermoController.mpas,589 :: 		timedate.Year := 99
+	GOTO        L__NavigateMenu333
+;ThermoController.mpas,641 :: 		timedate.Year := 99
 	MOVLW       99
 	MOVWF       _timedate+6 
-	GOTO        L__NavigateMenu300
-;ThermoController.mpas,590 :: 		else timedate.Year := timeDate.Year - 1;
-L__NavigateMenu299:
+	GOTO        L__NavigateMenu334
+;ThermoController.mpas,642 :: 		else timedate.Year := timeDate.Year - 1;
+L__NavigateMenu333:
 	DECF        _timedate+6, 0 
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+6 
-L__NavigateMenu300:
-	GOTO        L__NavigateMenu294
-L__NavigateMenu297:
-;ThermoController.mpas,591 :: 		2:     if timedate.Month = 1 then
+L__NavigateMenu334:
+	GOTO        L__NavigateMenu328
+L__NavigateMenu331:
+;ThermoController.mpas,643 :: 		2:     if timedate.Month = 1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu423
+	GOTO        L__NavigateMenu473
 	MOVLW       2
 	XORWF       _index+0, 0 
-L__NavigateMenu423:
+L__NavigateMenu473:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu303
+	GOTO        L__NavigateMenu337
 	MOVF        _timedate+5, 0 
 	XORLW       1
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu305
-;ThermoController.mpas,592 :: 		timedate.Month := 12
+	GOTO        L__NavigateMenu339
+;ThermoController.mpas,644 :: 		timedate.Month := 12
 	MOVLW       12
 	MOVWF       _timedate+5 
-	GOTO        L__NavigateMenu306
-;ThermoController.mpas,593 :: 		else timedate.Month := timeDate.Month - 1;
-L__NavigateMenu305:
+	GOTO        L__NavigateMenu340
+;ThermoController.mpas,645 :: 		else timedate.Month := timeDate.Month - 1;
+L__NavigateMenu339:
 	DECF        _timedate+5, 0 
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+5 
-L__NavigateMenu306:
-	GOTO        L__NavigateMenu294
-L__NavigateMenu303:
-;ThermoController.mpas,594 :: 		1:     if timedate.Date = 1 then
+L__NavigateMenu340:
+	GOTO        L__NavigateMenu328
+L__NavigateMenu337:
+;ThermoController.mpas,646 :: 		1:     if timedate.Date = 1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu424
+	GOTO        L__NavigateMenu474
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__NavigateMenu424:
+L__NavigateMenu474:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu309
+	GOTO        L__NavigateMenu343
 	MOVF        _timedate+4, 0 
 	XORLW       1
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu311
-;ThermoController.mpas,595 :: 		timedate.Date := maxday[timedate.Month]
+	GOTO        L__NavigateMenu345
+;ThermoController.mpas,647 :: 		timedate.Date := maxday[timedate.Month]
 	DECF        _timedate+5, 0 
 	MOVWF       R0 
 	MOVLW       _maxday+0
@@ -3206,78 +3531,78 @@ L__NavigateMenu424:
 	INCF        FSR0H, 1 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _timedate+4 
-	GOTO        L__NavigateMenu312
-;ThermoController.mpas,596 :: 		else timedate.Date := timeDate.Date - 1;
-L__NavigateMenu311:
+	GOTO        L__NavigateMenu346
+;ThermoController.mpas,648 :: 		else timedate.Date := timeDate.Date - 1;
+L__NavigateMenu345:
 	DECF        _timedate+4, 0 
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+4 
-L__NavigateMenu312:
-	GOTO        L__NavigateMenu294
-L__NavigateMenu309:
-;ThermoController.mpas,597 :: 		4:     if timedate.Hours = 0 then
+L__NavigateMenu346:
+	GOTO        L__NavigateMenu328
+L__NavigateMenu343:
+;ThermoController.mpas,649 :: 		4:     if timedate.Hours = 0 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu425
+	GOTO        L__NavigateMenu475
 	MOVLW       4
 	XORWF       _index+0, 0 
-L__NavigateMenu425:
+L__NavigateMenu475:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu315
+	GOTO        L__NavigateMenu349
 	MOVF        _timedate+2, 0 
 	XORLW       0
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu317
-;ThermoController.mpas,598 :: 		timedate.Hours := 23
+	GOTO        L__NavigateMenu351
+;ThermoController.mpas,650 :: 		timedate.Hours := 23
 	MOVLW       23
 	MOVWF       _timedate+2 
-	GOTO        L__NavigateMenu318
-;ThermoController.mpas,599 :: 		else timedate.Hours := timeDate.Hours - 1;
-L__NavigateMenu317:
+	GOTO        L__NavigateMenu352
+;ThermoController.mpas,651 :: 		else timedate.Hours := timeDate.Hours - 1;
+L__NavigateMenu351:
 	DECF        _timedate+2, 0 
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+2 
-L__NavigateMenu318:
-	GOTO        L__NavigateMenu294
-L__NavigateMenu315:
-;ThermoController.mpas,600 :: 		5:     if timedate.Minutes = 0 then
+L__NavigateMenu352:
+	GOTO        L__NavigateMenu328
+L__NavigateMenu349:
+;ThermoController.mpas,652 :: 		5:     if timedate.Minutes = 0 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu426
+	GOTO        L__NavigateMenu476
 	MOVLW       5
 	XORWF       _index+0, 0 
-L__NavigateMenu426:
+L__NavigateMenu476:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu321
+	GOTO        L__NavigateMenu355
 	MOVF        _timedate+1, 0 
 	XORLW       0
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu323
-;ThermoController.mpas,601 :: 		timedate.Minutes := 59
+	GOTO        L__NavigateMenu357
+;ThermoController.mpas,653 :: 		timedate.Minutes := 59
 	MOVLW       59
 	MOVWF       _timedate+1 
-	GOTO        L__NavigateMenu324
-;ThermoController.mpas,602 :: 		else timedate.Minutes := timeDate.Minutes - 1;
-L__NavigateMenu323:
+	GOTO        L__NavigateMenu358
+;ThermoController.mpas,654 :: 		else timedate.Minutes := timeDate.Minutes - 1;
+L__NavigateMenu357:
 	DECF        _timedate+1, 0 
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       _timedate+1 
-L__NavigateMenu324:
-	GOTO        L__NavigateMenu294
-L__NavigateMenu321:
-L__NavigateMenu294:
-;ThermoController.mpas,604 :: 		Ds1307_Dec2BcdTimeDate(timedate);
+L__NavigateMenu358:
+	GOTO        L__NavigateMenu328
+L__NavigateMenu355:
+L__NavigateMenu328:
+;ThermoController.mpas,656 :: 		Ds1307_Dec2BcdTimeDate(timedate);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_Dec2BcdTimeDate_TimeDate+0 
 	MOVLW       hi_addr(_timedate+0)
 	MOVWF       FARG_Ds1307_Dec2BcdTimeDate_TimeDate+1 
 	CALL        _Ds1307_Dec2BcdTimeDate+0, 0
-;ThermoController.mpas,605 :: 		Ds1307_TimeDateStr(timedate,timestr,datestr);
+;ThermoController.mpas,657 :: 		Ds1307_TimeDateStr(timedate,timestr,datestr);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_TimeDateStr_Timedate+0 
 	MOVLW       hi_addr(_timedate+0)
@@ -3291,7 +3616,7 @@ L__NavigateMenu294:
 	MOVLW       hi_addr(_datestr+0)
 	MOVWF       FARG_Ds1307_TimeDateStr_Ds+1 
 	CALL        _Ds1307_TimeDateStr+0, 0
-;ThermoController.mpas,606 :: 		submenu1.row1 := datestr;
+;ThermoController.mpas,658 :: 		submenu1.row1 := datestr;
 	MOVLW       _submenu1+0
 	MOVWF       FSR1L 
 	MOVLW       hi_addr(_submenu1+0)
@@ -3302,7 +3627,7 @@ L__NavigateMenu294:
 	MOVWF       FSR2H 
 	CALL        ___CS2S+0, 0
 	CLRF        POSTINC1+0 
-;ThermoController.mpas,607 :: 		submenu1.row2 := timestr;
+;ThermoController.mpas,659 :: 		submenu1.row2 := timestr;
 	MOVLW       _submenu1+17
 	MOVWF       FSR1L 
 	MOVLW       hi_addr(_submenu1+17)
@@ -3313,55 +3638,55 @@ L__NavigateMenu294:
 	MOVWF       FSR2H 
 	CALL        ___CS2S+0, 0
 	CLRF        POSTINC1+0 
-;ThermoController.mpas,608 :: 		end
-	GOTO        L__NavigateMenu293
-;ThermoController.mpas,609 :: 		else if underscore then
-L__NavigateMenu292:
+;ThermoController.mpas,660 :: 		end
+	GOTO        L__NavigateMenu327
+;ThermoController.mpas,661 :: 		else if underscore then
+L__NavigateMenu326:
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu326
-;ThermoController.mpas,610 :: 		if index = 1 then
+	GOTO        L__NavigateMenu360
+;ThermoController.mpas,662 :: 		if index = 1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu427
+	GOTO        L__NavigateMenu477
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__NavigateMenu427:
+L__NavigateMenu477:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu329
-;ThermoController.mpas,611 :: 		index := 5
+	GOTO        L__NavigateMenu363
+;ThermoController.mpas,663 :: 		index := 5
 	MOVLW       5
 	MOVWF       _index+0 
 	MOVLW       0
 	MOVWF       _index+1 
-	GOTO        L__NavigateMenu330
-;ThermoController.mpas,612 :: 		else
-L__NavigateMenu329:
-;ThermoController.mpas,613 :: 		index := index - 1;
+	GOTO        L__NavigateMenu364
+;ThermoController.mpas,664 :: 		else
+L__NavigateMenu363:
+;ThermoController.mpas,665 :: 		index := index - 1;
 	MOVLW       1
 	SUBWF       _index+0, 1 
 	MOVLW       0
 	SUBWFB      _index+1, 1 
-L__NavigateMenu330:
-L__NavigateMenu326:
-L__NavigateMenu293:
-	GOTO        L__NavigateMenu287
-L__NavigateMenu290:
-;ThermoController.mpas,614 :: 		@submenu2[1]:  if edit then
+L__NavigateMenu364:
+L__NavigateMenu360:
+L__NavigateMenu327:
+	GOTO        L__NavigateMenu321
+L__NavigateMenu324:
+;ThermoController.mpas,666 :: 		@submenu2[1]:  if edit then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+0)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu428
+	GOTO        L__NavigateMenu478
 	MOVLW       _submenu2+0
 	XORWF       _current_node+0, 0 
-L__NavigateMenu428:
+L__NavigateMenu478:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu333
+	GOTO        L__NavigateMenu367
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu335
-;ThermoController.mpas,616 :: 		funcDays[index] := not funcDays[index];
+	GOTO        L__NavigateMenu369
+;ThermoController.mpas,668 :: 		funcDays[index] := not funcDays[index];
 	DECF        _index+0, 0 
 	MOVWF       R0 
 	MOVLW       _funcDays+0
@@ -3384,43 +3709,43 @@ L__NavigateMenu428:
 	MOVWF       R0 
 	MOVF        R0, 0 
 	MOVWF       POSTINC1+0 
-;ThermoController.mpas,617 :: 		end
-	GOTO        L__NavigateMenu336
-;ThermoController.mpas,618 :: 		else
-L__NavigateMenu335:
-;ThermoController.mpas,620 :: 		if underscore then
+;ThermoController.mpas,669 :: 		end
+	GOTO        L__NavigateMenu370
+;ThermoController.mpas,670 :: 		else
+L__NavigateMenu369:
+;ThermoController.mpas,672 :: 		if underscore then
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu338
-;ThermoController.mpas,622 :: 		if index = 1 then
+	GOTO        L__NavigateMenu372
+;ThermoController.mpas,674 :: 		if index = 1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu429
+	GOTO        L__NavigateMenu479
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__NavigateMenu429:
+L__NavigateMenu479:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu341
-;ThermoController.mpas,623 :: 		index := 7
+	GOTO        L__NavigateMenu375
+;ThermoController.mpas,675 :: 		index := 7
 	MOVLW       7
 	MOVWF       _index+0 
 	MOVLW       0
 	MOVWF       _index+1 
-	GOTO        L__NavigateMenu342
-;ThermoController.mpas,624 :: 		else
-L__NavigateMenu341:
-;ThermoController.mpas,625 :: 		index := index - 1;
+	GOTO        L__NavigateMenu376
+;ThermoController.mpas,676 :: 		else
+L__NavigateMenu375:
+;ThermoController.mpas,677 :: 		index := index - 1;
 	MOVLW       1
 	SUBWF       _index+0, 1 
 	MOVLW       0
 	SUBWFB      _index+1, 1 
-L__NavigateMenu342:
-;ThermoController.mpas,626 :: 		end
-	GOTO        L__NavigateMenu339
-;ThermoController.mpas,627 :: 		else
-L__NavigateMenu338:
-;ThermoController.mpas,629 :: 		current_node := current_node^.prev;
+L__NavigateMenu376:
+;ThermoController.mpas,678 :: 		end
+	GOTO        L__NavigateMenu373
+;ThermoController.mpas,679 :: 		else
+L__NavigateMenu372:
+;ThermoController.mpas,681 :: 		current_node := current_node^.prev;
 	MOVLW       38
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -3431,67 +3756,67 @@ L__NavigateMenu338:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-;ThermoController.mpas,630 :: 		end;
-L__NavigateMenu339:
-;ThermoController.mpas,631 :: 		end;
-L__NavigateMenu336:
-	GOTO        L__NavigateMenu287
-L__NavigateMenu333:
-;ThermoController.mpas,632 :: 		@submenu2[3]:  if edit then
+;ThermoController.mpas,682 :: 		end;
+L__NavigateMenu373:
+;ThermoController.mpas,683 :: 		end;
+L__NavigateMenu370:
+	GOTO        L__NavigateMenu321
+L__NavigateMenu367:
+;ThermoController.mpas,684 :: 		@submenu2[3]:  if edit then
 	MOVF        _current_node+1, 0 
 	XORLW       hi_addr(_submenu2+84)
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu430
+	GOTO        L__NavigateMenu480
 	MOVLW       _submenu2+84
 	XORWF       _current_node+0, 0 
-L__NavigateMenu430:
+L__NavigateMenu480:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu345
+	GOTO        L__NavigateMenu379
 	MOVF        _edit+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu347
-;ThermoController.mpas,634 :: 		if index = 1 then
+	GOTO        L__NavigateMenu381
+;ThermoController.mpas,686 :: 		if index = 1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu431
+	GOTO        L__NavigateMenu481
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__NavigateMenu431:
+L__NavigateMenu481:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu350
-;ThermoController.mpas,636 :: 		min_temp := min_temp - 1;
+	GOTO        L__NavigateMenu384
+;ThermoController.mpas,688 :: 		min_temp := min_temp - 1;
 	MOVLW       1
 	SUBWF       _min_temp+0, 1 
 	MOVLW       0
 	SUBWFB      _min_temp+1, 1 
-;ThermoController.mpas,637 :: 		if (min_temp < 0) then
+;ThermoController.mpas,689 :: 		if (min_temp < 0) then
 	MOVLW       128
 	XORWF       _min_temp+1, 0 
 	MOVWF       R0 
 	MOVLW       128
 	SUBWF       R0, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu432
+	GOTO        L__NavigateMenu482
 	MOVLW       0
 	SUBWF       _min_temp+0, 0 
-L__NavigateMenu432:
+L__NavigateMenu482:
 	BTFSC       STATUS+0, 0 
-	GOTO        L__NavigateMenu353
-;ThermoController.mpas,638 :: 		min_temp := 0;
+	GOTO        L__NavigateMenu387
+;ThermoController.mpas,690 :: 		min_temp := 0;
 	CLRF        _min_temp+0 
 	CLRF        _min_temp+1 
-L__NavigateMenu353:
-;ThermoController.mpas,639 :: 		end
-	GOTO        L__NavigateMenu351
-;ThermoController.mpas,640 :: 		else
-L__NavigateMenu350:
-;ThermoController.mpas,642 :: 		max_temp := max_temp - 1;
+L__NavigateMenu387:
+;ThermoController.mpas,691 :: 		end
+	GOTO        L__NavigateMenu385
+;ThermoController.mpas,692 :: 		else
+L__NavigateMenu384:
+;ThermoController.mpas,694 :: 		max_temp := max_temp - 1;
 	MOVLW       1
 	SUBWF       _max_temp+0, 1 
 	MOVLW       0
 	SUBWFB      _max_temp+1, 1 
-;ThermoController.mpas,643 :: 		if (max_temp < min_temp) then
+;ThermoController.mpas,695 :: 		if (max_temp < min_temp) then
 	MOVLW       128
 	XORWF       _max_temp+1, 0 
 	MOVWF       R0 
@@ -3499,57 +3824,57 @@ L__NavigateMenu350:
 	XORWF       _min_temp+1, 0 
 	SUBWF       R0, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu433
+	GOTO        L__NavigateMenu483
 	MOVF        _min_temp+0, 0 
 	SUBWF       _max_temp+0, 0 
-L__NavigateMenu433:
+L__NavigateMenu483:
 	BTFSC       STATUS+0, 0 
-	GOTO        L__NavigateMenu356
-;ThermoController.mpas,644 :: 		max_temp := min_temp;
+	GOTO        L__NavigateMenu390
+;ThermoController.mpas,696 :: 		max_temp := min_temp;
 	MOVF        _min_temp+0, 0 
 	MOVWF       _max_temp+0 
 	MOVF        _min_temp+1, 0 
 	MOVWF       _max_temp+1 
-L__NavigateMenu356:
-;ThermoController.mpas,645 :: 		end;
-L__NavigateMenu351:
-;ThermoController.mpas,646 :: 		end
-	GOTO        L__NavigateMenu348
-;ThermoController.mpas,647 :: 		else
-L__NavigateMenu347:
-;ThermoController.mpas,649 :: 		if underscore then
+L__NavigateMenu390:
+;ThermoController.mpas,697 :: 		end;
+L__NavigateMenu385:
+;ThermoController.mpas,698 :: 		end
+	GOTO        L__NavigateMenu382
+;ThermoController.mpas,699 :: 		else
+L__NavigateMenu381:
+;ThermoController.mpas,701 :: 		if underscore then
 	MOVF        _underscore+0, 1 
 	BTFSC       STATUS+0, 2 
-	GOTO        L__NavigateMenu359
-;ThermoController.mpas,651 :: 		if index = 1 then
+	GOTO        L__NavigateMenu393
+;ThermoController.mpas,703 :: 		if index = 1 then
 	MOVLW       0
 	XORWF       _index+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu434
+	GOTO        L__NavigateMenu484
 	MOVLW       1
 	XORWF       _index+0, 0 
-L__NavigateMenu434:
+L__NavigateMenu484:
 	BTFSS       STATUS+0, 2 
-	GOTO        L__NavigateMenu362
-;ThermoController.mpas,652 :: 		index := 2
+	GOTO        L__NavigateMenu396
+;ThermoController.mpas,704 :: 		index := 2
 	MOVLW       2
 	MOVWF       _index+0 
 	MOVLW       0
 	MOVWF       _index+1 
-	GOTO        L__NavigateMenu363
-;ThermoController.mpas,653 :: 		else
-L__NavigateMenu362:
-;ThermoController.mpas,654 :: 		index := 1;
+	GOTO        L__NavigateMenu397
+;ThermoController.mpas,705 :: 		else
+L__NavigateMenu396:
+;ThermoController.mpas,706 :: 		index := 1;
 	MOVLW       1
 	MOVWF       _index+0 
 	MOVLW       0
 	MOVWF       _index+1 
-L__NavigateMenu363:
-;ThermoController.mpas,655 :: 		end
-	GOTO        L__NavigateMenu360
-;ThermoController.mpas,656 :: 		else
-L__NavigateMenu359:
-;ThermoController.mpas,658 :: 		current_node := current_node^.prev;
+L__NavigateMenu397:
+;ThermoController.mpas,707 :: 		end
+	GOTO        L__NavigateMenu394
+;ThermoController.mpas,708 :: 		else
+L__NavigateMenu393:
+;ThermoController.mpas,710 :: 		current_node := current_node^.prev;
 	MOVLW       38
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -3560,14 +3885,40 @@ L__NavigateMenu359:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-;ThermoController.mpas,659 :: 		end;
-L__NavigateMenu360:
-;ThermoController.mpas,660 :: 		end
-L__NavigateMenu348:
-;ThermoController.mpas,661 :: 		else
-	GOTO        L__NavigateMenu287
-L__NavigateMenu345:
-;ThermoController.mpas,662 :: 		current_node := current_node^.prev;
+;ThermoController.mpas,711 :: 		end;
+L__NavigateMenu394:
+;ThermoController.mpas,712 :: 		end;
+L__NavigateMenu382:
+	GOTO        L__NavigateMenu321
+L__NavigateMenu379:
+;ThermoController.mpas,713 :: 		@submenu3: locked := not locked;
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu3+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu485
+	MOVLW       _submenu3+0
+	XORWF       _current_node+0, 0 
+L__NavigateMenu485:
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu400
+	COMF        _locked+0, 1 
+	GOTO        L__NavigateMenu321
+L__NavigateMenu400:
+;ThermoController.mpas,714 :: 		@submenu4: status_led := not status_led
+	MOVF        _current_node+1, 0 
+	XORLW       hi_addr(_submenu4+0)
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu486
+	MOVLW       _submenu4+0
+	XORWF       _current_node+0, 0 
+L__NavigateMenu486:
+	BTFSS       STATUS+0, 2 
+	GOTO        L__NavigateMenu403
+	COMF        _status_led+0, 1 
+;ThermoController.mpas,715 :: 		else
+	GOTO        L__NavigateMenu321
+L__NavigateMenu403:
+;ThermoController.mpas,716 :: 		current_node := current_node^.prev;
 	MOVLW       38
 	ADDWF       _current_node+0, 0 
 	MOVWF       FSR0L 
@@ -3578,90 +3929,90 @@ L__NavigateMenu345:
 	MOVWF       _current_node+0 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       _current_node+1 
-L__NavigateMenu287:
-;ThermoController.mpas,664 :: 		down := 0;
+L__NavigateMenu321:
+;ThermoController.mpas,718 :: 		down := 0;
 	CLRF        _down+0 
-;ThermoController.mpas,665 :: 		end;
-L__NavigateMenu285:
-;ThermoController.mpas,666 :: 		OS_SignalSemaphore(S_Display);
+;ThermoController.mpas,719 :: 		end;
+L__NavigateMenu319:
+;ThermoController.mpas,720 :: 		OS_SignalSemaphore(S_Display);
 	MOVF        _S_Display+0, 0 
 	MOVWF       FARG_OS_SignalSemaphore_Event_+0 
 	CALL        _OS_SignalSemaphore+0, 0
-;ThermoController.mpas,667 :: 		OS_Yield;
+;ThermoController.mpas,721 :: 		OS_Yield;
 	CALL        _OS_Yield+0, 0
-;ThermoController.mpas,668 :: 		end;
-	GOTO        L__NavigateMenu182
-;ThermoController.mpas,669 :: 		end;
+;ThermoController.mpas,722 :: 		end;
+	GOTO        L__NavigateMenu204
+;ThermoController.mpas,723 :: 		end;
 	RETURN      0
 ; end of _NavigateMenu
 
 _main:
 
-;ThermoController.mpas,671 :: 		begin
-;ThermoController.mpas,674 :: 		Delay_ms(100);
+;ThermoController.mpas,725 :: 		begin
+;ThermoController.mpas,728 :: 		Delay_ms(100);
 	MOVLW       7
 	MOVWF       R11, 0
 	MOVLW       23
 	MOVWF       R12, 0
 	MOVLW       106
 	MOVWF       R13, 0
-L__main365:
+L__main405:
 	DECFSZ      R13, 1, 1
-	BRA         L__main365
+	BRA         L__main405
 	DECFSZ      R12, 1, 1
-	BRA         L__main365
+	BRA         L__main405
 	DECFSZ      R11, 1, 1
-	BRA         L__main365
+	BRA         L__main405
 	NOP
-;ThermoController.mpas,675 :: 		LATC:=0xFF;
+;ThermoController.mpas,729 :: 		LATC:=0xFF;
 	MOVLW       255
 	MOVWF       LATC+0 
-;ThermoController.mpas,676 :: 		TRISC:=0xff;
+;ThermoController.mpas,730 :: 		TRISC:=0xff;
 	MOVLW       255
 	MOVWF       TRISC+0 
-;ThermoController.mpas,677 :: 		LATD:=0xFF;
+;ThermoController.mpas,731 :: 		LATD:=0xFF;
 	MOVLW       255
 	MOVWF       LATD+0 
-;ThermoController.mpas,678 :: 		TRISD:=0xff;
+;ThermoController.mpas,732 :: 		TRISD:=0xff;
 	MOVLW       255
 	MOVWF       TRISD+0 
-;ThermoController.mpas,680 :: 		TRISC.2 := 0; //out latc.2
+;ThermoController.mpas,734 :: 		TRISC.2 := 0; //out latc.2
 	BCF         TRISC+0, 2 
-;ThermoController.mpas,681 :: 		Trisb.5 := 0; //out latb.5
+;ThermoController.mpas,735 :: 		Trisb.5 := 0; //out latb.5
 	BCF         TRISB+0, 5 
-;ThermoController.mpas,682 :: 		Trisb.4 := 1; //in portb.4
+;ThermoController.mpas,736 :: 		Trisb.4 := 1; //in portb.4
 	BSF         TRISB+0, 4 
-;ThermoController.mpas,683 :: 		TrisE.0 := 1; //in portE.0
+;ThermoController.mpas,737 :: 		TrisE.0 := 1; //in portE.0
 	BSF         TRISE+0, 0 
-;ThermoController.mpas,684 :: 		TrisE.1 := 1; //in portE.1
+;ThermoController.mpas,738 :: 		TrisE.1 := 1; //in portE.1
 	BSF         TRISE+0, 1 
-;ThermoController.mpas,685 :: 		TrisE.2 := 1; //in portE.2
+;ThermoController.mpas,739 :: 		TrisE.2 := 1; //in portE.2
 	BSF         TRISE+0, 2 
-;ThermoController.mpas,686 :: 		TrisD.0 := 1; //
+;ThermoController.mpas,740 :: 		TrisD.0 := 1; //
 	BSF         TRISD+0, 0 
-;ThermoController.mpas,687 :: 		TrisD.1 := 1;
+;ThermoController.mpas,741 :: 		TrisD.1 := 1;
 	BSF         TRISD+0, 1 
-;ThermoController.mpas,688 :: 		TrisD.2 := 1;
+;ThermoController.mpas,742 :: 		TrisD.2 := 1;
 	BSF         TRISD+0, 2 
-;ThermoController.mpas,689 :: 		TrisD.3 := 1;
+;ThermoController.mpas,743 :: 		TrisD.3 := 1;
 	BSF         TRISD+0, 3 
-;ThermoController.mpas,692 :: 		Lcd_Init();                        // Initialize LCD
+;ThermoController.mpas,746 :: 		Lcd_Init();                        // Initialize LCD
 	CALL        _Lcd_Init+0, 0
-;ThermoController.mpas,693 :: 		Lcd_Cmd(_LCD_CLEAR);               // Clear display
+;ThermoController.mpas,747 :: 		Lcd_Cmd(_LCD_CLEAR);               // Clear display
 	MOVLW       1
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,694 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);
+;ThermoController.mpas,748 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);
 	MOVLW       12
 	MOVWF       FARG_Lcd_Cmd_out_char+0 
 	CALL        _Lcd_Cmd+0, 0
-;ThermoController.mpas,697 :: 		for i:=1 to 4 do
+;ThermoController.mpas,751 :: 		for i:=1 to 4 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
-L__main367:
-;ThermoController.mpas,698 :: 		Temp[i] := 0;
+L__main407:
+;ThermoController.mpas,752 :: 		Temp[i] := 0;
 	DECF        _i+0, 0 
 	MOVWF       R3 
 	MOVF        R3, 0 
@@ -3682,25 +4033,25 @@ L__main367:
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__main435
+	GOTO        L__main487
 	MOVLW       4
 	XORWF       _i+0, 0 
-L__main435:
+L__main487:
 	BTFSC       STATUS+0, 2 
-	GOTO        L__main370
+	GOTO        L__main410
 	INFSNZ      _i+0, 1 
 	INCF        _i+1, 1 
-	GOTO        L__main367
-L__main370:
-;ThermoController.mpas,699 :: 		temp_index := 0;
+	GOTO        L__main407
+L__main410:
+;ThermoController.mpas,753 :: 		temp_index := 0;
 	CLRF        _Temp_index+0 
-;ThermoController.mpas,702 :: 		for i:=1 to 7 do
+;ThermoController.mpas,756 :: 		for i:=1 to 7 do
 	MOVLW       1
 	MOVWF       _i+0 
 	MOVLW       0
 	MOVWF       _i+1 
-L__main372:
-;ThermoController.mpas,703 :: 		funcDays[i] := false;
+L__main412:
+;ThermoController.mpas,757 :: 		funcDays[i] := false;
 	DECF        _i+0, 0 
 	MOVWF       R0 
 	MOVLW       _funcDays+0
@@ -3715,17 +4066,17 @@ L__main372:
 	MOVLW       0
 	XORWF       _i+1, 0 
 	BTFSS       STATUS+0, 2 
-	GOTO        L__main436
+	GOTO        L__main488
 	MOVLW       7
 	XORWF       _i+0, 0 
-L__main436:
+L__main488:
 	BTFSC       STATUS+0, 2 
-	GOTO        L__main375
+	GOTO        L__main415
 	INFSNZ      _i+0, 1 
 	INCF        _i+1, 1 
-	GOTO        L__main372
-L__main375:
-;ThermoController.mpas,704 :: 		funcDaysString[1]:= 'Monday       ';
+	GOTO        L__main412
+L__main415:
+;ThermoController.mpas,758 :: 		funcDaysString[1]:= 'Monday       ';
 	MOVLW       77
 	MOVWF       _funcDaysString+0 
 	MOVLW       111
@@ -3753,7 +4104,7 @@ L__main375:
 	MOVLW       32
 	MOVWF       _funcDaysString+12 
 	CLRF        _funcDaysString+13 
-;ThermoController.mpas,705 :: 		funcDaysString[2]:= 'Tuesday      ';
+;ThermoController.mpas,759 :: 		funcDaysString[2]:= 'Tuesday      ';
 	MOVLW       84
 	MOVWF       _funcDaysString+14 
 	MOVLW       117
@@ -3781,7 +4132,7 @@ L__main375:
 	MOVLW       32
 	MOVWF       _funcDaysString+26 
 	CLRF        _funcDaysString+27 
-;ThermoController.mpas,706 :: 		funcDaysString[3]:= 'Wednsday     ';
+;ThermoController.mpas,760 :: 		funcDaysString[3]:= 'Wednsday     ';
 	MOVLW       87
 	MOVWF       _funcDaysString+28 
 	MOVLW       101
@@ -3809,7 +4160,7 @@ L__main375:
 	MOVLW       32
 	MOVWF       _funcDaysString+40 
 	CLRF        _funcDaysString+41 
-;ThermoController.mpas,707 :: 		funcDaysString[4]:= 'Thursday     ';
+;ThermoController.mpas,761 :: 		funcDaysString[4]:= 'Thursday     ';
 	MOVLW       84
 	MOVWF       _funcDaysString+42 
 	MOVLW       104
@@ -3837,7 +4188,7 @@ L__main375:
 	MOVLW       32
 	MOVWF       _funcDaysString+54 
 	CLRF        _funcDaysString+55 
-;ThermoController.mpas,708 :: 		funcDaysString[5]:= 'Friday       ';
+;ThermoController.mpas,762 :: 		funcDaysString[5]:= 'Friday       ';
 	MOVLW       70
 	MOVWF       _funcDaysString+56 
 	MOVLW       114
@@ -3865,7 +4216,7 @@ L__main375:
 	MOVLW       32
 	MOVWF       _funcDaysString+68 
 	CLRF        _funcDaysString+69 
-;ThermoController.mpas,709 :: 		funcDaysString[6]:= 'Saturday     ';
+;ThermoController.mpas,763 :: 		funcDaysString[6]:= 'Saturday     ';
 	MOVLW       83
 	MOVWF       _funcDaysString+70 
 	MOVLW       97
@@ -3893,7 +4244,7 @@ L__main375:
 	MOVLW       32
 	MOVWF       _funcDaysString+82 
 	CLRF        _funcDaysString+83 
-;ThermoController.mpas,710 :: 		funcDaysString[7]:= 'Sunday       ';
+;ThermoController.mpas,764 :: 		funcDaysString[7]:= 'Sunday       ';
 	MOVLW       83
 	MOVWF       _funcDaysString+84 
 	MOVLW       117
@@ -3921,7 +4272,7 @@ L__main375:
 	MOVLW       32
 	MOVWF       _funcDaysString+96 
 	CLRF        _funcDaysString+97 
-;ThermoController.mpas,711 :: 		funcDaysStatus := 'OFF';
+;ThermoController.mpas,765 :: 		funcDaysStatus := 'OFF';
 	MOVLW       79
 	MOVWF       _funcDaysStatus+0 
 	MOVLW       70
@@ -3929,47 +4280,52 @@ L__main375:
 	MOVLW       70
 	MOVWF       _funcDaysStatus+2 
 	CLRF        _funcDaysStatus+3 
-;ThermoController.mpas,712 :: 		min_temp := 19;
+;ThermoController.mpas,766 :: 		min_temp := 19;
 	MOVLW       19
 	MOVWF       _min_temp+0 
 	MOVLW       0
 	MOVWF       _min_temp+1 
-;ThermoController.mpas,713 :: 		max_temp := 22;
+;ThermoController.mpas,767 :: 		max_temp := 22;
 	MOVLW       22
 	MOVWF       _max_temp+0 
 	MOVLW       0
 	MOVWF       _max_temp+1 
-;ThermoController.mpas,714 :: 		start_hour := 7;
+;ThermoController.mpas,768 :: 		start_hour := 7;
 	MOVLW       7
 	MOVWF       _start_hour+0 
-;ThermoController.mpas,715 :: 		end_hour := 21;
+;ThermoController.mpas,769 :: 		end_hour := 21;
 	MOVLW       21
 	MOVWF       _end_hour+0 
-;ThermoController.mpas,718 :: 		ADCON1 := %00111111; //all analog pins as digital
+;ThermoController.mpas,771 :: 		locked := false;
+	CLRF        _locked+0 
+;ThermoController.mpas,772 :: 		status_led := true;
+	MOVLW       255
+	MOVWF       _status_led+0 
+;ThermoController.mpas,775 :: 		ADCON1 := %00111111; //all analog pins as digital
 	MOVLW       63
 	MOVWF       ADCON1+0 
-;ThermoController.mpas,720 :: 		I2c1_Init(100000);
+;ThermoController.mpas,777 :: 		I2c1_Init(100000);
 	MOVLW       120
 	MOVWF       SSPADD+0 
 	CALL        _I2C1_Init+0, 0
-;ThermoController.mpas,721 :: 		DS1307_Init;                      // Ds1307 Real Time clock
+;ThermoController.mpas,778 :: 		DS1307_Init;                      // Ds1307 Real Time clock
 	CALL        _Ds1307_Init+0, 0
-;ThermoController.mpas,722 :: 		Delay_ms(500);
+;ThermoController.mpas,779 :: 		Delay_ms(500);
 	MOVLW       31
 	MOVWF       R11, 0
 	MOVLW       113
 	MOVWF       R12, 0
 	MOVLW       30
 	MOVWF       R13, 0
-L__main376:
+L__main416:
 	DECFSZ      R13, 1, 1
-	BRA         L__main376
+	BRA         L__main416
 	DECFSZ      R12, 1, 1
-	BRA         L__main376
+	BRA         L__main416
 	DECFSZ      R11, 1, 1
-	BRA         L__main376
+	BRA         L__main416
 	NOP
-;ThermoController.mpas,725 :: 		Ds1307_TimeDateStr(timedate,timestr,datestr);
+;ThermoController.mpas,782 :: 		Ds1307_TimeDateStr(timedate,timestr,datestr);
 	MOVLW       _timedate+0
 	MOVWF       FARG_Ds1307_TimeDateStr_Timedate+0 
 	MOVLW       hi_addr(_timedate+0)
@@ -3983,9 +4339,9 @@ L__main376:
 	MOVLW       hi_addr(_datestr+0)
 	MOVWF       FARG_Ds1307_TimeDateStr_Ds+1 
 	CALL        _Ds1307_TimeDateStr+0, 0
-;ThermoController.mpas,727 :: 		InitMenu;
+;ThermoController.mpas,784 :: 		InitMenu;
 	CALL        _InitMenu+0, 0
-;ThermoController.mpas,728 :: 		LCD_OUT(1,1,'ddd');
+;ThermoController.mpas,785 :: 		LCD_OUT(1,1,'ddd');
 	MOVLW       1
 	MOVWF       FARG_Lcd_Out_row+0 
 	MOVLW       1
@@ -4002,18 +4358,18 @@ L__main376:
 	MOVLW       hi_addr(?LocalText_main+0)
 	MOVWF       FARG_Lcd_Out_text+1 
 	CALL        _Lcd_Out+0, 0
-;ThermoController.mpas,731 :: 		edit := false;
+;ThermoController.mpas,788 :: 		edit := false;
 	CLRF        _edit+0 
-;ThermoController.mpas,732 :: 		underscore := false;
+;ThermoController.mpas,789 :: 		underscore := false;
 	CLRF        _underscore+0 
-;ThermoController.mpas,733 :: 		index := 1;
+;ThermoController.mpas,790 :: 		index := 1;
 	MOVLW       1
 	MOVWF       _index+0 
 	MOVLW       0
 	MOVWF       _index+1 
-;ThermoController.mpas,736 :: 		OS_Init;
+;ThermoController.mpas,793 :: 		OS_Init;
 	CALL        _OS_Init+0, 0
-;ThermoController.mpas,745 :: 		T_ReadTemp := OS_CreateTask(@ReadTemp, 2);
+;ThermoController.mpas,802 :: 		T_ReadTemp := OS_CreateTask(@ReadTemp, 2);
 	MOVLW       _ReadTemp+0
 	MOVWF       FARG_OS_CreateTask_TaskProc+0 
 	MOVLW       hi_addr(_ReadTemp+0)
@@ -4027,7 +4383,7 @@ L__main376:
 	CALL        _OS_CreateTask+0, 0
 	MOVF        R0, 0 
 	MOVWF       _T_ReadTemp+0 
-;ThermoController.mpas,746 :: 		T_ReadTime := OS_CreateTask(@ReadTime, 1);
+;ThermoController.mpas,803 :: 		T_ReadTime := OS_CreateTask(@ReadTime, 1);
 	MOVLW       _ReadTime+0
 	MOVWF       FARG_OS_CreateTask_TaskProc+0 
 	MOVLW       hi_addr(_ReadTime+0)
@@ -4041,7 +4397,7 @@ L__main376:
 	CALL        _OS_CreateTask+0, 0
 	MOVF        R0, 0 
 	MOVWF       _T_ReadTime+0 
-;ThermoController.mpas,747 :: 		T_DisplayLED := OS_CreateTask(@DisplayLED, 1);
+;ThermoController.mpas,804 :: 		T_DisplayLED := OS_CreateTask(@DisplayLED, 1);
 	MOVLW       _DisplayLED+0
 	MOVWF       FARG_OS_CreateTask_TaskProc+0 
 	MOVLW       hi_addr(_DisplayLED+0)
@@ -4055,7 +4411,7 @@ L__main376:
 	CALL        _OS_CreateTask+0, 0
 	MOVF        R0, 0 
 	MOVWF       _T_DisplayLED+0 
-;ThermoController.mpas,748 :: 		T_ReadKeys := OS_CreateTask(@ReadKeys, 0);
+;ThermoController.mpas,805 :: 		T_ReadKeys := OS_CreateTask(@ReadKeys, 0);
 	MOVLW       _ReadKeys+0
 	MOVWF       FARG_OS_CreateTask_TaskProc+0 
 	MOVLW       hi_addr(_ReadKeys+0)
@@ -4068,7 +4424,7 @@ L__main376:
 	CALL        _OS_CreateTask+0, 0
 	MOVF        R0, 0 
 	MOVWF       _T_ReadKeys+0 
-;ThermoController.mpas,749 :: 		T_NavigateMenu := OS_CreateTask(@NavigateMenu, 3);
+;ThermoController.mpas,806 :: 		T_NavigateMenu := OS_CreateTask(@NavigateMenu, 3);
 	MOVLW       _NavigateMenu+0
 	MOVWF       FARG_OS_CreateTask_TaskProc+0 
 	MOVLW       hi_addr(_NavigateMenu+0)
@@ -4082,7 +4438,7 @@ L__main376:
 	CALL        _OS_CreateTask+0, 0
 	MOVF        R0, 0 
 	MOVWF       _T_NavigateMenu+0 
-;ThermoController.mpas,750 :: 		T_SaveTime := OS_CreateTask(@SaveTime, 3);
+;ThermoController.mpas,807 :: 		T_SaveTime := OS_CreateTask(@SaveTime, 3);
 	MOVLW       _SaveTime+0
 	MOVWF       FARG_OS_CreateTask_TaskProc+0 
 	MOVLW       hi_addr(_SaveTime+0)
@@ -4096,72 +4452,72 @@ L__main376:
 	CALL        _OS_CreateTask+0, 0
 	MOVF        R0, 0 
 	MOVWF       _T_SaveTime+0 
-;ThermoController.mpas,753 :: 		S_Display := OS_CreateBinarySemaphore(False);
+;ThermoController.mpas,810 :: 		S_Display := OS_CreateBinarySemaphore(False);
 	CLRF        FARG_OS_CreateBinarySemaphore_InitialValue+0 
 	CALL        _OS_CreateBinarySemaphore+0, 0
 	MOVF        R0, 0 
 	MOVWF       _S_Display+0 
-;ThermoController.mpas,754 :: 		S_Navigate := OS_CreateBinarySemaphore(False);
+;ThermoController.mpas,811 :: 		S_Navigate := OS_CreateBinarySemaphore(False);
 	CLRF        FARG_OS_CreateBinarySemaphore_InitialValue+0 
 	CALL        _OS_CreateBinarySemaphore+0, 0
 	MOVF        R0, 0 
 	MOVWF       _S_Navigate+0 
-;ThermoController.mpas,755 :: 		S_SetTime := OS_CreateBinarySemaphore(False);
+;ThermoController.mpas,812 :: 		S_SetTime := OS_CreateBinarySemaphore(False);
 	CLRF        FARG_OS_CreateBinarySemaphore_InitialValue+0 
 	CALL        _OS_CreateBinarySemaphore+0, 0
 	MOVF        R0, 0 
 	MOVWF       _S_SetTime+0 
-;ThermoController.mpas,758 :: 		OS_StartTask(T_ReadTemp);
+;ThermoController.mpas,815 :: 		OS_StartTask(T_ReadTemp);
 	MOVF        _T_ReadTemp+0, 0 
 	MOVWF       FARG_OS_StartTask_TaskID+0 
 	CALL        _OS_StartTask+0, 0
-;ThermoController.mpas,759 :: 		OS_StartTask(T_ReadTime);
+;ThermoController.mpas,816 :: 		OS_StartTask(T_ReadTime);
 	MOVF        _T_ReadTime+0, 0 
 	MOVWF       FARG_OS_StartTask_TaskID+0 
 	CALL        _OS_StartTask+0, 0
-;ThermoController.mpas,760 :: 		OS_StartTask(T_DisplayLED);
+;ThermoController.mpas,817 :: 		OS_StartTask(T_DisplayLED);
 	MOVF        _T_DisplayLED+0, 0 
 	MOVWF       FARG_OS_StartTask_TaskID+0 
 	CALL        _OS_StartTask+0, 0
-;ThermoController.mpas,761 :: 		OS_StartTask(T_ReadKeys);
+;ThermoController.mpas,818 :: 		OS_StartTask(T_ReadKeys);
 	MOVF        _T_ReadKeys+0, 0 
 	MOVWF       FARG_OS_StartTask_TaskID+0 
 	CALL        _OS_StartTask+0, 0
-;ThermoController.mpas,762 :: 		OS_StartTask(T_NavigateMenu);
+;ThermoController.mpas,819 :: 		OS_StartTask(T_NavigateMenu);
 	MOVF        _T_NavigateMenu+0, 0 
 	MOVWF       FARG_OS_StartTask_TaskID+0 
 	CALL        _OS_StartTask+0, 0
-;ThermoController.mpas,763 :: 		OS_StartTask(T_SaveTime);
+;ThermoController.mpas,820 :: 		OS_StartTask(T_SaveTime);
 	MOVF        _T_SaveTime+0, 0 
 	MOVWF       FARG_OS_StartTask_TaskID+0 
 	CALL        _OS_StartTask+0, 0
-;ThermoController.mpas,766 :: 		T1CKPS0_bit := 1;
+;ThermoController.mpas,823 :: 		T1CKPS0_bit := 1;
 	BSF         T1CKPS0_bit+0, 4 
-;ThermoController.mpas,767 :: 		T1CKPS1_bit := 0;
+;ThermoController.mpas,824 :: 		T1CKPS1_bit := 0;
 	BCF         T1CKPS1_bit+0, 5 
-;ThermoController.mpas,768 :: 		TMR1CS_bit := 0; // internal clock
+;ThermoController.mpas,825 :: 		TMR1CS_bit := 0; // internal clock
 	BCF         TMR1CS_bit+0, 1 
-;ThermoController.mpas,769 :: 		TMR1L := 0x40; // reset timer register
+;ThermoController.mpas,826 :: 		TMR1L := 0x40; // reset timer register
 	MOVLW       64
 	MOVWF       TMR1L+0 
-;ThermoController.mpas,770 :: 		TMR1H := 0xA2;
+;ThermoController.mpas,827 :: 		TMR1H := 0xA2;
 	MOVLW       162
 	MOVWF       TMR1H+0 
-;ThermoController.mpas,771 :: 		OS_Timer_IE_bit := 0; // disable timebase interrupt, will be enabled in “OS_Run”
+;ThermoController.mpas,828 :: 		OS_Timer_IE_bit := 0; // disable timebase interrupt, will be enabled in “OS_Run”
 	BCF         TMR1IE_bit+0, 0 
-;ThermoController.mpas,772 :: 		TMR1ON_bit := 1; // start timer
+;ThermoController.mpas,829 :: 		TMR1ON_bit := 1; // start timer
 	BSF         TMR1ON_bit+0, 0 
-;ThermoController.mpas,773 :: 		TMR1IF_bit := 0;
+;ThermoController.mpas,830 :: 		TMR1IF_bit := 0;
 	BCF         TMR1IF_bit+0, 0 
-;ThermoController.mpas,774 :: 		INTCON := 0xC0;
+;ThermoController.mpas,831 :: 		INTCON := 0xC0;
 	MOVLW       192
 	MOVWF       INTCON+0 
-;ThermoController.mpas,776 :: 		UserLED := not UserLED;
+;ThermoController.mpas,833 :: 		UserLED := not UserLED;
 	BTG         LATC+0, 2 
-;ThermoController.mpas,777 :: 		UserLED := not UserLED;
+;ThermoController.mpas,834 :: 		UserLED := not UserLED;
 	BTG         LATC+0, 2 
-;ThermoController.mpas,781 :: 		OS_Run;
+;ThermoController.mpas,838 :: 		OS_Run;
 	CALL        _OS_Run+0, 0
-;ThermoController.mpas,782 :: 		end.
+;ThermoController.mpas,839 :: 		end.
 	GOTO        $+0
 ; end of _main

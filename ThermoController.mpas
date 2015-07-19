@@ -41,6 +41,8 @@ underscore:boolean;
     menu:array[1..7] of NodeT;
     submenu1:NodeT;
     submenu2:array[1..3] of NodeT;
+    submenu3:NodeT;
+    submenu4:NodeT;
 
 //Time variables
 //time
@@ -95,6 +97,10 @@ funcDaysStatus: String[3];
 min_temp_string: String[6];
 min_temp, max_temp: integer;
 start_hour, end_hour: byte;
+
+locked: boolean;
+
+status_led: boolean;
 
 //timer pins
 // :sbit at T1CON.4;
@@ -153,6 +159,8 @@ begin
       
   menu[1].child := @submenu1;
   menu[2].child := @submenu2[1];
+  menu[3].child := @submenu3;
+  menu[4].child := @submenu4;
   
   submenu1.parent := @menu[1];
   submenu1.next := @submenu1;
@@ -171,6 +179,16 @@ begin
   submenu2[3].next := @submenu2[1];
   submenu2[1].next := @submenu2[2];
   submenu2[3].prev := @submenu2[2];
+  
+  submenu3.parent := @menu[3];
+  submenu3.next := @submenu3;
+  submenu3.prev := @submenu3;
+  submenu3.child := @submenu3;
+  
+  submenu4.parent := @menu[4];
+  submenu4.next := @submenu4;
+  submenu4.prev := @submenu4;
+  submenu4.child := @submenu4;
 
   //display LCD for menus:
   root.row1 := 'T1:     T2:    ';
@@ -198,6 +216,12 @@ begin
   submenu2[2].row2 := 'S: 21;     E:  7';
   submenu2[3].row1 := '2.3 Temp. Limits';
   submenu2[3].row2 := 'Min: 19; Max: 22';
+  //submenu3: Lock Settings
+  submenu3.row1 := 'Locked:     OFF';
+  submenu3.row2 := '';
+  //submenu4: Status LED
+  submenu4.row1 := 'Status LED:';
+  submenu4.row2 := '        ON';
 
 end;
 
@@ -335,6 +359,18 @@ begin
                                   IntToStr(min_temp, min_temp_string);
                                   strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
                                 end;
+                  @submenu3: if true then begin
+                                Lcd_Cmd(_LCD_RETURN_HOME);
+                                Lcd_Cmd(_LCD_FIRST_ROW);
+                                for i:=1 to 14 do
+                                    Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+                            end;
+                  @submenu4: if true then begin
+                                Lcd_Cmd(_LCD_RETURN_HOME);
+                                Lcd_Cmd(_LCD_SECOND_ROW);
+                                for i:=1 to 8 do
+                                    Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+                            end;
              end;
         end;
 
@@ -430,19 +466,27 @@ begin
                     @submenu2[1]:
                end;}
                if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
-               begin
-                    if underscore then
-                         begin
-                            edit := true;
-                            underscore := false;
-                         end
-                    else
-                         begin
-                              underscore := true;
-                              if edit then
-                                 edit := false;
-                         end;
-               end;
+                   begin
+                        if underscore then
+                             begin
+                                edit := true;
+                                underscore := false;
+                             end
+                        else
+                             begin
+                                  underscore := true;
+                                  if edit then
+                                     edit := false;
+                             end;
+                   end
+               else
+                   begin
+                       if  (current_node = @submenu3) or (current_node = @submenu4) then
+                           begin
+                                edit := true;
+                           end
+                   end;
+               
                                    
                current_node := current_node^.child;
                enter := 0;
@@ -493,10 +537,16 @@ begin
                                end
                     end
                else
-                   begin
-                        index := 1;
-                         current_node := current_node^.parent;
-                   end;
+                   if (current_node = @submenu3) or (current_node = @submenu4) then
+                       begin
+                            edit := false;
+                            current_node := current_node^.parent;
+                       end
+                   else
+                     begin
+                           index := 1;
+                           current_node := current_node^.parent;
+                     end;
                esc := 0;
           end;
           
@@ -532,7 +582,7 @@ begin
                                       index := (index  mod 5) + 1;
                     @submenu2[1]:  if edit then
                                        begin
-                                            funcDays[index] := not t[index];
+                                            funcDays[index] := not funcDays[index];
                                        end
                                    else
                                        begin
@@ -570,7 +620,9 @@ begin
                                                 begin
                                                      current_node := current_node^.next;
                                                 end;
-                                       end
+                                       end;
+                    @submenu3: locked := not locked;
+                    @submenu4: status_led := not status_led
 
                else
                    current_node := current_node^.next;
@@ -657,7 +709,9 @@ begin
                                                 begin
                                                      current_node := current_node^.prev;
                                                 end;
-                                       end
+                                       end;
+                    @submenu3: locked := not locked;
+                    @submenu4: status_led := not status_led
                else
                    current_node := current_node^.prev;
                end;
@@ -713,6 +767,9 @@ begin
    max_temp := 22;
    start_hour := 7;
    end_hour := 21;
+   
+   locked := false;
+   status_led := true;
 
 
   ADCON1 := %00111111; //all analog pins as digital
