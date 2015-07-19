@@ -1,0 +1,782 @@
+program ThermoController;
+
+//menu  node type
+
+type
+     NodeT=record
+      row1:String[16];
+      row2:String[16];
+      parent,next,prev,child:^NodeT;
+     end;
+
+
+//declare tasks
+var T_ReadTemp, T_ReadTime, T_ReadTime, T_ReadKeys, T_DisplayLED, T_NavigateMenu, T_SaveTime: TOS_Task;
+
+//declare the semaphores
+S_Display, S_Navigate, S_SetTime: TOS_BinarySemaphore;
+
+
+{ Declarations section }
+//iteration index
+i:integer;
+//Temperature variables
+Ch: char;                //Chanel type of sensor
+CRCOk: byte;
+Temp: array[1..4] of integer;
+Temp_index:byte;
+aux_temp:integer;
+Strng:String[20];
+
+//menu
+edit:boolean;
+index:integer;
+underscore:boolean;
+//index_lcd:array[1..10,1..5] of byte;
+//index_pointers:array[1..10] of ^NodeT;
+
+    //menu tree
+    current_node:^NodeT;
+    root:NodeT;
+    menu:array[1..7] of NodeT;
+    submenu1:NodeT;
+    submenu2:array[1..3] of NodeT;
+
+//Time variables
+//time
+timedate: TDs1307_TimeDate;
+timestr: TDs1307_TimeString;
+datestr: TDs1307_DateString ;
+maxday:array[1..12] of byte;
+
+
+//LCD variables and pins
+LCD_RS :sbit at LATC0_bit;
+LCD_EN :sbit  at LATC1_bit;
+LCD_D4 :sbit  at LATD4_bit;
+LCD_D5 :sbit  at LATD5_bit;
+LCD_D6 :sbit  at LATD6_bit;
+LCD_D7 :sbit  at LATD7_bit;
+
+
+LCD_RS_Direction :sbit  at TRISC0_bit;
+LCD_EN_Direction :sbit  at TRISC1_bit;
+LCD_D4_Direction :sbit  at TRISD4_bit;
+LCD_D5_Direction :sbit  at TRISD5_bit;
+LCD_D6_Direction :sbit  at TRISD6_bit;
+LCD_D7_Direction :sbit  at TRISD7_bit;
+
+//output pins
+UserLED: sbit at LATC.2;
+Releu: sbit at LATB.5;
+Btn_enter : sbit at PortE.2;
+Btn_DOWN : sbit at PortE.0;
+Btn_UP : sbit at PortE.1;
+Btn_ESC : sbit at PortB.4;
+DS1 : sbit at PortD.0;
+DS2 : sbit at PortD.1;
+DS3 : sbit at PortD.2;
+DS4 : sbit at PortD.3;
+
+//buttons
+enter: byte;
+old_enter: byte;
+esc: byte;
+old_esc: byte;
+up: byte;
+old_up: byte;
+down: byte;
+old_down: byte;
+
+//Functioning settings
+funcDays: array[1..7] of boolean;
+funcDaysString : array[1..7] of String[13];
+funcDaysStatus: String[3];
+min_temp_string: String[6];
+min_temp, max_temp: integer;
+start_hour, end_hour: byte;
+
+//timer pins
+// :sbit at T1CON.4;
+//TCKPS_1_T1CON_bit :sbit at T1CON.5;
+//PR1 :sbit at T1CON.1;
+//TCS_T1CON_bit :sbit at T1CON.1;
+//TMR1 :0;
+OS_Timer_IE_bit :sbit at TMR1IE_bit;
+//TON_T1CON_bit :sbit at T1CON.0;
+
+
+
+//timebase declaration
+//var OS_Timer_IE_bit: sbit at T1IE_bit;
+
+//init functions
+procedure InitMenu;
+begin
+    //Max days in month
+  maxday[1]:=31;
+  maxday[2]:=28;
+  maxday[3]:=31;
+  maxday[4]:=30;
+  maxday[5]:=31;
+  maxday[6]:=30;
+  maxday[7]:=31;
+  maxday[8]:=31;
+  maxday[9]:=30;
+  maxday[10]:=31;
+  maxday[11]:=30;
+  maxday[12]:=31;
+  
+  //menu indexes
+  //index_pointers[1] := @submenu1;
+  //index_lcd[1][1] := 101;
+    //init menu
+  root.row1 := 'Welcome, Laci!';
+  root.child := @menu[1];
+  root.parent := @root;
+  root.next := @root;
+  root.prev := @root;
+  current_node := @root;
+  //siblings-make DLL
+  for i:=1 to 6 do
+      menu[i].next := @menu[i+1];
+  menu[7].next := @menu[1];
+  for i:=7 downto 2 do
+      menu[i].prev := @menu[i-1];
+  menu[1].prev := @menu[7];
+  for i:=1 to 7 do
+      menu[i].parent := @root;
+      
+  //Until completing all the menus
+  for i:=1 to 7 do
+      menu[i].child := @menu[i];
+      
+  menu[1].child := @submenu1;
+  menu[2].child := @submenu2[1];
+  
+  submenu1.parent := @menu[1];
+  submenu1.next := @submenu1;
+  submenu1.prev := @submenu1;
+  submenu1.child := @submenu1;
+
+  for i:=1 to 3 do
+    begin
+      submenu2[i].parent := @menu[2];
+      submenu2[i].child := @submenu2[i];
+    end;
+  
+  submenu2[2].next := @submenu2[3];
+  submenu2[2].prev := @submenu2[1];
+  submenu2[1].prev := @submenu2[3];
+  submenu2[3].next := @submenu2[1];
+  submenu2[1].next := @submenu2[2];
+  submenu2[3].prev := @submenu2[2];
+
+  //display LCD for menus:
+  root.row1 := 'T1:     T2:    ';
+  root.row2 := 'T3:     T4:    ';
+  menu[1].row1 := '1. Date/Time';
+  menu[1].row2 := '';
+  menu[2].row1 := '2. Functioning';
+  menu[2].row2 := '     Interval';
+  menu[3].row1 := '3. Lock Settings';
+  menu[3].row2 := '';
+  menu[4].row1 := '4. Status LED';
+  menu[4].row2 := '';
+  menu[5].row1 := '5. Standby Disp';
+  menu[5].row2 := '    Settings';
+  menu[6].row1 := '6. Log';
+  menu[6].row2 := '';
+  menu[7].row1 := '7. Menu';
+  menu[7].row2 := '';
+  submenu1.row1 := 'date';
+  submenu1.row2 := 'time';
+  //submenu2: Functioning Interval
+  submenu2[1].row1 := '2.1 Days';
+  strcat2(submenu2[1].row2,funcDaysString[1],funcDaysStatus);
+  submenu2[2].row1 := '2.2 Hours';
+  submenu2[2].row2 := 'S: 21;     E:  7';
+  submenu2[3].row1 := '2.3 Temp. Limits';
+  submenu2[3].row2 := 'Min: 19; Max: 22';
+
+end;
+
+
+//define tasks 
+procedure Interrupt;
+begin
+     if TMR1IF_bit = 1 then
+        begin
+          TMR1IF_bit := 0;
+          TMR1H         := 0xA2;
+          TMR1L         := 0x40;
+          OS_TimerInterrupt; // to be called every x millisecs
+        end;
+end;
+
+
+procedure ReadTemp;
+begin
+     while true do
+     begin
+          OS_Delay(500);
+          INTCON := 0x00;
+          UserLED := not UserLED;
+          DS1820_StartTempConversion(PortD,temp_index, true);
+          aux_temp := DS1820_ReadTemperature(PortD,temp_index);
+          if (aux_temp <> Temp[temp_index + 1]) then
+            begin
+              Temp[temp_index + 1] := aux_temp;
+
+              CRCOk := DS1820_CheckCRC;
+
+              if CRCOk > 0 then // CRC error
+                  begin
+                       LCD_OUT(2,1,'Temperature CRC error');
+                  end
+              else
+                  begin
+                    DS1820_TempToString(Temp[temp_index + 1], Strng, ',');
+                    if temp_index < 2  then
+                        begin
+                          root.row1[3 + temp_index * 8] := Strng[0];
+                          root.row1[4 + temp_index * 8] := Strng[1];
+                          root.row1[5 + temp_index * 8] := Strng[2];
+                          root.row1[6 + temp_index * 8] := Strng[3];
+                        end
+                    else
+                        begin
+                          root.row2[3 + (temp_index - 2) * 8] := Strng[0];
+                          root.row2[4 + (temp_index - 2) * 8] := Strng[1];
+                          root.row2[5 + (temp_index - 2) * 8] := Strng[2];
+                          root.row2[6 + (temp_index - 2) * 8] := Strng[3];
+                        end
+                  end;
+              OS_SignalSemaphore(S_Display);
+            end;
+          temp_index := (temp_index + 1) mod 4;
+          INTCON := 0xC0;
+          OS_Yield;
+     end;
+end;
+
+procedure DisplayLED;
+begin
+    while true do
+    begin
+        OS_WaitSemaphore(S_Display);
+        Lcd_Cmd(_LCD_CLEAR);               // Clear display
+        LCD_OUT(1,1,current_node^.row1);
+        LCD_OUT(2,1,current_node^.row2);
+        if underscore then
+           Lcd_Cmd(_LCD_UNDERLINE_ON)
+        else if edit then
+             Lcd_Cmd(_LCD_BLINK_CURSOR_ON)
+        else
+            Lcd_Cmd(_LCD_CURSOR_OFF);
+            
+            
+        if underscore or edit then
+        begin
+             case current_node of
+                  @submenu1: if true then begin
+                                Lcd_Cmd(_LCD_RETURN_HOME);
+                                case index of
+                                     1 : begin Lcd_Cmd(_LCD_FIRST_ROW); end;
+                                     2 : begin Lcd_Cmd(_LCD_FIRST_ROW); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);  Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);   end;
+                                     3 : begin Lcd_Cmd(_LCD_FIRST_ROW);  Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT); 
+                                                Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT); end;
+                                     4 : begin Lcd_Cmd(_LCD_SECOND_ROW);                                                                                                   end;
+                                     5 : begin Lcd_Cmd(_LCD_SECOND_ROW); Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);   end;
+                                end;
+                            end;
+                  @submenu2[1]: if true then begin
+                                  Lcd_Cmd(_LCD_RETURN_HOME);
+                                  Lcd_Cmd(_LCD_SECOND_ROW);
+                                  for i:=1 to 14 do
+                                      Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+                                  if funcDays[index] = true then
+                                     funcDaysStatus := ' ON'
+                                  else
+                                      funcDaysStatus := 'OFF';
+                                  strcat2(submenu2[1].row2,funcDaysString[index], funcDaysStatus);
+                                end;
+                  @submenu2[2]: if true then begin
+                                  Lcd_Cmd(_LCD_RETURN_HOME);
+                                  Lcd_Cmd(_LCD_SECOND_ROW);
+                                  if index=1 then
+                                     for i:=1 to 3 do
+                                         Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+                                  else
+                                     for i:=1 to 15 do
+                                         Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+                                  strcat2(submenu2[2].row2, '','');
+                                  strcat2(submenu2[2].row2, submenu2[2].row2,'S: ');
+                                  ByteToStr(start_hour, min_temp_string);
+                                  strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+                                  strcat2(submenu2[2].row2, submenu2[2].row2,'     E: ');
+                                  IntToStr(end_hour, min_temp_string);
+                                  strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+                                end;
+                  @submenu2[3]: if true then begin
+                                  Lcd_Cmd(_LCD_RETURN_HOME);
+                                  Lcd_Cmd(_LCD_SECOND_ROW);
+                                  if index=1 then
+                                     for i:=1 to 6 do
+                                         Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+                                  else
+                                     for i:=1 to 15 do
+                                         Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+                                  strcat2(submenu2[2].row2, '','');
+                                  strcat2(submenu2[2].row2, submenu2[2].row2,'Max: ');
+                                  IntToStr(min_temp, min_temp_string);
+                                  strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+                                  strcat2(submenu2[2].row2, submenu2[2].row2,'   Min: ');
+                                  IntToStr(min_temp, min_temp_string);
+                                  strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+                                end;
+             end;
+        end;
+
+
+        OS_Yield;
+    end;
+end;
+
+procedure ReadKeys;
+begin
+     while true do
+     begin
+          OS_Delay(20);
+            if Button(PORTE, 2, 1, 1) then old_enter := 255;
+              if old_enter and Button(PORTE, 2, 1, 0) then
+              begin
+                enter := 255;
+                old_enter := 0;
+                OS_SignalSemaphore(S_Navigate);
+              end;
+            if Button(PORTB, 4, 1, 1) then old_esc := 255;
+              if old_esc and Button(PORTB, 4, 1, 0) then
+              begin
+                esc := 255;
+                old_esc := 0;
+                OS_SignalSemaphore(S_Navigate);
+              end;
+            if Button(PORTE, 1, 1, 1) then old_up := 255;
+              if old_up and Button(PORTE, 1, 1, 0) then
+              begin
+                up := 255;
+                old_up := 0;
+                OS_SignalSemaphore(S_Navigate);
+              end;
+            if Button(PORTE, 0, 1, 1) then old_down := 255;
+              if old_down and Button(PORTE, 0, 1, 0) then
+              begin
+                down := 255;
+                old_down := 0;
+                OS_SignalSemaphore(S_Navigate);
+              end;
+
+          OS_Yield;
+     end;
+end;
+
+procedure ReadTime;
+begin
+     while true do
+     begin
+          OS_Delay(50);
+          if (current_node = @submenu1) and (edit = false) then
+          begin
+              Ds1307_Get_TimeDate(timedate);
+              Ds1307_TimeDateStr(timedate,timestr,datestr);
+              submenu1.row1 := datestr;
+              submenu1.row2 := timestr;
+              OS_SignalSemaphore(S_Display);
+          end;
+          OS_Yield;
+     end;
+end;
+
+procedure SaveTime;
+begin
+     while true do
+     begin
+          OS_WaitSemaphore(S_SetTime);
+          Ds1307_Set_TimeDate(timedate);
+          OS_Yield;
+     end;
+end;
+
+procedure NavigateMenu;
+begin
+     while true do
+     begin
+          OS_WaitSemaphore(S_Navigate);
+          if enter = 255 then
+          begin
+               {case current_node of
+                    @submenu1: if underscore then
+                                   begin
+                                      edit := true;
+                                      underscore := false;
+                                   end
+                               else
+                                   begin
+                                        underscore := true;
+                                        if edit then
+                                           edit := false;
+                                   end;
+                    @submenu2[1]:
+               end;}
+               if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
+               begin
+                    if underscore then
+                         begin
+                            edit := true;
+                            underscore := false;
+                         end
+                    else
+                         begin
+                              underscore := true;
+                              if edit then
+                                 edit := false;
+                         end;
+               end;
+                                   
+               current_node := current_node^.child;
+               enter := 0;
+          end;
+          if esc = 255 then
+          begin
+               {case current_node of
+                    @submenu1: if underscore then
+                                   begin
+                                      underscore := false;
+                                      OS_SignalSemaphore(S_SetTime);
+                                   end
+                               else
+                                   begin
+                                        if edit then
+                                           begin
+                                            underscore := true;
+                                            edit := false;
+                                           end
+                                        else
+                                          current_node := current_node^.parent;
+                                   end
+                    else current_node := current_node^.parent;
+               end;}
+               if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
+                    begin
+                          if underscore then
+                               begin
+                                  underscore := false;
+                                  //Set the time, if it is that submenu
+                                  if (current_node = @submenu1) then
+                                     begin
+                                          OS_SignalSemaphore(S_SetTime);
+                                     end;
+                               end
+                          else
+                               begin
+                                    if edit then
+                                       begin
+                                        underscore := true;
+                                        edit := false;
+                                       end
+                                    else
+                                        begin
+                                             index := 1;
+                                            current_node := current_node^.parent;
+                                        end;
+                               end
+                    end
+               else
+                   begin
+                        index := 1;
+                         current_node := current_node^.parent;
+                   end;
+               esc := 0;
+          end;
+          
+          if up = 255 then
+          begin
+               case current_node of
+                    @submenu1:   if edit then
+                                     begin
+                                       Ds1307_Bcd2DecTimeDate(timedate);
+                                       case index of
+                                            3:     if timedate.Year = 99 then
+                                                      timedate.Year := 0
+                                                   else timedate.Year := timeDate.Year + 1;
+                                            2:     if timedate.Month = 12 then
+                                                      timedate.Month := 1
+                                                   else timedate.Month := timeDate.Month + 1;
+                                            1:     if timedate.Date = maxday[timedate.Month] then
+                                                      timedate.Date := 1
+                                                   else timedate.Date := timeDate.Date + 1;
+                                            4:     if timedate.Hours = 23 then
+                                                      timedate.Hours := 0
+                                                   else timedate.Hours := timeDate.Hours + 1;
+                                            5:     if timedate.Minutes = 59 then
+                                                      timedate.Minutes := 0
+                                                   else timedate.Minutes := timeDate.Minutes + 1;
+                                       end;
+                                       Ds1307_Dec2BcdTimeDate(timedate);
+                                       Ds1307_TimeDateStr(timedate,timestr,datestr);
+                                       submenu1.row1 := datestr;
+                                       submenu1.row2 := timestr;
+                                     end
+                                 else if underscore then
+                                      index := (index  mod 5) + 1;
+                    @submenu2[1]:  if edit then
+                                       begin
+                                            funcDays[index] := not t[index];
+                                       end
+                                   else
+                                       begin
+                                            if underscore then
+                                                begin
+                                                      index := (index  mod 7) + 1;
+                                                end
+                                            else
+                                                begin
+                                                     current_node := current_node^.next;
+                                                end;
+                                       end;
+                    @submenu2[3]:  if edit then
+                                       begin
+                                            if index = 1 then
+                                              begin
+                                                   min_temp := min_temp + 1;
+                                                   if (min_temp > max_temp) then
+                                                      min_temp := max_temp;
+                                              end
+                                            else
+                                                begin
+                                                     max_temp := max_temp + 1;
+                                                     if (max_temp > 50) then
+                                                         max_temp := 50;
+                                                end;
+                                       end
+                                   else
+                                       begin
+                                            if underscore then
+                                                begin
+                                                      index := (index  mod 2) + 1;
+                                                end
+                                            else
+                                                begin
+                                                     current_node := current_node^.next;
+                                                end;
+                                       end
+
+               else
+                   current_node := current_node^.next;
+               end;
+               up := 0;
+          end;
+          
+          if down = 255 then
+          begin
+               case current_node of
+                    @submenu1:   if edit then
+                                     begin
+                                       Ds1307_Bcd2DecTimeDate(timedate);
+                                       case index of
+                                            3:     if timedate.Year = 0 then
+                                                      timedate.Year := 99
+                                                   else timedate.Year := timeDate.Year - 1;
+                                            2:     if timedate.Month = 1 then
+                                                      timedate.Month := 12
+                                                   else timedate.Month := timeDate.Month - 1;
+                                            1:     if timedate.Date = 1 then
+                                                      timedate.Date := maxday[timedate.Month]
+                                                   else timedate.Date := timeDate.Date - 1;
+                                            4:     if timedate.Hours = 0 then
+                                                      timedate.Hours := 23
+                                                   else timedate.Hours := timeDate.Hours - 1;
+                                            5:     if timedate.Minutes = 0 then
+                                                      timedate.Minutes := 59
+                                                   else timedate.Minutes := timeDate.Minutes - 1;
+                                       end;
+                                       Ds1307_Dec2BcdTimeDate(timedate);
+                                       Ds1307_TimeDateStr(timedate,timestr,datestr);
+                                       submenu1.row1 := datestr;
+                                       submenu1.row2 := timestr;
+                                     end
+                                 else if underscore then
+                                         if index = 1 then
+                                            index := 5
+                                         else
+                                             index := index - 1;
+                    @submenu2[1]:  if edit then
+                                       begin
+                                            funcDays[index] := not funcDays[index];
+                                       end
+                                   else
+                                       begin
+                                            if underscore then
+                                                begin
+                                                      if index = 1 then
+                                                          index := 7
+                                                      else
+                                                          index := index - 1;
+                                                end
+                                            else
+                                                begin
+                                                     current_node := current_node^.prev;
+                                                end;
+                                       end;
+                    @submenu2[3]:  if edit then
+                                       begin
+                                            if index = 1 then
+                                              begin
+                                                   min_temp := min_temp - 1;
+                                                   if (min_temp < 0) then
+                                                      min_temp := 0;
+                                              end
+                                            else
+                                                begin
+                                                     max_temp := max_temp - 1;
+                                                     if (max_temp < min_temp) then
+                                                         max_temp := min_temp;
+                                                end;
+                                       end
+                                   else
+                                       begin
+                                            if underscore then
+                                                begin
+                                                      if index = 1 then
+                                                         index := 2
+                                                      else
+                                                          index := 1;
+                                                end
+                                            else
+                                                begin
+                                                     current_node := current_node^.prev;
+                                                end;
+                                       end
+               else
+                   current_node := current_node^.prev;
+               end;
+               down := 0;
+          end;
+          OS_SignalSemaphore(S_Display);
+          OS_Yield;
+     end;
+end;
+
+begin
+  { Main program }
+  //set up the MCU
+  Delay_ms(100);
+  LATC:=0xFF;
+  TRISC:=0xff;
+  LATD:=0xFF;
+  TRISD:=0xff;
+
+  TRISC.2 := 0; //out latc.2
+  Trisb.5 := 0; //out latb.5
+  Trisb.4 := 1; //in portb.4
+  TrisE.0 := 1; //in portE.0
+  TrisE.1 := 1; //in portE.1
+  TrisE.2 := 1; //in portE.2
+  TrisD.0 := 1; //
+  TrisD.1 := 1;
+  TrisD.2 := 1;
+  TrisD.3 := 1;
+  
+  //init LCD, I2C, DS1307
+  Lcd_Init();                        // Initialize LCD
+  Lcd_Cmd(_LCD_CLEAR);               // Clear display
+  Lcd_Cmd(_LCD_CURSOR_OFF);
+  
+  //init temps
+  for i:=1 to 4 do
+    Temp[i] := 0;
+  temp_index := 0;
+  
+  //init settings
+   for i:=1 to 7 do
+          funcDays[i] := false;
+   funcDaysString[1]:= 'Monday       ';
+   funcDaysString[2]:= 'Tuesday      ';
+   funcDaysString[3]:= 'Wednsday     ';
+   funcDaysString[4]:= 'Thursday     ';
+   funcDaysString[5]:= 'Friday       ';
+   funcDaysString[6]:= 'Saturday     ';
+   funcDaysString[7]:= 'Sunday       ';
+   funcDaysStatus := 'OFF';
+   min_temp := 19;
+   max_temp := 22;
+   start_hour := 7;
+   end_hour := 21;
+
+
+  ADCON1 := %00111111; //all analog pins as digital
+
+  I2c1_Init(100000);
+  DS1307_Init;                      // Ds1307 Real Time clock
+  Delay_ms(500);
+  
+  //get time for start
+  Ds1307_TimeDateStr(timedate,timestr,datestr);
+  
+  InitMenu;
+  LCD_OUT(1,1,'ddd');
+  
+  //init menu navigation helping variables
+  edit := false;
+  underscore := false;
+  index := 1;
+  
+  //Init OS
+  OS_Init;
+  SetFuncCall(ReadTemp);
+  SetFuncCall(DisplayLED);
+  SetFuncCall(NavigateMenu);
+  SetFuncCall(ReadKeys);
+  SetFuncCall(ReadTime);
+  SetFuncCall(SaveTime);
+  
+  //create the tasks
+  T_ReadTemp := OS_CreateTask(@ReadTemp, 2);
+  T_ReadTime := OS_CreateTask(@ReadTime, 1);
+  T_DisplayLED := OS_CreateTask(@DisplayLED, 1);
+  T_ReadKeys := OS_CreateTask(@ReadKeys, 0);
+  T_NavigateMenu := OS_CreateTask(@NavigateMenu, 3);
+  T_SaveTime := OS_CreateTask(@SaveTime, 3);
+  
+  //init Semaphores
+  S_Display := OS_CreateBinarySemaphore(False);
+  S_Navigate := OS_CreateBinarySemaphore(False);
+  S_SetTime := OS_CreateBinarySemaphore(False);
+  
+  //start tasks
+  OS_StartTask(T_ReadTemp);
+  OS_StartTask(T_ReadTime);
+  OS_StartTask(T_DisplayLED);
+  OS_StartTask(T_ReadKeys);
+  OS_StartTask(T_NavigateMenu);
+  OS_StartTask(T_SaveTime);
+  
+  //timebase configuration
+  T1CKPS0_bit := 1;
+  T1CKPS1_bit := 0;
+  TMR1CS_bit := 0; // internal clock
+  TMR1L := 0x40; // reset timer register
+  TMR1H := 0xA2;
+  OS_Timer_IE_bit := 0; // disable timebase interrupt, will be enabled in “OS_Run”
+  TMR1ON_bit := 1; // start timer
+  TMR1IF_bit := 0;
+  INTCON := 0xC0;
+
+   UserLED := not UserLED;
+   UserLED := not UserLED;
+   
+
+  //run os
+  OS_Run;
+end.

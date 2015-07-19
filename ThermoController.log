@@ -1,0 +1,51 @@
+0	1	mPPic.exe -DBG -pP18F4550 -MSF -Y -DL -RA -O11111114 -fo48 -N"E:\Circuits\PIC\Projects\Thermo OS\ThermoController.mpppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\uses\P18\" -SP"E:\Circuits\PIC\Projects\Thermo OS\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\CRTOS\Uses\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\TempSensors\Uses\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\RTC\Uses\" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_String.mcl" "__Lib_Conversions.mcl" "__Lib_Button.mcl" "__Lib_OneWire.mcl" "__Lib_I2C_b10.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl" "RTC2_DS1307.mcl" "RTC_DS1307_Advanced.mcl" "DS1820.mcl" "CRTOS.mcl" "ThermoController.mpas" "CRTOS_Defines.pld"	 
+diagnostics: 0	155	Available RAM: 2027 [bytes], Available ROM: 32768 [bytes]	 
+diagnostics: 0	133	Compilation Started	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\defs\P18F4550.mpas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\defs\P18F4550.mpas"	P18F4550.mpas
+hint: 1590	1010	Hint: Unit "P18F4550.mpas" has been recompiled	P18F4550.mpas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\defs\P18F4550.mpas
+diagnostics: 0	133	Compilation Started	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\uses\P18\__Lib_Delays.mpas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\uses\P18\__Lib_Delays.mpas"	__Lib_Delays.mpas
+hint: 188	1010	Hint: Unit "__Lib_Delays.mpas" has been recompiled	__Lib_Delays.mpas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\uses\P18\__Lib_Delays.mpas
+diagnostics: 0	133	Compilation Started	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\RTC\Uses\RTC2_DS1307.mpas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\RTC\Uses\RTC2_DS1307.mpas"	RTC2_DS1307.mpas
+hint: 428	1011	Hint: Variable "Tmp" has been eliminated by optimizer	RTC2_DS1307.mpas
+hint: 454	1011	Hint: Variable "Tmp" has been eliminated by optimizer	RTC2_DS1307.mpas
+hint: 508	1010	Hint: Unit "RTC2_DS1307.mpas" has been recompiled	RTC2_DS1307.mpas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\RTC\Uses\RTC2_DS1307.mpas
+diagnostics: 0	133	Compilation Started	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\RTC\Uses\RTC_DS1307_Advanced.mpas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\RTC\Uses\RTC_DS1307_Advanced.mpas"	RTC_DS1307_Advanced.mpas
+hint: 197	1017	Warning: Aggregate padded with zeros (3) in order to match declared size (9)	RTC_DS1307_Advanced.mpas
+hint: 198	1017	Warning: Aggregate padded with zeros (2) in order to match declared size (9)	RTC_DS1307_Advanced.mpas
+hint: 200	1017	Warning: Aggregate padded with zeros (1) in order to match declared size (9)	RTC_DS1307_Advanced.mpas
+hint: 201	1017	Warning: Aggregate padded with zeros (3) in order to match declared size (9)	RTC_DS1307_Advanced.mpas
+hint: 202	1017	Warning: Aggregate padded with zeros (1) in order to match declared size (9)	RTC_DS1307_Advanced.mpas
+hint: 203	1017	Warning: Aggregate padded with zeros (3) in order to match declared size (9)	RTC_DS1307_Advanced.mpas
+hint: 493	1011	Hint: Variable "Tmp" has been eliminated by optimizer	RTC_DS1307_Advanced.mpas
+hint: 690	1011	Hint: Variable "Ptr2" has been eliminated by optimizer	RTC_DS1307_Advanced.mpas
+hint: 703	1011	Hint: Variable "Ptr2" has been eliminated by optimizer	RTC_DS1307_Advanced.mpas
+hint: 887	1010	Hint: Unit "RTC_DS1307_Advanced.mpas" has been recompiled	RTC_DS1307_Advanced.mpas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\RTC\Uses\RTC_DS1307_Advanced.mpas
+diagnostics: 0	133	Compilation Started	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\TempSensors\Uses\DS1820.mpas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\TempSensors\Uses\DS1820.mpas"	DS1820.mpas
+hint: 558	1011	Hint: Variable "TmpBit" has been eliminated by optimizer	DS1820.mpas
+hint: 574	1011	Hint: Variable "TmpBit" has been eliminated by optimizer	DS1820.mpas
+hint: 879	1010	Hint: Unit "DS1820.mpas" has been recompiled	DS1820.mpas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\TempSensors\Uses\DS1820.mpas
+diagnostics: 0	133	Compilation Started	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\CRTOS\Uses\CRTOS.mpas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\CRTOS\Uses\CRTOS.mpas"	CRTOS.mpas
+hint: 986	1010	Hint: Unit "CRTOS.mpas" has been recompiled	CRTOS.mpas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\CRTOS\Uses\CRTOS.mpas
+diagnostics: 0	133	Compilation Started	E:\Circuits\PIC\Projects\Thermo OS\ThermoController.mpas
+hint: 1	1015	Hint: Compiling unit "E:\Circuits\PIC\Projects\Thermo OS\ThermoController.mpas"	ThermoController.mpas
+hint: 206	1021	Hint: interrupt handler (Interrupt at 0x0008)	ThermoController.mpas
+hint: 782	1010	Hint: Unit "ThermoController.mpas" has been recompiled	ThermoController.mpas
+diagnostics: 0	134	Compiled Successfully	E:\Circuits\PIC\Projects\Thermo OS\ThermoController.mpas
+diagnostics: 0	139	All files Compiled in 219 ms	 
+hint: 0	1144	Used RAM (bytes): 1275 (63%)  Free RAM (bytes): 752 (37%)	Used RAM (bytes): 1275 (63%)  Free RAM (bytes): 752 (37%)
+hint: 0	1144	Used ROM (bytes): 14834 (45%)  Free ROM (bytes): 17934 (55%)	Used ROM (bytes): 14834 (45%)  Free ROM (bytes): 17934 (55%)
+diagnostics: 0	145	Project Linked Successfully	ThermoController.mpppi
+diagnostics: 0	140	Linked in 265 ms	 
+diagnostics: 0	141	Project 'ThermoController.mpppi' completed: 1061 ms	 
+diagnostics: 0	103	Finished successfully: 09 Jun 2015, 19:07:57	ThermoController.mpppi
