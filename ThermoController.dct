@@ -321,6 +321,7 @@ dfn8ef
 dfn8ef_bit
 dir_
 dir__bit
+disp_mode
 displayled
 div_16x16_s
 div_16x16_s_l
@@ -1204,6 +1205,7 @@ resume_
 resume__bit
 ri
 ri_bit
+room_disp
 root
 row1
 row2
@@ -1390,6 +1392,7 @@ submenu1
 submenu2
 submenu3
 submenu4
+submenu5
 suspnd
 suspnd_bit
 swap

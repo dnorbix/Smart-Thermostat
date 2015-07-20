@@ -138,6 +138,7 @@ main
 				BcdByteToStr_
 		Div_16x16_S
 			Div_16x16_S_L
+		Div_8x8_U
 		OS_Yield
 			Save_Context
 				Mul_16x16_U

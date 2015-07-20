@@ -43,6 +43,7 @@ underscore:boolean;
     submenu2:array[1..3] of NodeT;
     submenu3:NodeT;
     submenu4:NodeT;
+    submenu5:array[1..2] of NodeT;
 
 //Time variables
 //time
@@ -101,6 +102,12 @@ start_hour, end_hour: byte;
 locked: boolean;
 
 status_led: boolean;
+
+room_disp: byte;
+
+// true:  mode 1
+// false: mode2
+disp_mode: boolean;
 
 //timer pins
 // :sbit at T1CON.4;
@@ -161,6 +168,7 @@ begin
   menu[2].child := @submenu2[1];
   menu[3].child := @submenu3;
   menu[4].child := @submenu4;
+  menu[5].child := @submenu5[1];
   
   submenu1.parent := @menu[1];
   submenu1.next := @submenu1;
@@ -189,6 +197,15 @@ begin
   submenu4.next := @submenu4;
   submenu4.prev := @submenu4;
   submenu4.child := @submenu4;
+  
+  submenu5[1].next := @submenu5[2];
+  submenu5[2].next := @submenu5[1];
+  submenu5[1].prev := @submenu5[2];
+  submenu5[2].prev := @submenu5[1];
+  submenu5[1].child := @submenu5[1];
+  submenu5[2].child := @submenu5[2];
+  submenu5[1].parent := @menu[5];
+  submenu5[2].parent := @menu[5];
 
   //display LCD for menus:
   root.row1 := 'T1:     T2:    ';
@@ -222,6 +239,11 @@ begin
   //submenu4: Status LED
   submenu4.row1 := 'Status LED:';
   submenu4.row2 := '        ON';
+  //submenu5: Standby Disp. Settings
+  submenu5[1].row1 := '6.1 Room Display';
+  submenu5[1].row2 := 'All four rooms';
+  submenu5[2].row1 := '6.2 Display Mode';
+  submenu5[2].row2 := 'Mode 1';
 
 end;
 
@@ -363,14 +385,52 @@ begin
                                 Lcd_Cmd(_LCD_RETURN_HOME);
                                 Lcd_Cmd(_LCD_FIRST_ROW);
                                 for i:=1 to 14 do
-                                    Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+                                    Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+                                strcat2(submenu3.row1, '','');
+                                strcat2(submenu3.row1, submenu3.row1,'Locked:    ');
+                                if locked then
+                                   strcat2(submenu3.row1, submenu3.row1,' ON')
+                                else
+                                    strcat2(submenu3.row1, submenu3.row1,'OFF');
                             end;
                   @submenu4: if true then begin
                                 Lcd_Cmd(_LCD_RETURN_HOME);
                                 Lcd_Cmd(_LCD_SECOND_ROW);
                                 for i:=1 to 8 do
-                                    Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT)
+                                    Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+                                strcat2(submenu4.row2, '','');
+                                if locked then
+                                    strcat2(submenu4.row2, submenu4.row2,'       ON')
+                                else
+                                    strcat2(submenu4.row2, submenu4.row2,'      OFF');
                             end;
+                  @submenu5[1]: if true then begin
+                                    Lcd_Cmd(_LCD_RETURN_HOME);
+                                    Lcd_Cmd(_LCD_SECOND_ROW);
+                                    Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+                                    case room_disp of
+                                         1: submenu5[1].row2 := 'All four rooms ';
+                                         2: submenu5[1].row2 := 'Room1 + Room2  ';
+                                         3: submenu5[1].row2 := 'Room1 + Room3  ';
+                                         4: submenu5[1].row2 := 'Room1 + Room4  ';
+                                         5: submenu5[1].row2 := 'Room2 + Room3  ';
+                                         6: submenu5[1].row2 := 'Room2 + Room4  ';
+                                         7: submenu5[1].row2 := 'Room3 + Room4  ';
+                                         8: submenu5[1].row2 := 'Room1 only     ';
+                                         9: submenu5[1].row2 := 'Room2 only     ';
+                                         10: submenu5[1].row2 := 'Room3 only     ';
+                                         11: submenu5[1].row2 := 'Room4 only     ';
+                                    end;
+                                end;
+                  @submenu5[2]: if true then begin
+                                  Lcd_Cmd(_LCD_RETURN_HOME);
+                                  Lcd_Cmd(_LCD_SECOND_ROW);
+                                  Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
+                                  if disp_mode then
+                                      submenu5[2].row2 := 'Mode 1'
+                                  else
+                                      submenu5[2].row2 := 'Mode 2';
+                                end;
              end;
         end;
 
@@ -481,7 +541,7 @@ begin
                    end
                else
                    begin
-                       if  (current_node = @submenu3) or (current_node = @submenu4) then
+                       if  (current_node = @submenu3) or (current_node = @submenu4) or (current_node = @submenu5[1]) or (current_node = @submenu5[2]) then
                            begin
                                 edit := true;
                            end
@@ -537,7 +597,7 @@ begin
                                end
                     end
                else
-                   if (current_node = @submenu3) or (current_node = @submenu4) then
+                   if (current_node = @submenu3) or (current_node = @submenu4) or (current_node = @submenu5[1]) or (current_node = @submenu5[2]) then
                        begin
                             edit := false;
                             current_node := current_node^.parent;
@@ -622,7 +682,9 @@ begin
                                                 end;
                                        end;
                     @submenu3: locked := not locked;
-                    @submenu4: status_led := not status_led
+                    @submenu4: status_led := not status_led ;
+                    @submenu5[1]: room_disp := (room_disp mod 11) + 1;
+                    @submenu5[2]: disp_mode := not disp_mode
 
                else
                    current_node := current_node^.next;
@@ -711,7 +773,12 @@ begin
                                                 end;
                                        end;
                     @submenu3: locked := not locked;
-                    @submenu4: status_led := not status_led
+                    @submenu4: status_led := not status_led;
+                    @submenu5[1]: if room_disp = 1 then
+                                      room_disp := 11
+                                  else
+                                      room_disp := room_disp - 1;
+                    @submenu5[2]: disp_mode := not disp_mode
                else
                    current_node := current_node^.prev;
                end;
@@ -770,6 +837,9 @@ begin
    
    locked := false;
    status_led := true;
+   
+   room_disp:= 1;
+   disp_mode := true;
 
 
   ADCON1 := %00111111; //all analog pins as digital
