@@ -42,6 +42,7 @@ main
 					Delay_1us
 					Delay_5500us
 					Delay_50us
+		Mul_16x16_U
 		DS1820_TempToString
 			ByteToStr
 				Div_8x8_U
@@ -77,6 +78,13 @@ main
 			Delay_1us
 			Delay_5500us
 			Delay_50us
+		Mul_16x16_U
+		strcat2
+		ByteToStr
+			Div_8x8_U
+		IntToStr
+			Div_16x16_S
+				Div_16x16_S_L
 		Lcd_Out
 			Lcd_Cmd
 				Delay_1us
@@ -87,13 +95,6 @@ main
 					Delay_1us
 					Delay_5500us
 					Delay_50us
-		Mul_16x16_U
-		strcat2
-		ByteToStr
-			Div_8x8_U
-		IntToStr
-			Div_16x16_S
-				Div_16x16_S_L
 		OS_Yield
 			Save_Context
 				Mul_16x16_U
@@ -105,7 +106,6 @@ main
 			Restore_Context
 				Mul_16x16_U
 	NavigateMenu
-		__CS2S
 		OS_WaitSemaphore
 			Check_Events
 				Mul_16x16_U
@@ -175,7 +175,6 @@ main
 			Restore_Context
 				Mul_16x16_U
 	ReadTime
-		__CS2S
 		OS_Delay
 			Save_Context
 				Mul_16x16_U
@@ -204,8 +203,6 @@ main
 			Ds1307_DateStr
 				__CA2AW
 				BcdByteToStr_
-		OS_SignalSemaphore
-			Mul_16x16_U
 		OS_Yield
 			Save_Context
 				Mul_16x16_U

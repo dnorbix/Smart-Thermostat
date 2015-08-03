@@ -39,13 +39,13 @@ hint: 986	1010	Hint: Unit "CRTOS.mpas" has been recompiled	CRTOS.mpas
 diagnostics: 0	134	Compiled Successfully	C:\Users\Public\Documents\Mikroelektronika\mikroPascal PRO for PIC\Packages\CRTOS\Uses\CRTOS.mpas
 diagnostics: 0	133	Compilation Started	E:\Circuits\PIC\Projects\Thermo OS\ThermoController.mpas
 hint: 1	1015	Hint: Compiling unit "E:\Circuits\PIC\Projects\Thermo OS\ThermoController.mpas"	ThermoController.mpas
-hint: 252	1021	Hint: interrupt handler (Interrupt at 0x0008)	ThermoController.mpas
-hint: 909	1010	Hint: Unit "ThermoController.mpas" has been recompiled	ThermoController.mpas
+hint: 253	1021	Hint: interrupt handler (Interrupt at 0x0008)	ThermoController.mpas
+hint: 961	1010	Hint: Unit "ThermoController.mpas" has been recompiled	ThermoController.mpas
 diagnostics: 0	134	Compiled Successfully	E:\Circuits\PIC\Projects\Thermo OS\ThermoController.mpas
-diagnostics: 0	139	All files Compiled in 328 ms	 
-hint: 0	1144	Used RAM (bytes): 1447 (71%)  Free RAM (bytes): 580 (29%)	Used RAM (bytes): 1447 (71%)  Free RAM (bytes): 580 (29%)
-hint: 0	1144	Used ROM (bytes): 17310 (53%)  Free ROM (bytes): 15458 (47%)	Used ROM (bytes): 17310 (53%)  Free ROM (bytes): 15458 (47%)
+diagnostics: 0	139	All files Compiled in 250 ms	 
+hint: 0	1144	Used RAM (bytes): 1454 (72%)  Free RAM (bytes): 573 (28%)	Used RAM (bytes): 1454 (72%)  Free RAM (bytes): 573 (28%)
+hint: 0	1144	Used ROM (bytes): 17138 (52%)  Free ROM (bytes): 15630 (48%)	Used ROM (bytes): 17138 (52%)  Free ROM (bytes): 15630 (48%)
 diagnostics: 0	145	Project Linked Successfully	ThermoController.mpppi
-diagnostics: 0	140	Linked in 265 ms	 
-diagnostics: 0	141	Project 'ThermoController.mpppi' completed: 1139 ms	 
-diagnostics: 0	103	Finished successfully: 20 Jul 2015, 22:39:40	ThermoController.mpppi
+diagnostics: 0	140	Linked in 234 ms	 
+diagnostics: 0	141	Project 'ThermoController.mpppi' completed: 953 ms	 
+diagnostics: 0	103	Finished successfully: 03 Aug 2015, 22:34:34	ThermoController.mpppi

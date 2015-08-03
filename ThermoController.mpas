@@ -24,6 +24,7 @@ i:integer;
 Ch: char;                //Chanel type of sensor
 CRCOk: byte;
 Temp: array[1..4] of integer;
+Temp_string: array[1..4] of String[6];
 Temp_index:byte;
 aux_temp:integer;
 Strng:String[20];
@@ -282,8 +283,8 @@ begin
                   end
               else
                   begin
-                    DS1820_TempToString(Temp[temp_index + 1], Strng, ',');
-                    if temp_index < 2  then
+                    DS1820_TempToString(Temp[temp_index + 1], Temp_string[temp_index + 1], ',');
+                    {if temp_index < 2  then
                         begin
                           root.row1[3 + temp_index * 8] := Strng[0];
                           root.row1[4 + temp_index * 8] := Strng[1];
@@ -296,7 +297,7 @@ begin
                           root.row2[4 + (temp_index - 2) * 8] := Strng[1];
                           root.row2[5 + (temp_index - 2) * 8] := Strng[2];
                           root.row2[6 + (temp_index - 2) * 8] := Strng[3];
-                        end
+                        end}
                   end;
               OS_SignalSemaphore(S_Display);
             end;
@@ -312,8 +313,11 @@ begin
     begin
         OS_WaitSemaphore(S_Display);
         Lcd_Cmd(_LCD_CLEAR);               // Clear display
-        LCD_OUT(1,1,current_node^.row1);
-        LCD_OUT(2,1,current_node^.row2);
+        
+        //moved to the end, if it doesn't work, move it back and try to split the case structure
+        //   in two (string modifications, display and then cursor modification)
+        //LCD_OUT(1,1,current_node^.row1);
+        //LCD_OUT(2,1,current_node^.row2);
         if underscore then
            Lcd_Cmd(_LCD_UNDERLINE_ON)
         else if edit then
@@ -325,6 +329,9 @@ begin
         if underscore or edit then
         begin
              case current_node of
+                  @root: if true then begin
+
+                         end;
                   @submenu1: if true then begin
                                 Lcd_Cmd(_LCD_RETURN_HOME);
                                 case index of
@@ -341,11 +348,6 @@ begin
                                   Lcd_Cmd(_LCD_SECOND_ROW);
                                   for i:=1 to 14 do
                                       Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
-                                  if funcDays[index] = true then
-                                     funcDaysStatus := ' ON'
-                                  else
-                                      funcDaysStatus := 'OFF';
-                                  strcat2(submenu2[1].row2,funcDaysString[index], funcDaysStatus);
                                 end;
                   @submenu2[2]: if true then begin
                                   Lcd_Cmd(_LCD_RETURN_HOME);
@@ -356,13 +358,6 @@ begin
                                   else
                                      for i:=1 to 15 do
                                          Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
-                                  strcat2(submenu2[2].row2, '','');
-                                  strcat2(submenu2[2].row2, submenu2[2].row2,'S: ');
-                                  ByteToStr(start_hour, min_temp_string);
-                                  strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
-                                  strcat2(submenu2[2].row2, submenu2[2].row2,'     E: ');
-                                  IntToStr(end_hour, min_temp_string);
-                                  strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
                                 end;
                   @submenu2[3]: if true then begin
                                   Lcd_Cmd(_LCD_RETURN_HOME);
@@ -373,66 +368,105 @@ begin
                                   else
                                      for i:=1 to 15 do
                                          Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
-                                  strcat2(submenu2[2].row2, '','');
-                                  strcat2(submenu2[2].row2, submenu2[2].row2,'Max: ');
-                                  IntToStr(min_temp, min_temp_string);
-                                  strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
-                                  strcat2(submenu2[2].row2, submenu2[2].row2,'   Min: ');
-                                  IntToStr(min_temp, min_temp_string);
-                                  strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
                                 end;
                   @submenu3: if true then begin
                                 Lcd_Cmd(_LCD_RETURN_HOME);
                                 Lcd_Cmd(_LCD_FIRST_ROW);
                                 for i:=1 to 14 do
                                     Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
-                                strcat2(submenu3.row1, '','');
-                                strcat2(submenu3.row1, submenu3.row1,'Locked:    ');
-                                if locked then
-                                   strcat2(submenu3.row1, submenu3.row1,' ON')
-                                else
-                                    strcat2(submenu3.row1, submenu3.row1,'OFF');
                             end;
                   @submenu4: if true then begin
                                 Lcd_Cmd(_LCD_RETURN_HOME);
                                 Lcd_Cmd(_LCD_SECOND_ROW);
                                 for i:=1 to 8 do
                                     Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
-                                strcat2(submenu4.row2, '','');
-                                if locked then
-                                    strcat2(submenu4.row2, submenu4.row2,'       ON')
-                                else
-                                    strcat2(submenu4.row2, submenu4.row2,'      OFF');
                             end;
                   @submenu5[1]: if true then begin
                                     Lcd_Cmd(_LCD_RETURN_HOME);
                                     Lcd_Cmd(_LCD_SECOND_ROW);
                                     Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
-                                    case room_disp of
-                                         1: submenu5[1].row2 := 'All four rooms ';
-                                         2: submenu5[1].row2 := 'Room1 + Room2  ';
-                                         3: submenu5[1].row2 := 'Room1 + Room3  ';
-                                         4: submenu5[1].row2 := 'Room1 + Room4  ';
-                                         5: submenu5[1].row2 := 'Room2 + Room3  ';
-                                         6: submenu5[1].row2 := 'Room2 + Room4  ';
-                                         7: submenu5[1].row2 := 'Room3 + Room4  ';
-                                         8: submenu5[1].row2 := 'Room1 only     ';
-                                         9: submenu5[1].row2 := 'Room2 only     ';
-                                         10: submenu5[1].row2 := 'Room3 only     ';
-                                         11: submenu5[1].row2 := 'Room4 only     ';
-                                    end;
                                 end;
                   @submenu5[2]: if true then begin
                                   Lcd_Cmd(_LCD_RETURN_HOME);
                                   Lcd_Cmd(_LCD_SECOND_ROW);
                                   Lcd_Cmd(_LCD_MOVE_CURSOR_RIGHT);
-                                  if disp_mode then
-                                      submenu5[2].row2 := 'Mode 1'
-                                  else
-                                      submenu5[2].row2 := 'Mode 2';
                                 end;
              end;
         end;
+        
+        
+        case current_node of
+              @root: if true then begin
+
+                     end;
+              @submenu1: if true then begin
+              
+                        end;
+              @submenu2[1]: if true then begin
+                              if funcDays[index] = true then
+                                 funcDaysStatus := ' ON'
+                              else
+                                  funcDaysStatus := 'OFF';
+                              strcat2(submenu2[1].row2,funcDaysString[index], funcDaysStatus);
+                            end;
+              @submenu2[2]: if true then begin
+                              strcat2(submenu2[2].row2, '','');
+                              strcat2(submenu2[2].row2, submenu2[2].row2,'S: ');
+                              ByteToStr(start_hour, min_temp_string);
+                              strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+                              strcat2(submenu2[2].row2, submenu2[2].row2,'     E: ');
+                              IntToStr(end_hour, min_temp_string);
+                              strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+                            end;
+              @submenu2[3]: if true then begin
+                              strcat2(submenu2[2].row2, '','');
+                              strcat2(submenu2[2].row2, submenu2[2].row2,'Max: ');
+                              IntToStr(min_temp, min_temp_string);
+                              strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+                              strcat2(submenu2[2].row2, submenu2[2].row2,'   Min: ');
+                              IntToStr(min_temp, min_temp_string);
+                              strcat2(submenu2[2].row2, submenu2[2].row2, min_temp_string);
+                            end;
+              @submenu3: if true then begin
+                            strcat2(submenu3.row1, '','');
+                            strcat2(submenu3.row1, submenu3.row1,'Locked:    ');
+                            if locked then
+                               strcat2(submenu3.row1, submenu3.row1,' ON')
+                            else
+                                strcat2(submenu3.row1, submenu3.row1,'OFF');
+                        end;
+              @submenu4: if true then begin
+                            strcat2(submenu4.row2, '','');
+                            if locked then
+                                strcat2(submenu4.row2, submenu4.row2,'       ON')
+                            else
+                                strcat2(submenu4.row2, submenu4.row2,'      OFF');
+                        end;
+              @submenu5[1]: if true then begin
+                                case room_disp of
+                                     1: submenu5[1].row2 := 'All four rooms ';
+                                     2: submenu5[1].row2 := 'Room1 + Room2  ';
+                                     3: submenu5[1].row2 := 'Room1 + Room3  ';
+                                     4: submenu5[1].row2 := 'Room1 + Room4  ';
+                                     5: submenu5[1].row2 := 'Room2 + Room3  ';
+                                     6: submenu5[1].row2 := 'Room2 + Room4  ';
+                                     7: submenu5[1].row2 := 'Room3 + Room4  ';
+                                     8: submenu5[1].row2 := 'Room1 only     ';
+                                     9: submenu5[1].row2 := 'Room2 only     ';
+                                     10: submenu5[1].row2 := 'Room3 only     ';
+                                     11: submenu5[1].row2 := 'Room4 only     ';
+                                end;
+                            end;
+              @submenu5[2]: if true then begin
+                              if disp_mode then
+                                  submenu5[2].row2 := 'Mode 1'
+                              else
+                                  submenu5[2].row2 := 'Mode 2';
+                            end;
+         end;
+        
+        LCD_OUT(1,1,current_node^.row1);
+        LCD_OUT(2,1,current_node^.row2);
 
 
         OS_Yield;
@@ -482,14 +516,14 @@ begin
      while true do
      begin
           OS_Delay(50);
-          if (current_node = @submenu1) and (edit = false) then
-          begin
-              Ds1307_Get_TimeDate(timedate);
-              Ds1307_TimeDateStr(timedate,timestr,datestr);
-              submenu1.row1 := datestr;
-              submenu1.row2 := timestr;
-              OS_SignalSemaphore(S_Display);
-          end;
+          //if (current_node = @submenu1) and (edit = false) then
+          //begin
+          Ds1307_Get_TimeDate(timedate);
+          Ds1307_TimeDateStr(timedate,timestr,datestr);
+              //submenu1.row1 := datestr;
+              //submenu1.row2 := timestr;
+              //OS_SignalSemaphore(S_Display);
+          //end;
           OS_Yield;
      end;
 end;
@@ -511,20 +545,6 @@ begin
           OS_WaitSemaphore(S_Navigate);
           if enter = 255 then
           begin
-               {case current_node of
-                    @submenu1: if underscore then
-                                   begin
-                                      edit := true;
-                                      underscore := false;
-                                   end
-                               else
-                                   begin
-                                        underscore := true;
-                                        if edit then
-                                           edit := false;
-                                   end;
-                    @submenu2[1]:
-               end;}
                if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
                    begin
                         if underscore then
@@ -543,7 +563,7 @@ begin
                    begin
                        if  (current_node = @submenu3) or (current_node = @submenu4) or (current_node = @submenu5[1]) or (current_node = @submenu5[2]) then
                            begin
-                                edit := true;
+                                edit := not true;
                            end
                    end;
                
@@ -553,24 +573,6 @@ begin
           end;
           if esc = 255 then
           begin
-               {case current_node of
-                    @submenu1: if underscore then
-                                   begin
-                                      underscore := false;
-                                      OS_SignalSemaphore(S_SetTime);
-                                   end
-                               else
-                                   begin
-                                        if edit then
-                                           begin
-                                            underscore := true;
-                                            edit := false;
-                                           end
-                                        else
-                                          current_node := current_node^.parent;
-                                   end
-                    else current_node := current_node^.parent;
-               end;}
                if (current_node = @submenu1) or (current_node = @submenu2[1]) or (current_node = @submenu2[2]) or (current_node = @submenu2[3]) then
                     begin
                           if underscore then
@@ -635,8 +637,8 @@ begin
                                        end;
                                        Ds1307_Dec2BcdTimeDate(timedate);
                                        Ds1307_TimeDateStr(timedate,timestr,datestr);
-                                       submenu1.row1 := datestr;
-                                       submenu1.row2 := timestr;
+                                       //submenu1.row1 := datestr;
+                                       //submenu1.row2 := timestr;
                                      end
                                  else if underscore then
                                       index := (index  mod 5) + 1;
@@ -653,6 +655,28 @@ begin
                                             else
                                                 begin
                                                      current_node := current_node^.next;
+                                                end;
+                                       end;
+                    @submenu2[2]:  if edit then
+                                       begin
+                                            if index = 1 then
+                                              begin
+                                                   start_hour := (start_hour + 1) mod 24;
+                                              end
+                                            else
+                                                begin
+                                                     end_hour := (end_hour + 1) mod 24;
+                                                end;
+                                       end
+                                   else
+                                       begin
+                                            if underscore then
+                                                begin
+                                                    index := (index  mod 2) + 1;
+                                                end
+                                            else
+                                                begin
+                                                    current_node := current_node^.next;
                                                 end;
                                        end;
                     @submenu2[3]:  if edit then
@@ -717,8 +741,8 @@ begin
                                        end;
                                        Ds1307_Dec2BcdTimeDate(timedate);
                                        Ds1307_TimeDateStr(timedate,timestr,datestr);
-                                       submenu1.row1 := datestr;
-                                       submenu1.row2 := timestr;
+                                       //submenu1.row1 := datestr;
+                                       //submenu1.row2 := timestr;
                                      end
                                  else if underscore then
                                          if index = 1 then
@@ -741,6 +765,34 @@ begin
                                             else
                                                 begin
                                                      current_node := current_node^.prev;
+                                                end;
+                                       end;
+                    @submenu2[2]:  if edit then
+                                       begin
+                                            if index = 1 then
+                                              begin
+                                                   if (start_hour = 0) then
+                                                       start_hour := 23
+                                                   else
+                                                       start_hour := start_hour - 1;
+                                              end
+                                            else
+                                                begin
+                                                     if (end_hour = 0) then
+                                                       end_hour := 23
+                                                     else
+                                                         end_hour := end_hour - 1;
+                                                end;
+                                       end
+                                   else
+                                       begin
+                                            if underscore then
+                                                begin
+                                                    index := (index  mod 2) + 1;
+                                                end
+                                            else
+                                                begin
+                                                    current_node := current_node^.prev;
                                                 end;
                                        end;
                     @submenu2[3]:  if edit then
@@ -840,6 +892,11 @@ begin
    
    room_disp:= 1;
    disp_mode := true;
+   
+  //init menu navigation helping variables
+  edit := false;
+  underscore := false;
+  index := 1;
 
 
   ADCON1 := %00111111; //all analog pins as digital
@@ -853,11 +910,6 @@ begin
   
   InitMenu;
   LCD_OUT(1,1,'ddd');
-  
-  //init menu navigation helping variables
-  edit := false;
-  underscore := false;
-  index := 1;
   
   //Init OS
   OS_Init;

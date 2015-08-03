@@ -1484,6 +1484,7 @@ tds1307_timedate
 tds1307_timestring
 temp
 temp_index
+temp_string
 timedate
 timestr
 tmr0h
