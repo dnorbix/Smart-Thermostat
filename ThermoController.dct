@@ -101,6 +101,9 @@ an3
 an3_bit
 an4
 an4_bit
+aux_flag1
+aux_flag2
+aux_flag3
 aux_temp
 b0
 b1
@@ -583,6 +586,7 @@ fsr2
 fsr2h
 fsr2l
 fsr2ptr
+func_mode
 funcdays
 funcdaysstatus
 funcdaysstring
@@ -809,6 +813,7 @@ lcd_rs
 lcd_rs_direction
 length
 locked
+logic
 longint
 longint2double
 longinttohex
@@ -1206,6 +1211,7 @@ resume__bit
 ri
 ri_bit
 room_disp
+room_flag
 root
 row1
 row2
@@ -1403,6 +1409,7 @@ swdten_bit
 sync
 sync_bit
 t_displayled
+t_logic
 t_navigatemenu
 t_readkeys
 t_readtemp

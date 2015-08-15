@@ -11,7 +11,7 @@ type
 
 
 //declare tasks
-var T_ReadTemp, T_ReadTime, T_ReadTime, T_ReadKeys, T_DisplayLED, T_NavigateMenu, T_SaveTime: TOS_Task;
+var T_ReadTemp, T_ReadTime, T_ReadTime, T_ReadKeys, T_DisplayLED, T_NavigateMenu, T_SaveTime, T_Logic: TOS_Task;
 
 //declare the semaphores
 S_Display, S_Navigate, S_SetTime: TOS_BinarySemaphore;
@@ -28,6 +28,8 @@ Temp_string: array[1..4] of String[6];
 Temp_index:byte;
 aux_temp:integer;
 Strng:String[20];
+room_flag: array[1..4] of integer;
+aux_flag1, aux_flag2, aux_flag3: byte;
 
 //menu
 edit:boolean;
@@ -99,6 +101,7 @@ funcDaysStatus: String[3];
 min_temp_string: String[6];
 min_temp, max_temp: integer;
 start_hour, end_hour: byte;
+func_mode: byte;
 
 locked: boolean;
 
@@ -261,6 +264,66 @@ begin
         end;
 end;
 
+procedure Logic;
+begin
+        while true do
+        begin
+                OS_Delay(500);
+                for i:=1 to 4 do begin
+                        if (Temp[i] < min_temp) then begin
+                        //if window open, wait 5 minutes
+                                if (room_flag[i] < 600) then
+                                        room_flag[i] := room_flag[i] + 1;
+                        end;
+                        //if temp > max_temp and it was ON, then clear flag
+                        if (Temp[i] > max_temp) and (room_flag[i] = 600) then
+                                room_flag[i] := 0;
+                        //if temp > min_temp and 5 minites isn't passed, but the counter was started, clear flag
+                        if (Temp[i] > min_temp) and (room_flag[i] > 100) and (room_flag[i] < 600) then
+                                room_flag[i] := 0;
+                end;
+                //check for functionality
+                if func_mode then begin
+                        Ds1307_Bcd2DecTimeDate(timedate);
+                        if ((timedate.Hours > start_hour) or (timedate.Hours < end_hour)) and (funcDays[timedate.Day] = true) then begin                        
+                                aux_flag1 := 0;
+                                aux_flag2 := 0;
+                                //if a temp < temp_min for 5 minutes or a temp > max_temp
+                                for i:= 1 to 4 do begin
+                                        if (room_flag[i] = 600) then
+                                                aux_flag1 := aux_flag1 + 1;
+                                        if (Temp[i] > max_temp) then
+                                                aux_flag2 := aux_flag2 + 1; 
+                                end;
+                                //if in a room the temp just rised above max_temp, but in another room
+                                //        fell under min_temp, heat that room until (min_temp + max_temp) div 2
+                                if (aux_flag1 > 0) and (aux_flag2 > 0) then begin
+                                        aux_flag3 := 0;
+                                        for i:= 1 to 4 do
+                                                if (Temp[i] < (min_temp + max_temp) div 2 ) then
+                                                        aux_flag3 := 1;
+                                        if (aux_flag3 = 0) then begin
+                                                for i:= 1 to 4 do
+                                                        if (room_flag[i] = 600) then
+                                                                room_flag[i] := 0;
+                                                aux_flag1 := 0;
+                                        end;
+                                end;
+                                
+                                //start the HEATER
+                                if (aux_flag1 > 0) then begin
+                                        Releu := true;
+                                end
+                                else begin
+                                        Releu := false;
+                                end;
+                        end;
+                        Ds1307_Dec2BcdTimeDate(timedate);
+                end;
+                OS_Yield;
+        end;
+end;
+
 
 procedure ReadTemp;
 begin
@@ -397,10 +460,77 @@ begin
         
         case current_node of
               @root: if true then begin
-
+                                                case room_disp of
+                                                         1: if true then begin
+                                                                        strcat2(root.row1,'T1:',Temp_string[1]);
+                                                                        strcat2(root.row1,root.row1,'T2:');
+                                                                        strcat2(root.row1,root.row1,Temp_string[2]);
+                                                                        strcat2(root.row2,'T3:',Temp_string[3]);
+                                                                        strcat2(root.row2,root.row2,'T4:');
+                                                                        strcat2(root.row2,root.row2,Temp_string[4]);
+                                                                end;
+                                                         2: if true then begin
+                                                                        strcat2(root.row1,'T1:',Temp_string[1]);
+                                                                        strcat2(root.row1,root.row1,'T2:');
+                                                                        strcat2(root.row1,root.row1,Temp_string[2]);
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         3: if true then begin
+                                                                        submenu5[1].row2 := 'Room1 + Room3  ';
+                                                                        strcat2(root.row1,'T1:',Temp_string[1]);
+                                                                        strcat2(root.row1,root.row1,'T3:');
+                                                                        strcat2(root.row1,root.row1,Temp_string[3]);
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         4: if true then begin
+                                                                        strcat2(root.row1,'T1:',Temp_string[1]);
+                                                                        strcat2(root.row1,root.row1,'T4:');
+                                                                        strcat2(root.row1,root.row1,Temp_string[4]);
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         5: if true then begin
+                                                                        strcat2(root.row1,'T2:',Temp_string[2]);
+                                                                        strcat2(root.row1,root.row1,'T3:');
+                                                                        strcat2(root.row1,root.row1,Temp_string[3]);
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         6: if true then begin
+                                                                        strcat2(root.row1,'T2:',Temp_string[2]);
+                                                                        strcat2(root.row1,root.row1,'T4:');
+                                                                        strcat2(root.row1,root.row1,Temp_string[4]);
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         7: if true then begin
+                                                                        strcat2(root.row1,'T3:',Temp_string[3]);
+                                                                        strcat2(root.row1,root.row1,'T4:');
+                                                                        strcat2(root.row1,root.row1,Temp_string[4]);
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         8: if true then begin
+                                                                        strcat2(root.row1,'T1:',Temp_string[1]);
+                                                                        strcat2(root.row1,root.row1,'A:    ');
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         9: if true then begin
+                                                                        strcat2(root.row1,'T2:',Temp_string[2]);
+                                                                        strcat2(root.row1,root.row1,'A:    ');
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         10: if true then begin
+                                                                        strcat2(root.row1,'T3:',Temp_string[3]);
+                                                                        strcat2(root.row1,root.row1,'A:    ');
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                         11: if true then begin
+                                                                        strcat2(root.row1,'T4:',Temp_string[4]);
+                                                                        strcat2(root.row1,root.row1,'A:    ');
+                                                                        strcat2(root.row2,'A:      MAN  OFF','');
+                                                                end;
+                                                end;
                      end;
               @submenu1: if true then begin
-              
+                                                        submenu1.row1 := datestr;
+                                                        submenu1.row2 := timestr;              
                         end;
               @submenu2[1]: if true then begin
                               if funcDays[index] = true then
@@ -893,6 +1023,11 @@ begin
    room_disp:= 1;
    disp_mode := true;
    
+   //logic settings
+   for i:=1 to 4 do
+                room_flag[i] := 0;
+        func_mode := true;
+   
   //init menu navigation helping variables
   edit := false;
   underscore := false;
@@ -919,6 +1054,7 @@ begin
   SetFuncCall(ReadKeys);
   SetFuncCall(ReadTime);
   SetFuncCall(SaveTime);
+  SetFuncCall(Logic);
   
   //create the tasks
   T_ReadTemp := OS_CreateTask(@ReadTemp, 2);
@@ -927,6 +1063,7 @@ begin
   T_ReadKeys := OS_CreateTask(@ReadKeys, 0);
   T_NavigateMenu := OS_CreateTask(@NavigateMenu, 3);
   T_SaveTime := OS_CreateTask(@SaveTime, 3);
+  T_Logic := OS_CreateTask(@Logic, 3);
   
   //init Semaphores
   S_Display := OS_CreateBinarySemaphore(False);
@@ -940,6 +1077,7 @@ begin
   OS_StartTask(T_ReadKeys);
   OS_StartTask(T_NavigateMenu);
   OS_StartTask(T_SaveTime);
+  OS_StartTask(T_Logic);
   
   //timebase configuration
   T1CKPS0_bit := 1;

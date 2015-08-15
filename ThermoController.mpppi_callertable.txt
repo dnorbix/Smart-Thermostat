@@ -62,6 +62,7 @@ main
 			Restore_Context
 				Mul_16x16_U
 	DisplayLED
+		__CS2S
 		OS_WaitSemaphore
 			Check_Events
 				Mul_16x16_U
@@ -78,8 +79,8 @@ main
 			Delay_1us
 			Delay_5500us
 			Delay_50us
-		Mul_16x16_U
 		strcat2
+		Mul_16x16_U
 		ByteToStr
 			Div_8x8_U
 		IntToStr
@@ -233,6 +234,34 @@ main
 					I2C1_Is_Idle
 				I2C1_Wr
 				I2C1_Stop
+		OS_Yield
+			Save_Context
+				Mul_16x16_U
+			Mul_16x16_U
+			Select_Next_Task
+				Check_Events
+					Mul_16x16_U
+				Mul_16x16_U
+			Restore_Context
+				Mul_16x16_U
+	Logic
+		OS_Delay
+			Save_Context
+				Mul_16x16_U
+			Mul_16x16_U
+			Select_Next_Task
+				Check_Events
+					Mul_16x16_U
+				Mul_16x16_U
+			Restore_Context
+				Mul_16x16_U
+		Ds1307_Bcd2DecTimeDate
+			__CA2AW
+			Bcd2Dec
+		Ds1307_Dec2BcdTimeDate
+			__CA2AW
+			Dec2Bcd
+				Div_8x8_U
 		OS_Yield
 			Save_Context
 				Mul_16x16_U
